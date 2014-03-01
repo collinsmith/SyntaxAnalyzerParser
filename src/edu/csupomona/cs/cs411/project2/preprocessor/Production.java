@@ -52,6 +52,11 @@ public class Production implements ListIterator<Integer>, Iterable<Integer> {
 	}
 
 	@Override
+	public void add(Integer e) {
+		list.add(e);
+	}
+
+	@Override
 	public void remove() {
 		throw new UnsupportedOperationException("Not supported.");
 	}
@@ -73,11 +78,6 @@ public class Production implements ListIterator<Integer>, Iterable<Integer> {
 
 	@Override
 	public void set(Integer e) {
-		throw new UnsupportedOperationException("Not supported.");
-	}
-
-	@Override
-	public void add(Integer e) {
 		throw new UnsupportedOperationException("Not supported.");
 	}
 }

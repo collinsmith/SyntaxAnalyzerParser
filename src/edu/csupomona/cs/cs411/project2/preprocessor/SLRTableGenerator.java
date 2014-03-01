@@ -22,7 +22,7 @@ public class SLRTableGenerator {
 
 	private int numNonterminals = 0;
 	private Map<String, Integer> symbolTable;
-	private Map<Integer, List<List<Integer>>> productionTable;
+	private Map<Integer, List<Production>> productionTable;
 
 	public SLRTableGenerator(Path p) throws IOException {
 		productionTable = new HashMap<>();
@@ -38,10 +38,10 @@ public class SLRTableGenerator {
 
 		// TODO I know I'm not stupid enough to do it, but productions should be immutable
 		generateProductions(p);
-		for (Entry<Integer, List<List<Integer>>> productionList : productionTable.entrySet()) {
-			for (List<Integer> production : productionList.getValue()) {
-				production = Collections.unmodifiableList(production);
-			}
+		for (Entry<Integer, List<Production>> productionList : productionTable.entrySet()) {
+			//for (List<Integer> production : productionList.getValue()) {
+			//	production = Collections.unmodifiableList(production);
+			//}
 
 			productionList.setValue(Collections.unmodifiableList(productionList.getValue()));
 		}
@@ -57,7 +57,7 @@ public class SLRTableGenerator {
 			while ((line = file.readLine()) != null) {
 				if (line.matches(NONTERMINAL_DELIMINATOR)) {
 					symbolTable.put(line.substring(0, line.length()-1), ++numNonterminals);
-					productionTable.put(numNonterminals, new LinkedList<List<Integer>>());
+					productionTable.put(numNonterminals, new LinkedList<Production>());
 				}
 			}
 		}
@@ -66,11 +66,12 @@ public class SLRTableGenerator {
 	private void generateProductions(Path p) throws IOException {
 		Charset charset = Charset.forName("US-ASCII");
 		try (BufferedReader file = Files.newBufferedReader(p, charset);) {
+			Production production;
+			List<Production> productionRules;
+			Integer currentProduction = null;
+
 			String line;
 			String[] tokens;
-			Integer currentProduction = null;
-			List<List<Integer>> productionRules;
-			List<Integer> production;
 			while ((line = file.readLine()) != null) {
 				if (line.isEmpty()) {
 					continue;
@@ -82,7 +83,7 @@ public class SLRTableGenerator {
 					continue;
 				}
 
-				production = new LinkedList<>();
+				production = new Production(new LinkedList<Integer>());
 				productionRules = productionTable.get(currentProduction);
 				productionRules.add(production);
 
@@ -140,11 +141,11 @@ public class SLRTableGenerator {
 		}
 
 		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(".", "output", "toy.cfg.dump.txt"), charset, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
-			for (Entry<Integer, List<List<Integer>>> entry : productionTable.entrySet()) {
+			for (Entry<Integer, List<Production>> entry : productionTable.entrySet()) {
 				writer.write(String.format("%s:%n", reverseEngineeredSymbols.get(entry.getKey())));
-				for (List<Integer> l : entry.getValue()) {
+				for (Production p : entry.getValue()) {
 					writer.write(String.format("\t"));
-					for (Integer i : l) {
+					for (Integer i : p) {
 						writer.write(String.format("%s ", reverseEngineeredSymbols.get(i)));
 					}
 
