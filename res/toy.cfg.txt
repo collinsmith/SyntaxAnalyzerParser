@@ -1,0 +1,213 @@
+Program:
+DeclList
+
+DeclList:
+DeclList Decl
+Decl
+
+Decl:
+FieldDecl
+MethodDecl
+ClassDecl
+InterfaceDecl
+
+FieldDecl:
+Field ;
+
+Field:
+Type _id
+
+Type:
+int
+double
+bool
+string
+_id
+Type [ ]
+
+MethodType:
+void
+Type
+
+ArgumentList:
+ArgumentList , Field
+Field
+
+ArgumentListOpt:
+ArgumentList )
+)
+
+Prototype:
+MethodType _id ( ArgumentListOpt
+
+
+MethodDecl:
+Prototype Block
+
+PrototypeDecl:
+Prototype ;
+
+ClassDecl:
+class _id Super
+
+Super:
+extends _id Interfaces
+Interfaces
+
+Interfaces:
+implements IdentifierList ClassBody
+ClassBody
+
+ClassBody:
+{ }
+{ MemberList }
+
+IdentifierList:
+IdentifierList , _id
+_id
+
+MemberList:
+MemberList Member
+Member
+
+Member:
+FieldDecl
+MethodDecl
+
+InterfaceDecl:
+interface _id { PrototypeListOpt
+
+PrototypeListOpt:
+PrototypeList }
+}
+
+PrototypeList:
+PrototypeList PrototypeDecl
+PrototypeDecl
+
+
+Block:
+{ FieldDeclListOpt
+
+FieldDeclListOpt:
+FieldDeclList StatementListOpt
+StatementListOpt
+
+StatementListOpt:
+StatementListOpt }
+}
+
+FieldDeclList:
+FieldDeclList FieldDecl
+FieldDecl
+
+StatementList:
+StatementList Statement
+StatementList
+
+Statement:
+Block
+;
+Expression ;
+ElseStatementOpt
+WhileStatement
+ForStatement
+break ;
+return ExpressionOpt
+println ( ExpressionList ) ;
+
+IfStatement:
+if ParExpression Statement
+
+ElseStatementOpt:
+IfStatement else Statement
+IfStatement
+
+WhileStatement:
+while ParExpression Statement
+
+ForStatement:
+for ( ForControl ) Statement
+
+ForControl:
+Expression ForControl1
+ForControl1
+
+ForControl1:
+; Expression ; ForControl2
+; Expression ;
+
+ForControl2:
+Expression
+
+ExpressionOpt:
+ExpressionOpt ;
+;
+
+ExpressionList:
+ExpressionList , Expression
+Expression
+
+LValue:
+_id
+LValue [ Expression ]
+LValue . _id
+
+MethodCall:
+LValue ( ExpressionListOpt
+
+ExpressionListOpt:
+ExpressionList )
+)
+
+Literal:
+_integerliteral
+_doubleliteral
+_stringliteral
+_booleanliteral
+
+AssignmentOperator:
+=
+
+PrefixOperator:
+!
+-
+InfixOperator:
+||
+&&
+==
+!=
+<
+>
+<=
+>=
++
+-
+*
+/
+
+ParExpression:
+( Expression )
+
+Primary:
+LValue
+Literal
+ParExpression
+
+Expression:
+AssignmentOpt
+
+Expression1:
+InfixOpt
+
+Expression2:
+PrefixOperator Expression2
+Primary
+
+InfixOpt:
+Expression2 InfixOperator Expression2
+Expression2
+
+AssignmentOpt:
+Expression1 AssignmentOperator Expression1
+Expression1

@@ -1,0 +1,213 @@
+Program:
+	DeclList Decl 
+
+DeclList:
+	DeclList Decl 
+	Decl 
+
+Decl:
+	FieldDecl 
+	MethodDecl 
+	ClassDecl 
+	InterfaceDecl 
+
+FieldDecl:
+	Field _semicolon 
+
+Field:
+	Type _id 
+
+Type:
+	_int 
+	_double 
+	_bool 
+	_string 
+	_id 
+	Type _leftbracket _rightbracket 
+
+MethodType:
+	_void 
+	Type 
+
+ArgumentList:
+	ArgumentList _comma Field 
+	Field 
+
+ArgumentListOpt:
+	ArgumentList _rightparen 
+	_rightparen 
+
+Prototype:
+	MethodType _id _leftparen ArgumentListOpt 
+
+MethodDecl:
+	Prototype Block 
+
+PrototypeDecl:
+	Prototype _semicolon 
+
+ClassDecl:
+	_class _id Super 
+
+Super:
+	_extends _id Interfaces 
+	Interfaces 
+
+Interfaces:
+	_implements IdentifierList ClassBody 
+	ClassBody 
+
+IdentifierList:
+	IdentifierList _comma _id 
+	_id 
+
+ClassBody:
+	_leftbrace _rightbrace 
+	_leftbrace MemberList _rightbrace 
+
+Member:
+	FieldDecl 
+	MethodDecl 
+
+MemberList:
+	MemberList Member 
+	Member 
+
+PrototypeListOpt:
+	PrototypeList _rightbrace 
+	_rightbrace 
+
+InterfaceDecl:
+	_interface _id _leftbrace PrototypeListOpt 
+
+Block:
+	_leftbrace FieldDeclListOpt 
+
+PrototypeList:
+	PrototypeList PrototypeDecl 
+	PrototypeDecl 
+
+StatementListOpt:
+	StatementListOpt _rightbrace 
+	_rightbrace 
+
+FieldDeclListOpt:
+	FieldDeclList StatementListOpt 
+	StatementListOpt 
+
+StatementList:
+	StatementList Statement 
+	StatementList 
+
+FieldDeclList:
+	FieldDeclList FieldDecl 
+	FieldDecl 
+
+IfStatement:
+	_if ParExpression Statement 
+
+Statement:
+	Block 
+	_semicolon 
+	Expression _semicolon 
+	ElseStatementOpt 
+	WhileStatement 
+	ForStatement 
+	_break _semicolon 
+	_return ExpressionOpt 
+	_println _leftparen ExpressionList _rightparen _semicolon 
+
+WhileStatement:
+	_while ParExpression Statement 
+
+ElseStatementOpt:
+	IfStatement _else Statement 
+	IfStatement 
+
+ForControl1:
+	_semicolon Expression _semicolon ForControl2 
+	_semicolon Expression _semicolon 
+
+ForControl2:
+	Expression 
+
+ForStatement:
+	_for _leftparen ForControl _rightparen Statement 
+
+ForControl:
+	Expression ForControl1 
+	ForControl1 
+
+LValue:
+	_id 
+	LValue _leftbracket Expression _rightbracket 
+	LValue _period _id 
+
+MethodCall:
+	LValue _leftparen ExpressionListOpt 
+
+ExpressionOpt:
+	ExpressionOpt _semicolon 
+	_semicolon 
+
+ExpressionList:
+	ExpressionList _comma Expression 
+	Expression 
+
+AssignmentOperator:
+	_assignop 
+
+PrefixOperator:
+	_not 
+	_minus 
+
+ExpressionListOpt:
+	ExpressionList _rightparen 
+	_rightparen 
+
+Literal:
+	_integerliteral 
+	_doubleliteral 
+	_stringliteral 
+	_booleanliteral 
+
+Primary:
+	LValue 
+	Literal 
+	ParExpression 
+
+Expression:
+	AssignmentOpt 
+
+InfixOperator:
+	_or 
+	_and 
+	_equal 
+	_notequal 
+	_less 
+	_greater 
+	_lessequal 
+	_greaterequal 
+	_plus 
+	_minus 
+	_multiplication 
+	_division 
+
+ParExpression:
+	_leftparen Expression _rightparen 
+
+AssignmentOpt:
+	Expression1 AssignmentOperator Expression1 
+	Expression1 
+
+InfixOpt:
+	Expression2 InfixOperator Expression2 
+	Expression2 
+
+Expression2:
+	PrefixOperator Expression2 
+	Primary 
+
+Expression1:
+	InfixOpt 
+
