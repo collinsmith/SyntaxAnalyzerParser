@@ -12,58 +12,58 @@ Decl:
 	InterfaceDecl 
 
 FieldDecl:
-	Field _semicolon 
+	Field ; 
 
 Field:
 	Type _id 
 
 Type:
-	_int 
-	_double 
-	_bool 
-	_string 
+	int 
+	double 
+	bool 
+	string 
 	_id 
-	Type _leftbracket _rightbracket 
+	Type [ ] 
 
 MethodType:
-	_void 
+	void 
 	Type 
 
 ArgumentList:
-	ArgumentList _comma Field 
+	ArgumentList , Field 
 	Field 
 
 ArgumentListOpt:
-	ArgumentList _rightparen 
-	_rightparen 
+	ArgumentList ) 
+	) 
 
 Prototype:
-	MethodType _id _leftparen ArgumentListOpt 
+	MethodType _id ( ArgumentListOpt 
 
 MethodDecl:
 	Prototype Block 
 
 PrototypeDecl:
-	Prototype _semicolon 
+	Prototype ; 
 
 ClassDecl:
-	_class _id Super 
+	class _id Super 
 
 Super:
-	_extends _id Interfaces 
+	extends _id Interfaces 
 	Interfaces 
 
 Interfaces:
-	_implements IdentifierList ClassBody 
+	implements IdentifierList ClassBody 
 	ClassBody 
 
 IdentifierList:
-	IdentifierList _comma _id 
+	IdentifierList , _id 
 	_id 
 
 ClassBody:
-	_leftbrace _rightbrace 
-	_leftbrace MemberList _rightbrace 
+	{ } 
+	{ MemberList } 
 
 Member:
 	FieldDecl 
@@ -74,22 +74,22 @@ MemberList:
 	Member 
 
 PrototypeListOpt:
-	PrototypeList _rightbrace 
-	_rightbrace 
+	PrototypeList } 
+	} 
 
 InterfaceDecl:
-	_interface _id _leftbrace PrototypeListOpt 
+	interface _id { PrototypeListOpt 
 
 Block:
-	_leftbrace FieldDeclListOpt 
+	{ FieldDeclListOpt 
 
 PrototypeList:
 	PrototypeList PrototypeDecl 
 	PrototypeDecl 
 
 StatementListOpt:
-	StatementListOpt _rightbrace 
-	_rightbrace 
+	StatementList } 
+	} 
 
 FieldDeclListOpt:
 	FieldDeclList StatementListOpt 
@@ -104,35 +104,35 @@ FieldDeclList:
 	FieldDecl 
 
 IfStatement:
-	_if ParExpression Statement 
+	if ParExpression Statement 
 
 Statement:
 	Block 
-	_semicolon 
-	Expression _semicolon 
+	; 
+	Expression ; 
 	ElseStatementOpt 
 	WhileStatement 
 	ForStatement 
-	_break _semicolon 
-	_return ExpressionOpt 
-	_println _leftparen ExpressionList _rightparen _semicolon 
+	break ; 
+	return ExpressionOpt 
+	println ( ExpressionList ) ; 
 
 WhileStatement:
-	_while ParExpression Statement 
+	while ParExpression Statement 
 
 ElseStatementOpt:
-	IfStatement _else Statement 
+	IfStatement else Statement 
 	IfStatement 
 
 ForControl1:
-	_semicolon Expression _semicolon ForControl2 
-	_semicolon Expression _semicolon 
+	; Expression ; ForControl2 
+	; Expression ; 
 
 ForControl2:
 	Expression 
 
 ForStatement:
-	_for _leftparen ForControl _rightparen Statement 
+	for ( ForControl ) Statement 
 
 ForControl:
 	Expression ForControl1 
@@ -140,30 +140,30 @@ ForControl:
 
 LValue:
 	_id 
-	LValue _leftbracket Expression _rightbracket 
-	LValue _period _id 
+	LValue [ Expression ] 
+	LValue . _id 
 
 MethodCall:
-	LValue _leftparen ExpressionListOpt 
+	LValue ( ExpressionListOpt 
 
 ExpressionOpt:
-	ExpressionOpt _semicolon 
-	_semicolon 
+	Expression ; 
+	; 
 
 ExpressionList:
-	ExpressionList _comma Expression 
+	ExpressionList , Expression 
 	Expression 
 
 AssignmentOperator:
-	_assignop 
+	= 
 
 PrefixOperator:
-	_not 
-	_minus 
+	! 
+	- 
 
 ExpressionListOpt:
-	ExpressionList _rightparen 
-	_rightparen 
+	ExpressionList ) 
+	) 
 
 Literal:
 	_integerliteral 
@@ -180,21 +180,21 @@ Expression:
 	AssignmentOpt 
 
 InfixOperator:
-	_or 
-	_and 
-	_equal 
-	_notequal 
-	_less 
-	_greater 
-	_lessequal 
-	_greaterequal 
-	_plus 
-	_minus 
-	_multiplication 
-	_division 
+	|| 
+	&& 
+	== 
+	!= 
+	< 
+	> 
+	<= 
+	>= 
+	+ 
+	- 
+	* 
+	/ 
 
 ParExpression:
-	_leftparen Expression _rightparen 
+	( Expression ) 
 
 AssignmentOpt:
 	Expression1 AssignmentOperator Expression1 

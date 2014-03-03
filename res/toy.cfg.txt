@@ -94,7 +94,7 @@ FieldDeclList StatementListOpt
 StatementListOpt
 
 StatementListOpt:
-StatementListOpt }
+StatementList }
 }
 
 FieldDeclList:
@@ -141,7 +141,7 @@ ForControl2:
 Expression
 
 ExpressionOpt:
-ExpressionOpt ;
+Expression ;
 ;
 
 ExpressionList:

@@ -1,0 +1,11 @@
+S:
+a X c
+
+X:
+b X
+b
+Y d
+
+Y:
+Y d
+d

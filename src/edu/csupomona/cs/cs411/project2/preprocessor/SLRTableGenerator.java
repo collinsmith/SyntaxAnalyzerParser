@@ -1,6 +1,7 @@
 package edu.csupomona.cs.cs411.project2.preprocessor;
 
 import edu.csupomona.cs.cs411.project1.lexer.Keywords;
+import edu.csupomona.cs.cs411.project2.parser.SLRTable;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -9,13 +10,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Queue;
+import java.util.Set;
 
 public class SLRTableGenerator {
 	private static final String NONTERMINAL_DELIMINATOR = "[A-Z][a-zA-Z0-9]*:";
@@ -23,6 +28,19 @@ public class SLRTableGenerator {
 	private int numNonterminals = 0;
 	private Map<String, Integer> symbolTable;
 	private Map<Integer, List<Production>> productionTable;
+
+	private Integer initialNonterminal = null;
+	private List<Table> slrTables;
+
+	private Queue<List<Production>> workLoad;
+
+	private ArrayList<Integer> shiftListSwitch;
+	private ArrayList<Integer[]> shiftList;
+
+	private ArrayList<Integer> reduceList;
+
+	private ArrayList<Integer> gotoListSwitch;
+	private ArrayList<Integer[]> gotoList;
 
 	public SLRTableGenerator(Path p) throws IOException {
 		productionTable = new HashMap<>();
@@ -58,6 +76,10 @@ public class SLRTableGenerator {
 				if (line.matches(NONTERMINAL_DELIMINATOR)) {
 					symbolTable.put(line.substring(0, line.length()-1), ++numNonterminals);
 					productionTable.put(numNonterminals, new LinkedList<Production>());
+
+					if (initialNonterminal == null) {
+						initialNonterminal = numNonterminals;
+					}
 				}
 			}
 		}
@@ -83,7 +105,7 @@ public class SLRTableGenerator {
 					continue;
 				}
 
-				production = new Production(new LinkedList<Integer>());
+				production = new Production(currentProduction, new ArrayList<Integer>());
 				productionRules = productionTable.get(currentProduction);
 				productionRules.add(production);
 
@@ -123,7 +145,146 @@ public class SLRTableGenerator {
 		return id <= numNonterminals;
 	}
 
-	public void dump() throws IOException {
+	private int copy = 0;
+	private volatile int _goto;
+
+	public SLRTable generateTables() {
+		shiftListSwitch = new ArrayList<>();
+		shiftList = new ArrayList<>();
+
+		reduceList = new ArrayList<>();
+
+		gotoListSwitch = new ArrayList<>();
+		gotoList = new ArrayList<>();
+
+		// generate table with initial nonterminal productions as initial items
+		slrTables = new ArrayList<>();
+		workLoad = new LinkedList<>();
+		workLoad.offer(productionTable.get(initialNonterminal));
+		while (!workLoad.isEmpty()) {
+			_goto = 0;
+			generateTables(workLoad.poll());
+			_goto++;
+		}
+
+		Charset charset = Charset.forName("US-ASCII");
+		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(".", "output", "toy.slrtables.dump.txt"), charset, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
+			for (Table t : slrTables) {
+				writer.write(String.format("%s%n", t));
+
+				for (Production p : t.getInitialProductions()) {
+					writer.write(String.format("I:%s%n", p));
+				}
+
+				for (Production p : t.getClosure()) {
+					writer.write(String.format("  %s%n", p));
+				}
+
+				writer.write(String.format("%n"));
+				writer.flush();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.format("%d table(s) generated%n", slrTables.size());
+		System.out.format("%d tables avoided%n", copy);
+
+		return new SLRTable(
+			slrTables.size(),
+			new SLRTable.Shift(compressShiftListSwitch(), compressShiftList()),
+			new SLRTable.Reduce(compressReduceList()),
+			new SLRTable.Goto(compressGotoListSwitch(), compressGotoList())
+		);
+	}
+
+	private void generateTables(List<Production> initialProductions) {
+		//boolean flag = false;
+		boolean tablesMatch;
+		nextTable: for (Table t : slrTables) {
+			//flag = true;
+			if (t.getInitialProductions().size() != initialProductions.size()) {
+				continue nextTable;
+			}
+
+			tablesMatch = true;
+			for (Production p : t.getInitialProductions()) {
+				for (Production p2 : initialProductions) {
+					tablesMatch = p.sameAs(p2);
+					//tablesMatch = p.sameAs(new Production(p2));
+					if (!tablesMatch) {
+						continue nextTable;
+					}
+				}
+			}
+
+			if (tablesMatch) {
+				for (Production p : initialProductions) {
+					p.setGoto(t.getTableId());
+				}
+
+				copy++;
+				return;
+			}
+		}
+
+		//if (flag) {
+		//	for (Production p : initialProductions) {
+		//		p = new Production(p);
+		//	}
+		//}
+
+		List<Production> closure = new LinkedList<>(initialProductions);
+		for (Production p : initialProductions) {
+			// generate a recursive closure for each production in the inital list
+			generateClosureForProduction(initialProductions, closure, p);
+		}
+
+		Set<Integer> symbolsParsed = new HashSet<>();
+		closure.removeAll(initialProductions);
+		Table t = new Table(slrTables.size(), initialProductions, closure);
+		t.setGoto(_goto, initialProductions.get(0).getPrevious());
+		slrTables.add(t);
+		for (Production p : t) {
+			if (p.hasMore()) {
+				Integer head = p.getHead();
+				if (symbolsParsed.contains(head)) {
+					continue;
+				}
+
+				List<Production> initialProductionsForNextTable = new LinkedList<>();
+				symbolsParsed.add(head);
+
+				for (Production sibling : t) {
+					Integer siblingHead = sibling.getHead();
+					if (head == siblingHead) {
+						initialProductionsForNextTable.add(new Production(sibling));
+						//initialProductionsForNextTable.add(sibling);
+					}
+				}
+
+				workLoad.offer(initialProductionsForNextTable);
+			}
+		}
+	}
+
+	private void generateClosureForProduction(List<Production> initialProductions, List<Production> closure, Production p) {
+		if (p.hasMore()) {
+			// if the next symbol in a production after the dot is a nonterminal, recursively generate more closures
+			Integer head = p.getHead();
+			if (head <= numNonterminals) {
+				for (Production child : productionTable.get(head)) {
+					// Only close over this child production if it hasn't been done already
+					if (!closure.contains(child)) {
+						closure.add(child);
+						generateClosureForProduction(initialProductions, closure, child);
+					}
+				}
+			}
+		}
+	}
+
+	public void dumpConvertedCFGData() throws IOException {
 		Charset charset = Charset.forName("US-ASCII");
 		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(".", "output", "toy.sym.dump.txt"), charset, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
 			for (Entry<String, Integer> entry : symbolTable.entrySet()) {
@@ -155,5 +316,50 @@ public class SLRTableGenerator {
 				writer.write(String.format("%n"));
 			}
 		}
+	}
+
+	private int[] compressShiftListSwitch() {
+		return compressSwitch(shiftListSwitch);
+	}
+
+	private int[] compressReduceList() {
+		return compressSwitch(reduceList);
+	}
+
+	private int[] compressGotoListSwitch() {
+		return compressSwitch(gotoListSwitch);
+	}
+
+	private int[] compressSwitch(ArrayList<Integer> list) {
+		int[] to = new int[list.size()];
+
+		int i = 0;
+		for (Integer cell : list) {
+			to[i] = cell;
+		}
+
+		return to;
+	}
+
+	private int[][] compressShiftList() {
+		return compress(shiftList);
+	}
+
+	private int[][] compressGotoList() {
+		return compress(gotoList);
+	}
+
+	private int[][] compress(ArrayList<Integer[]> list) {
+		int[][] to = new int[list.size()+1][2];
+		to[0][0] = Integer.MIN_VALUE;
+		to[0][1] = Integer.MIN_VALUE;
+
+		int i = 1;
+		for (Integer[] cell : list) {
+			to[i][0] = cell[0];
+			to[i][1] = cell[1];
+		}
+
+		return to;
 	}
 }

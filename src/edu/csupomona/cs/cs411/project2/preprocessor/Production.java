@@ -2,21 +2,26 @@ package edu.csupomona.cs.cs411.project2.preprocessor;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-public class Production implements ListIterator<Integer>, Iterable<Integer> {
+public class Production implements Iterable<Integer> {
+	private final Integer nonterminal;
 	private final List<Integer> list;
-	private final ListIterator<Integer> iterator;
+
+	private final int dot;
+
+	private Goto _goto;
 
 	/**
 	 * Constructs a production from a list of generated symbols, and
 	 * initializes the current parser pointer to the start of that list.
 	 *
+	 * @param nonterminal nonterminal for this production
 	 * @param l list of integers representing symbol identifiers
 	 */
-	public Production(List<Integer> l) {
+	public Production(Integer nonterminal, List<Integer> l) {
+		this.nonterminal = nonterminal;
 		this.list = l;
-		this.iterator = l.listIterator();
+		this.dot = 0;
 	}
 
 	/**
@@ -26,58 +31,77 @@ public class Production implements ListIterator<Integer>, Iterable<Integer> {
 	 *
 	 * @param p production to base this one off of
 	 */
-	private Production(Production p) {
+	public Production(Production p) {
+		this.nonterminal = p.nonterminal;
 		this.list = p.list;
-		this.iterator = p.list.listIterator(p.iterator.nextIndex());
+		this.dot = p.dot+1;
+	}
+
+	public void setGoto(int tableid) {
+		_goto = new Goto(tableid, getHead());
 	}
 
 	@Override
 	public Iterator<Integer> iterator() {
-		return new Production(this);
+		return list.iterator();
 	}
 
-	@Override
-	public boolean hasNext() {
-		return iterator.hasNext();
-	}
-
-	@Override
-	public Integer next() {
-		return iterator.next();
-	}
-
-	@Override
-	public int nextIndex() {
-		return iterator.nextIndex();
-	}
-
-	@Override
 	public void add(Integer e) {
 		list.add(e);
 	}
 
-	@Override
-	public void remove() {
-		throw new UnsupportedOperationException("Not supported.");
+	public boolean hasMore() {
+		return dot < list.size();
+	}
+
+	public Integer getPrevious() {
+		if (dot-1 < 0) {
+			return null;
+		}
+
+		return list.get(dot-1);
+	}
+
+	public Integer getHead() {
+		if (list.size() <= dot) {
+			return 0;
+		}
+
+		return list.get(dot);
+	}
+
+	public boolean sameAs(Production p) {
+		return this.dot == p.dot && this.list == p.list && this.nonterminal == p.nonterminal;
 	}
 
 	@Override
-	public boolean hasPrevious() {
-		throw new UnsupportedOperationException("Not supported.");
-	}
+	public String toString() {
+		int i;
+		StringBuilder sb = new StringBuilder();
+		sb.append(nonterminal);
+		sb.append(" -> ");
+		for (i = 0; i < list.size(); i++) {
+			if (i == dot) {
+				sb.append(".");
+				sb.append(' ');
+			}
 
-	@Override
-	public Integer previous() {
-		throw new UnsupportedOperationException("Not supported.");
-	}
+			sb.append(list.get(i));
+			sb.append(' ');
+		}
 
-	@Override
-	public int previousIndex() {
-		throw new UnsupportedOperationException("Not supported.");
-	}
+		if (list.size() <= dot) {
+			if (i == dot) {
+				sb.append(".");
+				sb.append(' ');
+			}
+		}
 
-	@Override
-	public void set(Integer e) {
-		throw new UnsupportedOperationException("Not supported.");
+		if (_goto != null) {
+			sb.append("\t");
+			sb.append(_goto);
+		}
+
+		return sb.toString();
 	}
 }
