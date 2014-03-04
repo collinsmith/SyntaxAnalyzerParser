@@ -192,6 +192,7 @@ ParExpression:
 Primary:
 LValue
 Literal
+MethodCall
 ParExpression
 
 Expression:

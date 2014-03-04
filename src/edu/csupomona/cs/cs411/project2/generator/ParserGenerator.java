@@ -39,6 +39,8 @@ public class ParserGenerator {
 	private int reduceReduces;
 	private int tablesAvoided;
 
+	private boolean[] productionsUsed;
+
 	public ParserGenerator(Path p) throws IOException {
 		long dt = System.nanoTime();
 		System.out.format("Populating symbols table...");
@@ -178,6 +180,7 @@ public class ParserGenerator {
 
 		reduceReduces = 0;
 		tablesAvoided = 0;
+		productionsUsed = new boolean[numProductions];
 		Queue<TableMetadata> generations = new LinkedList();
 		generations.offer(new TableMetadata(null, PRODUCTIONS.get(initialNonterminal), null));
 		while (!generations.isEmpty()) {
@@ -188,6 +191,15 @@ public class ParserGenerator {
 		System.out.format("%d tables not repeated%n", tablesAvoided);
 		System.out.format("%d tables without reduce-reduce errors%n", reduceReduces);
 
+		int unusedProductions = 0;
+		for (int i = 0; i < productionsUsed.length; i++) {
+			if (!productionsUsed[i]) {
+				unusedProductions++;
+				System.out.format("%3d\t%s%n", i, PRODUCTIONS_LIST.get(i));
+			}
+		}
+
+		System.out.format("%d unused productions%n", unusedProductions);
 		return Collections.unmodifiableMap(tables);
 	}
 
@@ -222,6 +234,7 @@ public class ParserGenerator {
 		Set<Integer> symbolsToBeParsed = new HashSet<>();
 		Set<Integer> productionsWithReduce = new HashSet<>();
 		for (Production p : t) {
+			productionsUsed[p.getProductionId()] = true;
 			if (p.hasMoreSymbols()) {
 				Integer nextSymbol = p.getNextSymbol();
 				if (symbolsToBeParsed.contains(nextSymbol)) {

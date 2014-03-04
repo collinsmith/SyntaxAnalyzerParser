@@ -191,23 +191,24 @@ ParExpression:
 Primary:
 100	LValue 
 101	Literal 
-102	ParExpression 
+102	MethodCall 
+103	ParExpression 
 
 Expression:
-103	AssignmentOpt 
+104	AssignmentOpt 
 
 Expression1:
-104	InfixOpt 
+105	InfixOpt 
 
 Expression2:
-105	PrefixOperator Expression2 
-106	Primary 
+106	PrefixOperator Expression2 
+107	Primary 
 
 InfixOpt:
-107	Expression2 InfixOperator Expression2 
-108	Expression2 
+108	Expression2 InfixOperator Expression2 
+109	Expression2 
 
 AssignmentOpt:
-109	Expression1 AssignmentOperator Expression1 
-110	Expression1 
+110	Expression1 AssignmentOperator Expression1 
+111	Expression1 
 
