@@ -127,18 +127,15 @@ WhileStatement:
 while ParExpression Statement
 
 ForStatement:
-for ( ForControl ) Statement
+for ( ForControl Statement
 
 ForControl:
 Expression ForControl1
 ForControl1
 
 ForControl1:
-; Expression ; ForControl2
-; Expression ;
-
-ForControl2:
-Expression
+; Expression ; Expression )
+; Expression ; )
 
 ExpressionOpt:
 Expression ;
