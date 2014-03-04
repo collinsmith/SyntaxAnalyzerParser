@@ -3,8 +3,7 @@ package edu.csupomona.cs.cs411.project2;
 import edu.csupomona.cs.cs411.project1.lexer.Lexer;
 import edu.csupomona.cs.cs411.project1.lexer.Token;
 import edu.csupomona.cs.cs411.project2.generator.ParserGenerator;
-import edu.csupomona.cs.cs411.project2.generator.Production;
-import edu.csupomona.cs.cs411.project2.generator.Table;
+import edu.csupomona.cs.cs411.project2.parser.SLRTable;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -16,8 +15,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.List;
-import java.util.Map;
 
 public class Main {
 	private static final Path OUTPUT_PATH = Paths.get(".", "output");
@@ -25,8 +22,10 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		ParserGenerator g = new ParserGenerator(Paths.get(".", "res", "toy.cfg.txt"));
 		g.outputConvertedCFG();
-		Map<List<Production>, Table> tables = g.generateTables();
-		g.outputTables(tables);
+		g.outputTables();
+
+		SLRTable t = g.getSLRTable();
+		t.outputTableInfo();
 
 		for (String arg : args) {
 			Path p = Paths.get(arg);

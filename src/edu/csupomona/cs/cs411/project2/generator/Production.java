@@ -13,7 +13,6 @@ public class Production implements Iterable<Integer> {
 	private final Integer NONTERMINAL;
 	private final List<Integer> PRODUCTIONS;
 
-	//private Goto _goto;
 	private boolean immutable;
 
 	public Production(int productionId, Integer nonterminal, List<Integer> productions) {
@@ -23,7 +22,6 @@ public class Production implements Iterable<Integer> {
 		this.PRODUCTIONS = productions;
 		this.PRODUCTIONID = productionId;
 
-		//this._goto = null;
 		this.immutable = false;
 	}
 
@@ -34,7 +32,6 @@ public class Production implements Iterable<Integer> {
 		this.PRODUCTIONS = this.PARENT.PRODUCTIONS;
 		this.PRODUCTIONID = this.PARENT.PRODUCTIONID;
 
-		//this._goto = null;
 		this.immutable = false;
 	}
 
@@ -54,14 +51,6 @@ public class Production implements Iterable<Integer> {
 		return PRODUCTIONID;
 	}
 
-	//public void setGoto(int tableId) {
-	//	_goto = new Goto(tableId, getNextSymbol());
-	//}
-
-	//public void setGoto(Goto _goto) {
-	//	this._goto = _goto;
-	//}
-
 	public void addSymbol(Integer i) {
 		if (immutable) {
 			throw new UnsupportedOperationException("This production is now immutable");
@@ -80,7 +69,6 @@ public class Production implements Iterable<Integer> {
 
 	public Integer getNextSymbol() {
 		if (PRODUCTIONS.size() <= POINTER) {
-			// TODO was 0, now null. How will this effect?
 			return null;
 		}
 
@@ -148,13 +136,6 @@ public class Production implements Iterable<Integer> {
 		if (POINTER == PRODUCTIONS.size()) {
 			production.append(" .");
 		}
-
-		/*StringBuilder productionWithGoto = new StringBuilder();
-		if (_goto != null) {
-			productionWithGoto.append(String.format("%-24s %s", production.toString(), _goto));
-		} else {
-			productionWithGoto.append(String.format("%-24s", production.toString()));
-		}*/
 
 		return production.toString();
 	}

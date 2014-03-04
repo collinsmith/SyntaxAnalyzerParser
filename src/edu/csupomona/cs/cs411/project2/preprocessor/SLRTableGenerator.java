@@ -192,9 +192,9 @@ public class SLRTableGenerator {
 
 		return new SLRTable(
 			slrTables.size(),
-			new SLRTable.Shift(compressShiftListSwitch(), compressShiftList()),
-			new SLRTable.Reduce(compressReduceList()),
-			new SLRTable.Goto(compressGotoListSwitch(), compressGotoList())
+			new SLRTable.ShiftTable(compressShiftListSwitch(), compressShiftList()),
+			new SLRTable.ReduceTable(compressReduceList()),
+			new SLRTable.GotoTable(compressGotoListSwitch(), compressGotoList())
 		);
 	}
 
