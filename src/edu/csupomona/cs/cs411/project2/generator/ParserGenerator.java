@@ -109,8 +109,6 @@ public class ParserGenerator {
 		}
 
 		System.out.format("%d unused productions%n", unusedProductions);
-		System.out.format("%d reduce-reduce conflicts%n", reduceReduces);
-		System.out.format("%d tables not repeated%n", tablesAvoided);
 	}
 
 	private Map<String, Integer> createSymbolsTable(Path p) throws IOException {
@@ -475,6 +473,6 @@ public class ParserGenerator {
 		GotoTable _goto = new SLRTable.GotoTable(gotoSwitch, gotoGoto);
 		System.out.format("SLR tables generated in %dms%n", TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-dt));
 		System.out.format("%d shift-reduce conflicts%n", shiftReduces);
-		return new SLRTable(numNonterminals, _shift, _reduce, _goto, shiftReduces, reduceReduces);
+		return new SLRTable(numNonterminals, _shift, _reduce, _goto, shiftReduces, reduceReduces, unusedProductions);
 	}
 }

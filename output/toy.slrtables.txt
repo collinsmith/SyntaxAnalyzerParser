@@ -6,6 +6,7 @@ Goto    : switch = 177
 
 
 177 tables
+0 unused productions
 9 shift-reduce conflicts
 0 reduce-reduce conflicts
 

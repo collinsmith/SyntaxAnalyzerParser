@@ -17,12 +17,13 @@ public class SLRTable implements Serializable {
 	private final int NUM_NONTERMINALS;
 	private final int SHIFT_REDUCE_CONFLICTS;
 	private final int REDUCE_REDUCE_CONFLICTS;
+	private final int UNUSED_PRODUCTIONS;
 
 	final ShiftTable _shift;
 	final ReduceTable _reduce;
 	final GotoTable _goto;
 
-	public SLRTable(int num_nonterminals, ShiftTable _shift, ReduceTable _reduce, GotoTable _goto, int shiftReduces, int reduceReduces) {
+	public SLRTable(int num_nonterminals, ShiftTable _shift, ReduceTable _reduce, GotoTable _goto, int shiftReduces, int reduceReduces, int unusedProductions) {
 		if (_shift._switch.length != _reduce._reduce.length || _reduce._reduce.length != _goto._switch.length) {
 			throw new IllegalArgumentException("Table sizes do not match!");
 		}
@@ -35,6 +36,7 @@ public class SLRTable implements Serializable {
 		this.NUM_NONTERMINALS = num_nonterminals;
 		this.SHIFT_REDUCE_CONFLICTS = shiftReduces;
 		this.REDUCE_REDUCE_CONFLICTS = reduceReduces;
+		this.UNUSED_PRODUCTIONS = unusedProductions;
 	}
 
 	int getTerminalAsSymbol(Keywords token) {
@@ -52,6 +54,7 @@ public class SLRTable implements Serializable {
 			writer.append(String.format("%n%n"));
 
 			writer.append(String.format("%d tables%n", NUM_TABLES));
+			writer.append(String.format("%d unused productions%n", UNUSED_PRODUCTIONS));
 			writer.append(String.format("%d shift-reduce conflicts%n", SHIFT_REDUCE_CONFLICTS));
 			writer.append(String.format("%d reduce-reduce conflicts%n", REDUCE_REDUCE_CONFLICTS));
 			writer.append(String.format("%n%n"));
