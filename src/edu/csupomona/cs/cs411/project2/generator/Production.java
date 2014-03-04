@@ -8,6 +8,7 @@ public class Production implements Iterable<Integer> {
 	private static final String PRODUCTION_DELIMINATOR = "->";
 
 	private final int POINTER;
+	private final int PRODUCTIONID;
 	private final Production PARENT;
 	private final Integer NONTERMINAL;
 	private final List<Integer> PRODUCTIONS;
@@ -15,11 +16,12 @@ public class Production implements Iterable<Integer> {
 	//private Goto _goto;
 	private boolean immutable;
 
-	public Production(Integer nonterminal, List<Integer> productions) {
+	public Production(int productionId, Integer nonterminal, List<Integer> productions) {
 		this.POINTER = 0;
 		this.PARENT = null;
 		this.NONTERMINAL = nonterminal;
 		this.PRODUCTIONS = productions;
+		this.PRODUCTIONID = productionId;
 
 		//this._goto = null;
 		this.immutable = false;
@@ -30,6 +32,7 @@ public class Production implements Iterable<Integer> {
 		this.POINTER = this.PARENT.POINTER+1;
 		this.NONTERMINAL = this.PARENT.NONTERMINAL;
 		this.PRODUCTIONS = this.PARENT.PRODUCTIONS;
+		this.PRODUCTIONID = this.PARENT.PRODUCTIONID;
 
 		//this._goto = null;
 		this.immutable = false;
@@ -37,6 +40,18 @@ public class Production implements Iterable<Integer> {
 
 	public Production getParent() {
 		return PARENT;
+	}
+
+	public Production getAncestor() {
+		if (PARENT == null) {
+			return this;
+		}
+
+		return PARENT.getAncestor();
+	}
+
+	public int getProductionId() {
+		return PRODUCTIONID;
 	}
 
 	//public void setGoto(int tableId) {

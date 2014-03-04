@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class ParserGenerator {
 	private static final String NONTERMINAL_DELIMINATOR = "[A-Z][a-zA-Z0-9]*:";
@@ -27,13 +28,18 @@ public class ParserGenerator {
 	private final Map<String, Integer> SYMBOLS;
 	private final Map<Integer, String> SYMBOLS_REVERSE;
 	private final Map<Integer, List<Production>> PRODUCTIONS;
+	private final List<Production> PRODUCTIONS_LIST;
+	//private final Map<Production, List<Integer>> PRODUCTIONS_REVERSE;
 
+	private int numProductions;
 	private int numNonterminals;
 	private Integer initialNonterminal;
 
 	private int tablesAvoided;
 
 	public ParserGenerator(Path p) throws IOException {
+		long dt = System.nanoTime();
+		System.out.format("Populating symbols table...");
 		this.SYMBOLS = createSymbolsTable(p);
 		Map<Integer, String> symbolsTableReverse = new HashMap<>();
 		for (Entry<String, Integer> entry : SYMBOLS.entrySet()) {
@@ -41,12 +47,37 @@ public class ParserGenerator {
 		}
 
 		this.SYMBOLS_REVERSE = Collections.unmodifiableMap(symbolsTableReverse);
-		this.PRODUCTIONS = createProductionsTable(p);
+		System.out.format("done (%dms)%n", TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-dt));
+
+		dt = System.nanoTime();
+		System.out.format("Populating productions table...");
+
+		List<Production> productionsList = new ArrayList<>();
+		this.PRODUCTIONS = createProductionsTable(p, productionsList);
 		for (List<Production> productions : PRODUCTIONS.values()) {
 			for (Production production : productions) {
 				production.setImmutable();
 			}
 		}
+
+		PRODUCTIONS_LIST = Collections.unmodifiableList(productionsList);
+
+		/*List<Integer> nonterminalsWithProduction;
+		Map<Production, List<Integer>> productionsTableReverse = new HashMap<>();
+		for (Entry<Integer, List<Production>> entry : PRODUCTIONS.entrySet()) {
+			for (Production production : entry.getValue()) {
+				nonterminalsWithProduction = productionsTableReverse.get(production);
+				if (nonterminalsWithProduction == null) {
+					nonterminalsWithProduction = new LinkedList<>();
+					productionsTableReverse.put(production, nonterminalsWithProduction);
+				}
+
+				nonterminalsWithProduction.add(entry.getKey());
+			}
+		}
+
+		this.PRODUCTIONS_REVERSE = Collections.unmodifiableMap(productionsTableReverse);*/
+		System.out.format("done (%dms)%n", TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-dt));
 	}
 
 	private Map<String, Integer> createSymbolsTable(Path p) throws IOException {
@@ -77,8 +108,8 @@ public class ParserGenerator {
 		return Collections.unmodifiableMap(symbolsTable);
 	}
 
-	private Map<Integer, List<Production>> createProductionsTable(Path p) throws IOException {
-		Map<Integer, List<Production>> productionsTable = new HashMap<>();
+	private Map<Integer, List<Production>> createProductionsTable(Path p, List<Production> productionsList) throws IOException {
+		Map<Integer, List<Production>> productionsTable = new LinkedHashMap<>();
 		Charset c = Charset.forName("US-ASCII");
 		try (BufferedReader reader = Files.newBufferedReader(p, c)) {
 			Production production;
@@ -107,8 +138,9 @@ public class ParserGenerator {
 					productionsTable.put(currentProductionSymbol, productions);
 				}
 
-				production = new Production(currentProductionSymbol, new ArrayList<Integer>());
+				production = new Production(numProductions++, currentProductionSymbol, new ArrayList<Integer>());
 				productions.add(production);
+				productionsList.add(production);
 
 				line = line.trim();
 				String[] tokens = line.split("\\s+");
@@ -252,7 +284,7 @@ public class ParserGenerator {
 			for (Entry<Integer, List<Production>> entry : PRODUCTIONS.entrySet()) {
 				writer.write(String.format("%s:%n", SYMBOLS_REVERSE.get(entry.getKey())));
 				for (Production p : entry.getValue()) {
-					writer.write(String.format("\t"));
+					writer.write(String.format("%3d\t", p.getProductionId()));
 					for (Integer i : p) {
 						writer.write(String.format("%s ", SYMBOLS_REVERSE.get(i)));
 					}
@@ -270,43 +302,48 @@ public class ParserGenerator {
 	public void outputTables(Map<List<Production>, Table> tables) {
 		Charset charset = Charset.forName("US-ASCII");
 		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(".", "output", "toy.tables.txt"), charset, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
-			//int count = 0;
 			for (Table t : tables.values()) {
 				writer.write(String.format("%s%n", t));
 
 				for (Production p : t.getInitialProductions()) {
-					if (p.hasMoreSymbols()) {
-						Integer onSymbol = p.getNextSymbol();
-						Table t2 = t.getTransition(onSymbol);
-						writer.write(String.format("I:\t%-24s %s%n",
-							p,
-							new Goto(t2.getTableId(), onSymbol)
-						));
-					} else {
-						writer.write(String.format("I:\t%s%n", p));
-					}
+					writeProduction(writer, t, p, true);
 				}
 
 				for (Production p : t.getClosureProductions()) {
-					if (p.hasMoreSymbols()) {
-						Integer onSymbol = p.getNextSymbol();
-						Table t2 = t.getTransition(onSymbol);
-						writer.write(String.format("\t%-24s %s%n",
-							p,
-							new Goto(t2.getTableId(), onSymbol)
-						));
-					} else {
-						writer.write(String.format("\t%s%n", p));
-					}
+					writeProduction(writer, t, p, false);
 				}
 
 				writer.write(String.format("%n"));
 				writer.flush();
 			}
-
-			//System.out.println("Count=" + count);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void writeProduction(BufferedWriter writer, Table t, Production p, boolean isInitialProduction) throws IOException {
+		if (!p.hasMoreSymbols()) {
+			writer.write(String.format("%s\t%-24s reduce(%d)%n",
+				isInitialProduction ? "I:" : "",
+				p,
+				p.getProductionId()
+			));
+
+			return;
+		}
+
+		Integer onSymbol = p.getNextSymbol();
+		Table t2 = t.getTransition(onSymbol);
+		writer.write(String.format("%s\t%-24s %s",
+			isInitialProduction ? "I:" : "",
+			p,
+			new Goto(t2.getTableId(), onSymbol)
+		));
+
+		if (numNonterminals < onSymbol) {
+			writer.write(String.format("\tshift"));
+		}
+
+		writer.write(String.format("%n"));
 	}
 }
