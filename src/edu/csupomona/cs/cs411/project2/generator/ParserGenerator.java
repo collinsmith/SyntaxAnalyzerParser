@@ -157,6 +157,7 @@ public class ParserGenerator {
 
 	private void generateTables(Map<List<Production>, Table> tables, Queue<TableMetadata> generations, TableMetadata tableMetadata) {
 		List<Production> initialProductions = tableMetadata.getInitialProductions();
+		Table parentTable = tableMetadata.getParentTable();
 		Table existingTable = tables.get(initialProductions);
 		if (existingTable != null) {
 			/*for (Production gotoProduction : tableMetadata.getPreviousProductions()) {
@@ -164,7 +165,7 @@ public class ParserGenerator {
 				gotoProduction.setGoto(tableMetadata.getGoto());
 			}*/
 
-			tableMetadata.getParentTable().putTransition(tableMetadata.getGoto().getSymbol(), existingTable);
+			parentTable.putTransition(tableMetadata.getGoto().getSymbol(), existingTable);
 			tablesAvoided++;
 			return;
 		}
@@ -183,6 +184,9 @@ public class ParserGenerator {
 		);
 
 		tables.put(initialProductions, t);
+		if (parentTable != null) {
+			parentTable.putTransition(tableMetadata.getGoto().getSymbol(), t);
+		}
 
 		Set<Integer> symbolsToBeParsed = new HashSet<>();
 		for (Production p : t) {
@@ -193,14 +197,14 @@ public class ParserGenerator {
 				}
 
 				symbolsToBeParsed.add(nextSymbol);
-				List<Production> productionsInOldTable = new LinkedList<>();
+				//List<Production> productionsInOldTable = new LinkedList<>();
 				List<Production> initialProductionsForNewTable = new LinkedList<>();
 				for (Production sibling : t) {
 					if (sibling.getNextSymbol() != nextSymbol) {
 						continue;
 					}
 
-					productionsInOldTable.add(sibling);
+					//productionsInOldTable.add(sibling);
 					initialProductionsForNewTable.add(new Production(sibling));
 				}
 
@@ -271,29 +275,28 @@ public class ParserGenerator {
 				writer.write(String.format("%s%n", t));
 
 				for (Production p : t.getInitialProductions()) {
-					writer.write(String.format("I:%s%n", p));
+					if (p.hasMoreSymbols()) {
+						Integer onSymbol = p.getNextSymbol();
+						Table t2 = t.getTransition(onSymbol);
+						writer.write(String.format("I:\t%-24s %s%n",
+							p,
+							new Goto(t2.getTableId(), onSymbol)
+						));
+					} else {
+						writer.write(String.format("I:\t%s%n", p));
+					}
 				}
 
 				for (Production p : t.getClosureProductions()) {
 					if (p.hasMoreSymbols()) {
 						Integer onSymbol = p.getNextSymbol();
 						Table t2 = t.getTransition(onSymbol);
-						if (t2 == null) {
-							// If there does not exist a transition, then
-							// this production got its own table
-							writer.write(String.format("  %s%n", p));
-							//System.out.println(t);
-							//System.out.println(p);
-							//count++;
-							continue;
-						}
-
-						writer.write(String.format("  %-24s %s%n",
+						writer.write(String.format("\t%-24s %s%n",
 							p,
 							new Goto(t2.getTableId(), onSymbol)
 						));
 					} else {
-						writer.write(String.format("  %s%n", p));
+						writer.write(String.format("\t%s%n", p));
 					}
 				}
 
