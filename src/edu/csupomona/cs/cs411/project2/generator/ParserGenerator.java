@@ -26,15 +26,17 @@ public class ParserGenerator {
 	private static final String NONTERMINAL_DELIMINATOR = "[A-Z][a-zA-Z0-9]*:";
 
 	private final Map<String, Integer> SYMBOLS;
-	private final Map<Integer, String> SYMBOLS_REVERSE;
 	private final Map<Integer, List<Production>> PRODUCTIONS;
+
 	private final List<Production> PRODUCTIONS_LIST;
-	//private final Map<Production, List<Integer>> PRODUCTIONS_REVERSE;
+	private final Map<Integer, String> SYMBOLS_REVERSE;
+	private final Map<Production, List<Integer>> PRODUCTIONS_REVERSE;
 
 	private int numProductions;
 	private int numNonterminals;
 	private Integer initialNonterminal;
 
+	private int reduceReduces;
 	private int tablesAvoided;
 
 	public ParserGenerator(Path p) throws IOException {
@@ -47,7 +49,7 @@ public class ParserGenerator {
 		}
 
 		this.SYMBOLS_REVERSE = Collections.unmodifiableMap(symbolsTableReverse);
-		System.out.format("done (%dms)%n", TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-dt));
+		System.out.format("\tdone (%dms)%n", TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-dt));
 
 		dt = System.nanoTime();
 		System.out.format("Populating productions table...");
@@ -62,7 +64,7 @@ public class ParserGenerator {
 
 		PRODUCTIONS_LIST = Collections.unmodifiableList(productionsList);
 
-		/*List<Integer> nonterminalsWithProduction;
+		List<Integer> nonterminalsWithProduction;
 		Map<Production, List<Integer>> productionsTableReverse = new HashMap<>();
 		for (Entry<Integer, List<Production>> entry : PRODUCTIONS.entrySet()) {
 			for (Production production : entry.getValue()) {
@@ -76,8 +78,8 @@ public class ParserGenerator {
 			}
 		}
 
-		this.PRODUCTIONS_REVERSE = Collections.unmodifiableMap(productionsTableReverse);*/
-		System.out.format("done (%dms)%n", TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-dt));
+		this.PRODUCTIONS_REVERSE = Collections.unmodifiableMap(productionsTableReverse);
+		System.out.format("\tdone (%dms)%n", TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-dt));
 	}
 
 	private Map<String, Integer> createSymbolsTable(Path p) throws IOException {
@@ -174,6 +176,7 @@ public class ParserGenerator {
 	public Map<List<Production>, Table> generateTables() {
 		Map<List<Production>, Table> tables = new LinkedHashMap<>();
 
+		reduceReduces = 0;
 		tablesAvoided = 0;
 		Queue<TableMetadata> generations = new LinkedList();
 		generations.offer(new TableMetadata(null, PRODUCTIONS.get(initialNonterminal), null));
@@ -182,7 +185,8 @@ public class ParserGenerator {
 		}
 
 		System.out.format("%d tables generated%n", tables.size());
-		System.out.format("%d tables avoided%n", tablesAvoided);
+		System.out.format("%d tables not repeated%n", tablesAvoided);
+		System.out.format("%d tables without reduce-reduce errors%n", reduceReduces);
 
 		return Collections.unmodifiableMap(tables);
 	}
@@ -192,11 +196,6 @@ public class ParserGenerator {
 		Table parentTable = tableMetadata.getParentTable();
 		Table existingTable = tables.get(initialProductions);
 		if (existingTable != null) {
-			/*for (Production gotoProduction : tableMetadata.getPreviousProductions()) {
-				gotoProduction.setGoto(tableMetadata.getGoto().getTableId());
-				gotoProduction.setGoto(tableMetadata.getGoto());
-			}*/
-
 			parentTable.putTransition(tableMetadata.getGoto().getSymbol(), existingTable);
 			tablesAvoided++;
 			return;
@@ -221,6 +220,7 @@ public class ParserGenerator {
 		}
 
 		Set<Integer> symbolsToBeParsed = new HashSet<>();
+		Set<Integer> productionsWithReduce = new HashSet<>();
 		for (Production p : t) {
 			if (p.hasMoreSymbols()) {
 				Integer nextSymbol = p.getNextSymbol();
@@ -248,7 +248,20 @@ public class ParserGenerator {
 				);
 
 				generations.offer(newTableMetadata);
+			} else {
+				Integer productionId = p.getProductionId();
+				if (productionsWithReduce.contains(productionId)) {
+					System.out.format("Reduce-reduce conflict in table A%d, production %s%n", t.getTableId(), p);
+				}
+
+				productionsWithReduce.add(productionId);
 			}
+		}
+
+		if (1 < productionsWithReduce.size()) {
+			System.out.format("Table A%d has %d reduce productions%n", t.getTableId(), productionsWithReduce.size());
+		} else {
+			reduceReduces++;
 		}
 	}
 
@@ -304,7 +317,6 @@ public class ParserGenerator {
 		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(".", "output", "toy.tables.txt"), charset, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
 			for (Table t : tables.values()) {
 				writer.write(String.format("%s%n", t));
-
 				for (Production p : t.getInitialProductions()) {
 					writeProduction(writer, t, p, true);
 				}
