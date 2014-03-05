@@ -1,3 +1,27 @@
+AssignmentOperator:
+=
+
+Primary:
+LValue
+Literal
+MethodCall
+ParExpression
+
+Expression:
+Expression1 AssignmentOperator Expression
+Expression1
+
+Expression1:
+InfixOpt
+
+Expression2:
+PrefixOperator Expression2
+Primary
+
+InfixOpt:
+Expression2 InfixOperator Expression2
+Expression2
+
 A0
 1->.2
 2->.2 3

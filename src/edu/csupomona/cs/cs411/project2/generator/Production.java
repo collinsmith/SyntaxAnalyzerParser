@@ -129,7 +129,7 @@ public class Production implements Iterable<Integer>, Comparable<Production> {
 	@Override
 	public String toString() {
 		StringBuilder production = new StringBuilder();
-		production.append(String.format("%s %s", NONTERMINAL, PRODUCTION_DELIMINATOR));
+		production.append(String.format("%d %s", NONTERMINAL, PRODUCTION_DELIMINATOR));
 		for (int i = 0; i < PRODUCTIONS.size(); i++) {
 			if (i == POINTER) {
 				production.append(" .");

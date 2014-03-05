@@ -18,12 +18,19 @@ Field:
 Type _id
 
 Type:
+BasicType
+ReferenceType
+
+BasicType:
+BasicType [ ]
 int
 double
 bool
 string
+
+ReferenceType:
+ReferenceType [ ]
 _id
-Type [ ]
 
 ArgumentList:
 ArgumentList , Field
@@ -141,13 +148,9 @@ ExpressionList:
 ExpressionList , Expression
 Expression
 
-LValue:
-_id
-LValue [ Expression ]
-LValue . _id
-
 MethodCall:
-LValue ( ExpressionListOpt
+_id ( ExpressionListOpt
+_id Selector ( ExpressionListOpt
 
 ExpressionListOpt:
 ExpressionList )
@@ -159,12 +162,10 @@ _doubleliteral
 _stringliteral
 _booleanliteral
 
-AssignmentOperator:
-=
-
 PrefixOperator:
 !
 -
+
 InfixOperator:
 ||
 &&
@@ -182,23 +183,30 @@ InfixOperator:
 ParExpression:
 ( Expression )
 
-Primary:
-LValue
-Literal
-MethodCall
-ParExpression
-
 Expression:
-Expression1 AssignmentOperator Expression
+_id = Expression1
+_id Selector = Expression1
 Expression1
 
 Expression1:
-InfixOpt
+Expression1 InfixOperator Expression2
+Expression2
 
 Expression2:
 PrefixOperator Expression2
-Primary
+Expression3
 
-InfixOpt:
-Expression2 InfixOperator Expression2
-Expression2
+Selector:
+Selector . _id
+Selector [ Expression ]
+. _id
+[ Expression ]
+
+Expression3:
+_id
+_id Selector
+Literal
+MethodCall
+ParExpression
+readln ( )
+newarray ( _integerliteral , Type )

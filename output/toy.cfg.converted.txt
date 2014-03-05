@@ -18,148 +18,148 @@ Field:
   8	Type _id 
 
 Type:
- 11	bool 
- 10	double 
-  9	int 
- 14	Type [ ] 
- 12	string 
- 13	_id 
+  9	BasicType 
+ 10	ReferenceType 
+
+BasicType:
+ 14	bool 
+ 13	double 
+ 12	int 
+ 15	string 
+ 11	BasicType [ ] 
+
+ReferenceType:
+ 16	ReferenceType [ ] 
+ 17	_id 
 
 ArgumentList:
- 16	Field 
- 15	ArgumentList , Field 
+ 19	Field 
+ 18	ArgumentList , Field 
 
 ArgumentListOpt:
- 17	ArgumentList ) 
- 18	) 
+ 21	) 
+ 20	ArgumentList ) 
 
 Prototype:
- 20	Field ( ArgumentListOpt 
- 19	void _id ( ArgumentListOpt 
+ 23	Field ( ArgumentListOpt 
+ 22	void _id ( ArgumentListOpt 
 
 MethodDecl:
- 21	Prototype Block 
+ 24	Prototype Block 
 
 PrototypeDecl:
- 22	Prototype ; 
+ 25	Prototype ; 
 
 ClassDecl:
- 23	class _id Super 
+ 26	class _id Super 
 
 Super:
- 25	Interfaces 
- 24	extends _id Interfaces 
+ 28	Interfaces 
+ 27	extends _id Interfaces 
 
 Interfaces:
- 27	ClassBody 
- 26	implements IdentifierList ClassBody 
+ 30	ClassBody 
+ 29	implements IdentifierList ClassBody 
 
 ClassBody:
- 29	{ MemberList } 
- 28	{ } 
+ 32	{ MemberList } 
+ 31	{ } 
 
 IdentifierList:
- 30	IdentifierList , _id 
- 31	_id 
+ 33	IdentifierList , _id 
+ 34	_id 
 
 MemberList:
- 32	MemberList Member 
- 33	Member 
+ 35	MemberList Member 
+ 36	Member 
 
 Member:
- 35	MethodDecl 
- 34	FieldDecl 
+ 38	MethodDecl 
+ 37	FieldDecl 
 
 InterfaceDecl:
- 36	interface _id { PrototypeListOpt 
+ 39	interface _id { PrototypeListOpt 
 
 PrototypeListOpt:
- 37	PrototypeList } 
- 38	} 
+ 40	PrototypeList } 
+ 41	} 
 
 PrototypeList:
- 40	PrototypeDecl 
- 39	PrototypeList PrototypeDecl 
+ 43	PrototypeDecl 
+ 42	PrototypeList PrototypeDecl 
 
 Block:
- 41	{ FieldDeclListOpt 
+ 44	{ FieldDeclListOpt 
 
 FieldDeclListOpt:
- 43	StatementListOpt 
- 42	FieldDeclList StatementListOpt 
+ 46	StatementListOpt 
+ 45	FieldDeclList StatementListOpt 
 
 StatementListOpt:
- 44	StatementList } 
- 45	} 
+ 47	StatementList } 
+ 48	} 
 
 FieldDeclList:
- 46	FieldDeclList FieldDecl 
- 47	FieldDecl 
+ 49	FieldDeclList FieldDecl 
+ 50	FieldDecl 
 
 StatementList:
- 48	StatementList Statement 
- 49	Statement 
+ 51	StatementList Statement 
+ 52	Statement 
 
 Statement:
- 50	Block 
- 53	ElseStatementOpt 
- 54	WhileStatement 
- 55	ForStatement 
- 52	Expression ; 
- 56	break ; 
- 58	println ( ExpressionList ) ; 
- 57	return ExpressionOpt 
- 51	; 
+ 53	Block 
+ 56	ElseStatementOpt 
+ 57	WhileStatement 
+ 58	ForStatement 
+ 55	Expression ; 
+ 59	break ; 
+ 61	println ( ExpressionList ) ; 
+ 60	return ExpressionOpt 
+ 54	; 
 
 IfStatement:
- 59	if ParExpression Statement 
+ 62	if ParExpression Statement 
 
 ElseStatementOpt:
- 61	IfStatement 
- 60	IfStatement else Statement 
+ 64	IfStatement 
+ 63	IfStatement else Statement 
 
 WhileStatement:
- 62	while ParExpression Statement 
+ 65	while ParExpression Statement 
 
 ForStatement:
- 63	for ( ForControl Statement 
+ 66	for ( ForControl Statement 
 
 ForControl:
- 65	ForControl1 
- 64	Expression ForControl1 
+ 68	ForControl1 
+ 67	Expression ForControl1 
 
 ForControl1:
- 66	; Expression ; Expression ) 
- 67	; Expression ; ) 
+ 69	; Expression ; Expression ) 
+ 70	; Expression ; ) 
 
 ExpressionOpt:
- 68	Expression ; 
- 69	; 
+ 71	Expression ; 
+ 72	; 
 
 ExpressionList:
- 70	ExpressionList , Expression 
- 71	Expression 
-
-LValue:
- 74	LValue . _id 
- 73	LValue [ Expression ] 
- 72	_id 
+ 73	ExpressionList , Expression 
+ 74	Expression 
 
 MethodCall:
- 75	LValue ( ExpressionListOpt 
+ 76	_id Selector ( ExpressionListOpt 
+ 75	_id ( ExpressionListOpt 
 
 ExpressionListOpt:
- 76	ExpressionList ) 
- 77	) 
+ 77	ExpressionList ) 
+ 78	) 
 
 Literal:
- 81	_booleanliteral 
- 78	_integerliteral 
- 79	_doubleliteral 
- 80	_stringliteral 
-
-AssignmentOperator:
- 82	= 
+ 82	_booleanliteral 
+ 79	_integerliteral 
+ 80	_doubleliteral 
+ 81	_stringliteral 
 
 PrefixOperator:
  84	- 
@@ -182,24 +182,31 @@ InfixOperator:
 ParExpression:
  97	( Expression ) 
 
-Primary:
- 98	LValue 
-100	MethodCall 
- 99	Literal 
-101	ParExpression 
-
 Expression:
-103	Expression1 
-102	Expression1 AssignmentOperator Expression 
+100	Expression1 
+ 99	_id Selector = Expression1 
+ 98	_id = Expression1 
 
 Expression1:
-104	InfixOpt 
+101	Expression1 InfixOperator Expression2 
+102	Expression2 
 
 Expression2:
-105	PrefixOperator Expression2 
-106	Primary 
+103	PrefixOperator Expression2 
+104	Expression3 
 
-InfixOpt:
-108	Expression2 
-107	Expression2 InfixOperator Expression2 
+Selector:
+105	Selector . _id 
+106	Selector [ Expression ] 
+107	. _id 
+108	[ Expression ] 
+
+Expression3:
+112	MethodCall 
+111	Literal 
+113	ParExpression 
+115	newarray ( _integerliteral , Type ) 
+114	readln ( ) 
+109	_id 
+110	_id Selector 
 
