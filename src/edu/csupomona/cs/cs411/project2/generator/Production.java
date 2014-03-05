@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-public class Production implements Iterable<Integer> {
+public class Production implements Iterable<Integer>, Comparable<Production> {
 	private static final String PRODUCTION_DELIMINATOR = "->";
 
 	private final int POINTER;
@@ -119,6 +119,11 @@ public class Production implements Iterable<Integer> {
 		hash = 19 * hash + Objects.hashCode(this.PRODUCTIONS);
 		//hash = 19 * hash + Objects.hashCode(this._goto);
 		return hash;
+	}
+
+	@Override
+	public int compareTo(Production p) {
+		return this.toString().compareTo(p.toString());
 	}
 
 	@Override

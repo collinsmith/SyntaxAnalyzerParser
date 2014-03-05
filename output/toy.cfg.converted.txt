@@ -6,10 +6,10 @@ DeclList:
   2	Decl 
 
 Decl:
-  3	FieldDecl 
   4	MethodDecl 
   5	ClassDecl 
   6	InterfaceDecl 
+  3	FieldDecl 
 
 FieldDecl:
   7	Field ; 
@@ -18,24 +18,24 @@ Field:
   8	Type _id 
 
 Type:
-  9	int 
- 10	double 
  11	bool 
+ 10	double 
+  9	int 
+ 14	Type [ ] 
  12	string 
  13	_id 
- 14	Type [ ] 
 
 ArgumentList:
- 15	ArgumentList , Field 
  16	Field 
+ 15	ArgumentList , Field 
 
 ArgumentListOpt:
  17	ArgumentList ) 
  18	) 
 
 Prototype:
+ 20	Field ( ArgumentListOpt 
  19	void _id ( ArgumentListOpt 
- 20	Type _id ( ArgumentListOpt 
 
 MethodDecl:
  21	Prototype Block 
@@ -47,16 +47,16 @@ ClassDecl:
  23	class _id Super 
 
 Super:
- 24	extends _id Interfaces 
  25	Interfaces 
+ 24	extends _id Interfaces 
 
 Interfaces:
- 26	implements IdentifierList ClassBody 
  27	ClassBody 
+ 26	implements IdentifierList ClassBody 
 
 ClassBody:
- 28	{ } 
  29	{ MemberList } 
+ 28	{ } 
 
 IdentifierList:
  30	IdentifierList , _id 
@@ -67,8 +67,8 @@ MemberList:
  33	Member 
 
 Member:
- 34	FieldDecl 
  35	MethodDecl 
+ 34	FieldDecl 
 
 InterfaceDecl:
  36	interface _id { PrototypeListOpt 
@@ -78,15 +78,15 @@ PrototypeListOpt:
  38	} 
 
 PrototypeList:
- 39	PrototypeList PrototypeDecl 
  40	PrototypeDecl 
+ 39	PrototypeList PrototypeDecl 
 
 Block:
  41	{ FieldDeclListOpt 
 
 FieldDeclListOpt:
- 42	FieldDeclList StatementListOpt 
  43	StatementListOpt 
+ 42	FieldDeclList StatementListOpt 
 
 StatementListOpt:
  44	StatementList } 
@@ -98,25 +98,25 @@ FieldDeclList:
 
 StatementList:
  48	StatementList Statement 
- 49	StatementList 
+ 49	Statement 
 
 Statement:
  50	Block 
- 51	; 
- 52	Expression ; 
  53	ElseStatementOpt 
  54	WhileStatement 
  55	ForStatement 
+ 52	Expression ; 
  56	break ; 
- 57	return ExpressionOpt 
  58	println ( ExpressionList ) ; 
+ 57	return ExpressionOpt 
+ 51	; 
 
 IfStatement:
  59	if ParExpression Statement 
 
 ElseStatementOpt:
- 60	IfStatement else Statement 
  61	IfStatement 
+ 60	IfStatement else Statement 
 
 WhileStatement:
  62	while ParExpression Statement 
@@ -125,8 +125,8 @@ ForStatement:
  63	for ( ForControl Statement 
 
 ForControl:
- 64	Expression ForControl1 
  65	ForControl1 
+ 64	Expression ForControl1 
 
 ForControl1:
  66	; Expression ; Expression ) 
@@ -141,9 +141,9 @@ ExpressionList:
  71	Expression 
 
 LValue:
- 72	_id 
- 73	LValue [ Expression ] 
  74	LValue . _id 
+ 73	LValue [ Expression ] 
+ 72	_id 
 
 MethodCall:
  75	LValue ( ExpressionListOpt 
@@ -153,56 +153,53 @@ ExpressionListOpt:
  77	) 
 
 Literal:
+ 81	_booleanliteral 
  78	_integerliteral 
  79	_doubleliteral 
  80	_stringliteral 
- 81	_booleanliteral 
 
 AssignmentOperator:
  82	= 
 
 PrefixOperator:
- 83	! 
  84	- 
+ 83	! 
 
 InfixOperator:
- 85	|| 
- 86	&& 
- 87	== 
- 88	!= 
- 89	< 
- 90	> 
- 91	<= 
- 92	>= 
  93	+ 
  94	- 
  95	* 
  96	/ 
+ 89	< 
+ 91	<= 
+ 90	> 
+ 92	>= 
+ 87	== 
+ 88	!= 
+ 86	&& 
+ 85	|| 
 
 ParExpression:
  97	( Expression ) 
 
 Primary:
  98	LValue 
- 99	Literal 
 100	MethodCall 
+ 99	Literal 
 101	ParExpression 
 
 Expression:
-102	AssignmentOpt 
+103	Expression1 
+102	Expression1 AssignmentOperator Expression 
 
 Expression1:
-103	InfixOpt 
+104	InfixOpt 
 
 Expression2:
-104	PrefixOperator Expression2 
-105	Primary 
+105	PrefixOperator Expression2 
+106	Primary 
 
 InfixOpt:
-106	Expression2 InfixOperator Expression2 
-107	Expression2 
-
-AssignmentOpt:
-108	Expression1 AssignmentOperator Expression1 
-109	Expression1 
+108	Expression2 
+107	Expression2 InfixOperator Expression2 
 

@@ -35,7 +35,7 @@ ArgumentList )
 
 Prototype:
 void _id ( ArgumentListOpt
-Type _id ( ArgumentListOpt
+Field ( ArgumentListOpt
 
 MethodDecl:
 Prototype Block
@@ -99,7 +99,7 @@ FieldDecl
 
 StatementList:
 StatementList Statement
-StatementList
+Statement
 
 Statement:
 Block
@@ -189,7 +189,8 @@ MethodCall
 ParExpression
 
 Expression:
-AssignmentOpt
+Expression1 AssignmentOperator Expression
+Expression1
 
 Expression1:
 InfixOpt
@@ -201,7 +202,3 @@ Primary
 InfixOpt:
 Expression2 InfixOperator Expression2
 Expression2
-
-AssignmentOpt:
-Expression1 AssignmentOperator Expression1
-Expression1

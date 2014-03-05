@@ -190,6 +190,11 @@ public class ParserGenerator {
 			}
 		}
 
+		for (List<Production> productionsForNonterminal : productionsTable.values()) {
+			Collections.sort(productionsForNonterminal);
+			productionsForNonterminal = Collections.unmodifiableList(productionsForNonterminal);
+		}
+
 		return Collections.unmodifiableMap(productionsTable);
 	}
 
