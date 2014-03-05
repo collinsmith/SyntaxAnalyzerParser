@@ -2,211 +2,201 @@ Program:
   0	DeclList 
 
 DeclList:
-  1	DeclList Decl 
-  2	Decl 
+  1	Decl 
+  2	DeclList Decl 
 
 Decl:
-  4	MethodDecl 
-  5	ClassDecl 
-  6	InterfaceDecl 
   3	FieldDecl 
+  4	ClassDecl 
+  5	MethodDecl 
+  6	InterfaceDecl 
 
 FieldDecl:
-  7	Field ; 
+  7	TypeAndIdentifier ; 
 
-Field:
+TypeAndIdentifier:
   8	Type _id 
 
 Type:
-  9	BasicType 
- 10	ReferenceType 
+  9	Type [ ] 
+ 10	BasicType 
+ 11	ReferenceType 
 
 BasicType:
- 14	bool 
- 13	double 
  12	int 
+ 13	bool 
+ 14	double 
  15	string 
- 11	BasicType [ ] 
 
 ReferenceType:
- 16	ReferenceType [ ] 
- 17	_id 
-
-ArgumentList:
- 19	Field 
- 18	ArgumentList , Field 
-
-ArgumentListOpt:
- 21	) 
- 20	ArgumentList ) 
-
-Prototype:
- 23	Field ( ArgumentListOpt 
- 22	void _id ( ArgumentListOpt 
+ 16	_id 
 
 MethodDecl:
- 24	Prototype Block 
+ 17	Prototype Block 
 
-PrototypeDecl:
- 25	Prototype ; 
+Prototype:
+ 18	TypeAndIdentifier ( ArgumentListOpt 
+ 19	void ReferenceType ( ArgumentListOpt 
 
-ClassDecl:
- 26	class _id Super 
+ArgumentListOpt:
+ 20	) 
+ 21	ArgumentList ) 
 
-Super:
- 28	Interfaces 
- 27	extends _id Interfaces 
-
-Interfaces:
- 30	ClassBody 
- 29	implements IdentifierList ClassBody 
-
-ClassBody:
- 32	{ MemberList } 
- 31	{ } 
-
-IdentifierList:
- 33	IdentifierList , _id 
- 34	_id 
-
-MemberList:
- 35	MemberList Member 
- 36	Member 
-
-Member:
- 38	MethodDecl 
- 37	FieldDecl 
-
-InterfaceDecl:
- 39	interface _id { PrototypeListOpt 
-
-PrototypeListOpt:
- 40	PrototypeList } 
- 41	} 
-
-PrototypeList:
- 43	PrototypeDecl 
- 42	PrototypeList PrototypeDecl 
+ArgumentList:
+ 22	TypeAndIdentifier 
+ 23	ArgumentList , TypeAndIdentifier 
 
 Block:
- 44	{ FieldDeclListOpt 
+ 24	{ FieldDeclListOpt 
 
 FieldDeclListOpt:
- 46	StatementListOpt 
- 45	FieldDeclList StatementListOpt 
-
-StatementListOpt:
- 47	StatementList } 
- 48	} 
+ 25	StatementListOpt 
+ 26	FieldDeclList StatementListOpt 
 
 FieldDeclList:
- 49	FieldDeclList FieldDecl 
- 50	FieldDecl 
+ 27	FieldDecl 
+ 28	FieldDeclList FieldDecl 
+
+StatementListOpt:
+ 29	} 
+ 30	StatementList } 
 
 StatementList:
- 51	StatementList Statement 
- 52	Statement 
+ 31	Statement 
+ 32	StatementList Statement 
 
 Statement:
- 53	Block 
- 56	ElseStatementOpt 
- 57	WhileStatement 
- 58	ForStatement 
- 55	Expression ; 
- 59	break ; 
- 61	println ( ExpressionList ) ; 
- 60	return ExpressionOpt 
- 54	; 
+ 33	; 
+ 34	Block 
+ 35	break ; 
+ 36	IfStatement 
+ 37	Expression ; 
+ 38	ForStatement 
+ 39	WhileStatement 
+ 40	return ReturnExpressionOpt 
+ 41	println ( ExpressionList ) ; 
 
 IfStatement:
- 62	if ParExpression Statement 
-
-ElseStatementOpt:
- 64	IfStatement 
- 63	IfStatement else Statement 
-
-WhileStatement:
- 65	while ParExpression Statement 
-
-ForStatement:
- 66	for ( ForControl Statement 
-
-ForControl:
- 68	ForControl1 
- 67	Expression ForControl1 
-
-ForControl1:
- 69	; Expression ; Expression ) 
- 70	; Expression ; ) 
-
-ExpressionOpt:
- 71	Expression ; 
- 72	; 
-
-ExpressionList:
- 73	ExpressionList , Expression 
- 74	Expression 
-
-MethodCall:
- 76	_id Selector ( ExpressionListOpt 
- 75	_id ( ExpressionListOpt 
-
-ExpressionListOpt:
- 77	ExpressionList ) 
- 78	) 
-
-Literal:
- 82	_booleanliteral 
- 79	_integerliteral 
- 80	_doubleliteral 
- 81	_stringliteral 
-
-PrefixOperator:
- 84	- 
- 83	! 
-
-InfixOperator:
- 93	+ 
- 94	- 
- 95	* 
- 96	/ 
- 89	< 
- 91	<= 
- 90	> 
- 92	>= 
- 87	== 
- 88	!= 
- 86	&& 
- 85	|| 
+ 42	if ParExpression Statement 
+ 43	if ParExpression Statement else Statement 
 
 ParExpression:
- 97	( Expression ) 
+ 44	( Expression ) 
+
+ForStatement:
+ 45	for ( ForControl Statement 
+
+ForControl:
+ 46	ForControl1 
+ 47	Expression ForControl1 
+
+ForControl1:
+ 48	; Expression ; ) 
+ 49	; Expression ; Expression ) 
+
+WhileStatement:
+ 50	while ParExpression Statement 
+
+ReturnExpressionOpt:
+ 51	; 
+ 52	Expression ; 
+
+ExpressionList:
+ 53	Expression 
+ 54	ExpressionList , Expression 
+
+ClassDecl:
+ 55	class ReferenceType Super 
+
+Super:
+ 56	Interfaces 
+ 57	extends ReferenceType Interfaces 
+
+Interfaces:
+ 58	{ ClassBodyOpt 
+ 59	implements IdentifierList { ClassBodyOpt 
+
+IdentifierList:
+ 60	ReferenceType 
+ 61	IdentifierList , ReferenceType 
+
+ClassBodyOpt:
+ 62	} 
+ 63	MemberList } 
+
+MemberList:
+ 64	Member 
+ 65	MemberList Member 
+
+Member:
+ 66	FieldDecl 
+ 67	MethodDecl 
+
+InterfaceDecl:
+ 68	interface ReferenceType { PrototypeListOpt 
+
+PrototypeListOpt:
+ 69	} 
+ 70	PrototypeList } 
+
+PrototypeList:
+ 71	PrototypeDecl 
+ 72	PrototypeList PrototypeDecl 
+
+PrototypeDecl:
+ 73	Prototype ; 
 
 Expression:
-100	Expression1 
- 99	_id Selector = Expression1 
- 98	_id = Expression1 
+ 74	LValue = BinaryExpression 
+ 75	BinaryExpression 
 
-Expression1:
-101	Expression1 InfixOperator Expression2 
-102	Expression2 
+BinaryExpression:
+ 76	BinaryExpression InfixOperator UnaryExpression 
+ 77	UnaryExpression 
 
-Expression2:
-103	PrefixOperator Expression2 
-104	Expression3 
+UnaryExpression:
+ 78	PrefixOperator UnaryExpression 
+ 79	LValue 
+ 80	Literal 
+ 81	MethodCall 
+ 82	ParExpression 
+ 83	readln ( ) 
+ 84	newarray ( _integerliteral , Type ) 
 
-Selector:
-105	Selector . _id 
-106	Selector [ Expression ] 
-107	. _id 
-108	[ Expression ] 
+PrefixOperator:
+ 85	! 
+ 86	- 
 
-Expression3:
-112	MethodCall 
-111	Literal 
-113	ParExpression 
-115	newarray ( _integerliteral , Type ) 
-114	readln ( ) 
-109	_id 
-110	_id Selector 
+InfixOperator:
+ 87	|| 
+ 88	&& 
+ 89	== 
+ 90	!= 
+ 91	< 
+ 92	> 
+ 93	<= 
+ 94	>= 
+ 95	+ 
+ 96	- 
+ 97	* 
+ 98	/ 
+
+LValue:
+ 99	ReferenceType 
+100	LValue [ Expression ] 
+101	LValue . ReferenceType 
+
+Literal:
+102	_doubleliteral 
+103	_stringliteral 
+104	_integerliteral 
+105	_booleanliteral 
+
+MethodCall:
+106	ReferenceType ( ExpressionListOpt 
+107	ReferenceType . ReferenceType ( ExpressionListOpt 
+
+ExpressionListOpt:
+108	) 
+109	ExpressionList ) 
 

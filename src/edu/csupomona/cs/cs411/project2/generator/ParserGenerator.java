@@ -91,7 +91,7 @@ public class ParserGenerator {
 		System.out.format("%dms\t%d productions%n", TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-dt), numProductions);
 
 		dt = System.nanoTime();
-		System.out.format("Creating SLR tables...");
+		System.out.format("Creating SLR tables...%n");
 		shiftReduces = Integer.MIN_VALUE;
 		reduceReduces = 0;
 		tablesAvoided = 0;
@@ -99,12 +99,12 @@ public class ParserGenerator {
 		productionsUsed = new boolean[numProductions];
 
 		TABLES = generateTables();
-		System.out.format("%dms\t\t%d tables%n", TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-dt), TABLES.size());
+		System.out.format("...Tables generated in %dms %d tables%n", TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-dt), TABLES.size());
 
 		for (int i = 0; i < productionsUsed.length; i++) {
 			if (!productionsUsed[i]) {
 				unusedProductions++;
-				System.out.format("%3d\t%s%n", i, PRODUCTIONS_LIST.get(i));
+				System.out.format("Unused production: %3d\t%s%n", i, PRODUCTIONS_LIST.get(i));
 			}
 		}
 
@@ -191,7 +191,7 @@ public class ParserGenerator {
 		}
 
 		for (List<Production> productionsForNonterminal : productionsTable.values()) {
-			Collections.sort(productionsForNonterminal);
+			//Collections.sort(productionsForNonterminal);
 			productionsForNonterminal = Collections.unmodifiableList(productionsForNonterminal);
 		}
 
@@ -227,6 +227,19 @@ public class ParserGenerator {
 			parentTable.putTransition(tableMetadata.getGoto().getSymbol(), existingTable);
 			tablesAvoided++;
 			return;
+		} else {
+			// TODO change this sloppy implementation to use the tables map
+			// need to implement hash function where order of list doesn't matter
+			Set<Production> initialProductionsForTable;
+			for (Table t : tables.values()) {
+				initialProductionsForTable = new HashSet<>(t.getInitialProductions());
+				initialProductionsForTable.removeAll(initialProductions);
+				if (initialProductionsForTable.isEmpty()) {
+					parentTable.putTransition(tableMetadata.getGoto().getSymbol(), t);
+					tablesAvoided++;
+					return;
+				}
+			}
 		}
 
 		List<Production> closureProductions = new LinkedList<>(initialProductions);

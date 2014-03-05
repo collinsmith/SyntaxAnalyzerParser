@@ -2,165 +2,167 @@ Program:
 DeclList
 
 DeclList:
-DeclList Decl
 Decl
+DeclList Decl
 
 Decl:
 FieldDecl
-MethodDecl
 ClassDecl
+MethodDecl
 InterfaceDecl
 
 FieldDecl:
-Field ;
+TypeAndIdentifier ;
 
-Field:
+TypeAndIdentifier:
 Type _id
 
 Type:
+Type [ ]
 BasicType
 ReferenceType
 
 BasicType:
-BasicType [ ]
 int
-double
 bool
+double
 string
 
 ReferenceType:
-ReferenceType [ ]
 _id
-
-ArgumentList:
-ArgumentList , Field
-Field
-
-ArgumentListOpt:
-ArgumentList )
-)
-
-Prototype:
-void _id ( ArgumentListOpt
-Field ( ArgumentListOpt
 
 MethodDecl:
 Prototype Block
 
-PrototypeDecl:
-Prototype ;
+Prototype:
+TypeAndIdentifier ( ArgumentListOpt
+void ReferenceType ( ArgumentListOpt
+
+ArgumentListOpt:
+)
+ArgumentList )
+
+ArgumentList:
+TypeAndIdentifier
+ArgumentList , TypeAndIdentifier
+
+Block:
+{ FieldDeclListOpt
+
+FieldDeclListOpt:
+StatementListOpt
+FieldDeclList StatementListOpt
+
+FieldDeclList:
+FieldDecl
+FieldDeclList FieldDecl
+
+StatementListOpt:
+}
+StatementList }
+
+StatementList:
+Statement
+StatementList Statement
+
+Statement:
+;
+Block
+break ;
+IfStatement
+Expression ;
+ForStatement
+WhileStatement
+return ReturnExpressionOpt
+println ( ExpressionList ) ;
+
+IfStatement:
+if ParExpression Statement
+if ParExpression Statement else Statement
+
+ParExpression:
+( Expression )
+
+ForStatement:
+for ( ForControl Statement
+
+ForControl:
+ForControl1
+Expression ForControl1
+
+ForControl1:
+; Expression ; )
+; Expression ; Expression )
+
+WhileStatement:
+while ParExpression Statement
+
+ReturnExpressionOpt:
+;
+Expression ;
+
+ExpressionList:
+Expression
+ExpressionList , Expression
 
 ClassDecl:
-class _id Super
+class ReferenceType Super
 
 Super:
-extends _id Interfaces
 Interfaces
+extends ReferenceType Interfaces
 
 Interfaces:
-implements IdentifierList ClassBody
-ClassBody
-
-ClassBody:
-{ }
-{ MemberList }
+{ ClassBodyOpt
+implements IdentifierList { ClassBodyOpt
 
 IdentifierList:
-IdentifierList , _id
-_id
+ReferenceType
+IdentifierList , ReferenceType
+
+
+ClassBodyOpt:
+}
+MemberList }
 
 MemberList:
-MemberList Member
 Member
+MemberList Member
 
 Member:
 FieldDecl
 MethodDecl
 
 InterfaceDecl:
-interface _id { PrototypeListOpt
+interface ReferenceType { PrototypeListOpt
 
 PrototypeListOpt:
-PrototypeList }
 }
+PrototypeList }
 
 PrototypeList:
-PrototypeList PrototypeDecl
 PrototypeDecl
+PrototypeList PrototypeDecl
 
+PrototypeDecl:
+Prototype ;
 
-Block:
-{ FieldDeclListOpt
+Expression:
+LValue = BinaryExpression
+BinaryExpression
 
-FieldDeclListOpt:
-FieldDeclList StatementListOpt
-StatementListOpt
+BinaryExpression:
+BinaryExpression InfixOperator UnaryExpression
+UnaryExpression
 
-StatementListOpt:
-StatementList }
-}
-
-FieldDeclList:
-FieldDeclList FieldDecl
-FieldDecl
-
-StatementList:
-StatementList Statement
-Statement
-
-Statement:
-Block
-;
-Expression ;
-ElseStatementOpt
-WhileStatement
-ForStatement
-break ;
-return ExpressionOpt
-println ( ExpressionList ) ;
-
-IfStatement:
-if ParExpression Statement
-
-ElseStatementOpt:
-IfStatement else Statement
-IfStatement
-
-WhileStatement:
-while ParExpression Statement
-
-ForStatement:
-for ( ForControl Statement
-
-ForControl:
-Expression ForControl1
-ForControl1
-
-ForControl1:
-; Expression ; Expression )
-; Expression ; )
-
-ExpressionOpt:
-Expression ;
-;
-
-ExpressionList:
-ExpressionList , Expression
-Expression
-
-MethodCall:
-_id ( ExpressionListOpt
-_id Selector ( ExpressionListOpt
-
-ExpressionListOpt:
-ExpressionList )
-)
-
-Literal:
-_integerliteral
-_doubleliteral
-_stringliteral
-_booleanliteral
+UnaryExpression:
+PrefixOperator UnaryExpression
+LValue
+Literal
+MethodCall
+ParExpression
+readln ( )
+newarray ( _integerliteral , Type )
 
 PrefixOperator:
 !
@@ -180,33 +182,21 @@ InfixOperator:
 *
 /
 
-ParExpression:
-( Expression )
+LValue:
+ReferenceType
+LValue [ Expression ]
+LValue . ReferenceType
 
-Expression:
-_id = Expression1
-_id Selector = Expression1
-Expression1
+Literal:
+_doubleliteral
+_stringliteral
+_integerliteral
+_booleanliteral
 
-Expression1:
-Expression1 InfixOperator Expression2
-Expression2
+MethodCall:
+ReferenceType ( ExpressionListOpt
+ReferenceType . ReferenceType ( ExpressionListOpt
 
-Expression2:
-PrefixOperator Expression2
-Expression3
-
-Selector:
-Selector . _id
-Selector [ Expression ]
-. _id
-[ Expression ]
-
-Expression3:
-_id
-_id Selector
-Literal
-MethodCall
-ParExpression
-readln ( )
-newarray ( _integerliteral , Type )
+ExpressionListOpt:
+)
+ExpressionList )
