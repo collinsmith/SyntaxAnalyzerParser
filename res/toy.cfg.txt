@@ -27,12 +27,7 @@ Type [ ]
 
 MethodType:
 void
-int
-double
-bool
-string
-_id
-Type [ ]
+Type
 
 ArgumentList:
 ArgumentList , Field

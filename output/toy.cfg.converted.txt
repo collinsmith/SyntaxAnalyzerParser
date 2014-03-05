@@ -125,90 +125,87 @@ WhileStatement:
  63	while ParExpression Statement 
 
 ForStatement:
- 64	for ( ForControl ) Statement 
+ 64	for ( ForControl Statement 
 
 ForControl:
  65	Expression ForControl1 
  66	ForControl1 
 
 ForControl1:
- 67	; Expression ; ForControl2 
- 68	; Expression ; 
-
-ForControl2:
- 69	Expression 
+ 67	; Expression ; Expression ) 
+ 68	; Expression ; ) 
 
 ExpressionOpt:
- 70	Expression ; 
- 71	; 
+ 69	Expression ; 
+ 70	; 
 
 ExpressionList:
- 72	ExpressionList , Expression 
- 73	Expression 
+ 71	ExpressionList , Expression 
+ 72	Expression 
 
 LValue:
- 74	_id 
- 75	LValue [ Expression ] 
- 76	LValue . _id 
+ 73	_id 
+ 74	LValue [ Expression ] 
+ 75	LValue . _id 
 
 MethodCall:
- 77	LValue ( ExpressionListOpt 
+ 76	LValue ( ExpressionListOpt 
 
 ExpressionListOpt:
- 78	ExpressionList ) 
- 79	) 
+ 77	ExpressionList ) 
+ 78	) 
 
 Literal:
- 80	_integerliteral 
- 81	_doubleliteral 
- 82	_stringliteral 
- 83	_booleanliteral 
+ 79	_integerliteral 
+ 80	_doubleliteral 
+ 81	_stringliteral 
+ 82	_booleanliteral 
 
 AssignmentOperator:
- 84	= 
+ 83	= 
 
 PrefixOperator:
- 85	! 
- 86	- 
+ 84	! 
+ 85	- 
 
 InfixOperator:
- 87	|| 
- 88	&& 
- 89	== 
- 90	!= 
- 91	< 
- 92	> 
- 93	<= 
- 94	>= 
- 95	+ 
- 96	- 
- 97	* 
- 98	/ 
+ 86	|| 
+ 87	&& 
+ 88	== 
+ 89	!= 
+ 90	< 
+ 91	> 
+ 92	<= 
+ 93	>= 
+ 94	+ 
+ 95	- 
+ 96	* 
+ 97	/ 
 
 ParExpression:
- 99	( Expression ) 
+ 98	( Expression ) 
 
 Primary:
-100	LValue 
-101	Literal 
-102	MethodCall 
-103	ParExpression 
+ 99	LValue 
+100	Literal 
+101	MethodCall 
+102	ParExpression 
 
 Expression:
-104	AssignmentOpt 
+103	AssignmentOpt 
 
 Expression1:
-105	InfixOpt 
+104	InfixOpt 
 
 Expression2:
-106	PrefixOperator Expression2 
-107	Primary 
+105	PrefixOperator Expression2 
+106	Primary 
 
 InfixOpt:
-108	Expression2 InfixOperator Expression2 
-109	Expression2 
+107	Expression2 InfixOperator Expression2 
+108	Expression2 
 
 AssignmentOpt:
-110	Expression1 AssignmentOperator Expression1 
-111	Expression1 
+109	Expression1 AssignmentOperator Expression1 
+110	Expression1 
 
