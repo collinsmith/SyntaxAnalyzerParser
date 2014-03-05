@@ -25,187 +25,184 @@ Type:
  13	_id 
  14	Type [ ] 
 
-MethodType:
- 15	void 
- 16	Type 
-
 ArgumentList:
- 17	ArgumentList , Field 
- 18	Field 
+ 15	ArgumentList , Field 
+ 16	Field 
 
 ArgumentListOpt:
- 19	ArgumentList ) 
- 20	) 
+ 17	ArgumentList ) 
+ 18	) 
 
 Prototype:
- 21	MethodType _id ( ArgumentListOpt 
+ 19	void _id ( ArgumentListOpt 
+ 20	Type _id ( ArgumentListOpt 
 
 MethodDecl:
- 22	Prototype Block 
+ 21	Prototype Block 
 
 PrototypeDecl:
- 23	Prototype ; 
+ 22	Prototype ; 
 
 ClassDecl:
- 24	class _id Super 
+ 23	class _id Super 
 
 Super:
- 25	extends _id Interfaces 
- 26	Interfaces 
+ 24	extends _id Interfaces 
+ 25	Interfaces 
 
 Interfaces:
- 27	implements IdentifierList ClassBody 
- 28	ClassBody 
+ 26	implements IdentifierList ClassBody 
+ 27	ClassBody 
 
 ClassBody:
- 29	{ } 
- 30	{ MemberList } 
+ 28	{ } 
+ 29	{ MemberList } 
 
 IdentifierList:
- 31	IdentifierList , _id 
- 32	_id 
+ 30	IdentifierList , _id 
+ 31	_id 
 
 MemberList:
- 33	MemberList Member 
- 34	Member 
+ 32	MemberList Member 
+ 33	Member 
 
 Member:
- 35	FieldDecl 
- 36	MethodDecl 
+ 34	FieldDecl 
+ 35	MethodDecl 
 
 InterfaceDecl:
- 37	interface _id { PrototypeListOpt 
+ 36	interface _id { PrototypeListOpt 
 
 PrototypeListOpt:
- 38	PrototypeList } 
- 39	} 
+ 37	PrototypeList } 
+ 38	} 
 
 PrototypeList:
- 40	PrototypeList PrototypeDecl 
- 41	PrototypeDecl 
+ 39	PrototypeList PrototypeDecl 
+ 40	PrototypeDecl 
 
 Block:
- 42	{ FieldDeclListOpt 
+ 41	{ FieldDeclListOpt 
 
 FieldDeclListOpt:
- 43	FieldDeclList StatementListOpt 
- 44	StatementListOpt 
+ 42	FieldDeclList StatementListOpt 
+ 43	StatementListOpt 
 
 StatementListOpt:
- 45	StatementList } 
- 46	} 
+ 44	StatementList } 
+ 45	} 
 
 FieldDeclList:
- 47	FieldDeclList FieldDecl 
- 48	FieldDecl 
+ 46	FieldDeclList FieldDecl 
+ 47	FieldDecl 
 
 StatementList:
- 49	StatementList Statement 
- 50	StatementList 
+ 48	StatementList Statement 
+ 49	StatementList 
 
 Statement:
- 51	Block 
- 52	; 
- 53	Expression ; 
- 54	ElseStatementOpt 
- 55	WhileStatement 
- 56	ForStatement 
- 57	break ; 
- 58	return ExpressionOpt 
- 59	println ( ExpressionList ) ; 
+ 50	Block 
+ 51	; 
+ 52	Expression ; 
+ 53	ElseStatementOpt 
+ 54	WhileStatement 
+ 55	ForStatement 
+ 56	break ; 
+ 57	return ExpressionOpt 
+ 58	println ( ExpressionList ) ; 
 
 IfStatement:
- 60	if ParExpression Statement 
+ 59	if ParExpression Statement 
 
 ElseStatementOpt:
- 61	IfStatement else Statement 
- 62	IfStatement 
+ 60	IfStatement else Statement 
+ 61	IfStatement 
 
 WhileStatement:
- 63	while ParExpression Statement 
+ 62	while ParExpression Statement 
 
 ForStatement:
- 64	for ( ForControl Statement 
+ 63	for ( ForControl Statement 
 
 ForControl:
- 65	Expression ForControl1 
- 66	ForControl1 
+ 64	Expression ForControl1 
+ 65	ForControl1 
 
 ForControl1:
- 67	; Expression ; Expression ) 
- 68	; Expression ; ) 
+ 66	; Expression ; Expression ) 
+ 67	; Expression ; ) 
 
 ExpressionOpt:
- 69	Expression ; 
- 70	; 
+ 68	Expression ; 
+ 69	; 
 
 ExpressionList:
- 71	ExpressionList , Expression 
- 72	Expression 
+ 70	ExpressionList , Expression 
+ 71	Expression 
 
 LValue:
- 73	_id 
- 74	LValue [ Expression ] 
- 75	LValue . _id 
+ 72	_id 
+ 73	LValue [ Expression ] 
+ 74	LValue . _id 
 
 MethodCall:
- 76	LValue ( ExpressionListOpt 
+ 75	LValue ( ExpressionListOpt 
 
 ExpressionListOpt:
- 77	ExpressionList ) 
- 78	) 
+ 76	ExpressionList ) 
+ 77	) 
 
 Literal:
- 79	_integerliteral 
- 80	_doubleliteral 
- 81	_stringliteral 
- 82	_booleanliteral 
+ 78	_integerliteral 
+ 79	_doubleliteral 
+ 80	_stringliteral 
+ 81	_booleanliteral 
 
 AssignmentOperator:
- 83	= 
+ 82	= 
 
 PrefixOperator:
- 84	! 
- 85	- 
+ 83	! 
+ 84	- 
 
 InfixOperator:
- 86	|| 
- 87	&& 
- 88	== 
- 89	!= 
- 90	< 
- 91	> 
- 92	<= 
- 93	>= 
- 94	+ 
- 95	- 
- 96	* 
- 97	/ 
+ 85	|| 
+ 86	&& 
+ 87	== 
+ 88	!= 
+ 89	< 
+ 90	> 
+ 91	<= 
+ 92	>= 
+ 93	+ 
+ 94	- 
+ 95	* 
+ 96	/ 
 
 ParExpression:
- 98	( Expression ) 
+ 97	( Expression ) 
 
 Primary:
- 99	LValue 
-100	Literal 
-101	MethodCall 
-102	ParExpression 
+ 98	LValue 
+ 99	Literal 
+100	MethodCall 
+101	ParExpression 
 
 Expression:
-103	AssignmentOpt 
+102	AssignmentOpt 
 
 Expression1:
-104	InfixOpt 
+103	InfixOpt 
 
 Expression2:
-105	PrefixOperator Expression2 
-106	Primary 
+104	PrefixOperator Expression2 
+105	Primary 
 
 InfixOpt:
-107	Expression2 InfixOperator Expression2 
-108	Expression2 
+106	Expression2 InfixOperator Expression2 
+107	Expression2 
 
 AssignmentOpt:
-109	Expression1 AssignmentOperator Expression1 
-110	Expression1 
+108	Expression1 AssignmentOperator Expression1 
+109	Expression1 
 

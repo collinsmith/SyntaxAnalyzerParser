@@ -25,10 +25,6 @@ string
 _id
 Type [ ]
 
-MethodType:
-void
-Type
-
 ArgumentList:
 ArgumentList , Field
 Field
@@ -38,8 +34,8 @@ ArgumentList )
 )
 
 Prototype:
-MethodType _id ( ArgumentListOpt
-
+void _id ( ArgumentListOpt
+Type _id ( ArgumentListOpt
 
 MethodDecl:
 Prototype Block

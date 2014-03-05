@@ -3,45 +3,43 @@ I:	1 -> . 2                 goto(A1, 2)
 	2 -> . 2 3               goto(A1, 2)
 	2 -> . 3                 goto(A2, 3)
 	3 -> . 4                 goto(A3, 4)
-	4 -> . 5 83              goto(A4, 5)
-	5 -> . 6 96              goto(A5, 6)
-	6 -> . 60                goto(A6, 60)	shift
-	6 -> . 54                goto(A7, 54)	shift
-	6 -> . 51                goto(A8, 51)	shift
-	6 -> . 66                goto(A9, 66)	shift
-	6 -> . 96                goto(A10, 96)	shift
-	6 -> . 6 88 89           goto(A5, 6)
-	3 -> . 11                goto(A11, 11)
-	11 -> . 10 23            goto(A12, 10)
-	10 -> . 7 96 86 9        goto(A13, 7)
-	7 -> . 67                goto(A14, 67)	shift
-	7 -> . 6                 goto(A5, 6)
-	3 -> . 13                goto(A15, 13)
-	13 -> . 53 96 14         goto(A16, 53)	shift
-	3 -> . 20                goto(A17, 20)
-	20 -> . 61 96 90 21      goto(A18, 61)	shift
+	4 -> . 5 82              goto(A4, 5)
+	5 -> . 6 95              goto(A5, 6)
+	6 -> . 59                goto(A6, 59)	shift
+	6 -> . 53                goto(A7, 53)	shift
+	6 -> . 50                goto(A8, 50)	shift
+	6 -> . 65                goto(A9, 65)	shift
+	6 -> . 95                goto(A10, 95)	shift
+	6 -> . 6 87 88           goto(A5, 6)
+	3 -> . 10                goto(A11, 10)
+	10 -> . 9 22             goto(A12, 9)
+	9 -> . 66 95 85 8        goto(A13, 66)	shift
+	9 -> . 6 95 85 8         goto(A5, 6)
+	3 -> . 12                goto(A14, 12)
+	12 -> . 52 95 13         goto(A15, 52)	shift
+	3 -> . 19                goto(A16, 19)
+	19 -> . 60 95 89 20      goto(A17, 60)	shift
 
 A1, goto(A0, 2)
 I:	1 -> 2 .                 reduce(0)
-I:	2 -> 2 . 3               goto(A19, 3)
+I:	2 -> 2 . 3               goto(A18, 3)
 	3 -> . 4                 goto(A3, 4)
-	4 -> . 5 83              goto(A4, 5)
-	5 -> . 6 96              goto(A5, 6)
-	6 -> . 60                goto(A6, 60)	shift
-	6 -> . 54                goto(A7, 54)	shift
-	6 -> . 51                goto(A8, 51)	shift
-	6 -> . 66                goto(A9, 66)	shift
-	6 -> . 96                goto(A10, 96)	shift
-	6 -> . 6 88 89           goto(A5, 6)
-	3 -> . 11                goto(A11, 11)
-	11 -> . 10 23            goto(A12, 10)
-	10 -> . 7 96 86 9        goto(A13, 7)
-	7 -> . 67                goto(A14, 67)	shift
-	7 -> . 6                 goto(A5, 6)
-	3 -> . 13                goto(A15, 13)
-	13 -> . 53 96 14         goto(A16, 53)	shift
-	3 -> . 20                goto(A17, 20)
-	20 -> . 61 96 90 21      goto(A18, 61)	shift
+	4 -> . 5 82              goto(A4, 5)
+	5 -> . 6 95              goto(A5, 6)
+	6 -> . 59                goto(A6, 59)	shift
+	6 -> . 53                goto(A7, 53)	shift
+	6 -> . 50                goto(A8, 50)	shift
+	6 -> . 65                goto(A9, 65)	shift
+	6 -> . 95                goto(A10, 95)	shift
+	6 -> . 6 87 88           goto(A5, 6)
+	3 -> . 10                goto(A11, 10)
+	10 -> . 9 22             goto(A12, 9)
+	9 -> . 66 95 85 8        goto(A13, 66)	shift
+	9 -> . 6 95 85 8         goto(A5, 6)
+	3 -> . 12                goto(A14, 12)
+	12 -> . 52 95 13         goto(A15, 52)	shift
+	3 -> . 19                goto(A16, 19)
+	19 -> . 60 95 89 20      goto(A17, 60)	shift
 
 A2, goto(A0, 3)
 I:	2 -> 3 .                 reduce(2)
@@ -50,1162 +48,1193 @@ A3, goto(A0, 4)
 I:	3 -> 4 .                 reduce(3)
 
 A4, goto(A0, 5)
-I:	4 -> 5 . 83              goto(A20, 83)	shift
+I:	4 -> 5 . 82              goto(A19, 82)	shift
 
 A5, goto(A0, 6)
-I:	5 -> 6 . 96              goto(A21, 96)	shift
-I:	6 -> 6 . 88 89           goto(A22, 88)	shift
-I:	7 -> 6 .                 reduce(16)
+I:	5 -> 6 . 95              goto(A20, 95)	shift
+I:	6 -> 6 . 87 88           goto(A21, 87)	shift
+I:	9 -> 6 . 95 85 8         goto(A20, 95)	shift
 
-A6, goto(A0, 60)
-I:	6 -> 60 .                reduce(9)
+A6, goto(A0, 59)
+I:	6 -> 59 .                reduce(9)
 
-A7, goto(A0, 54)
-I:	6 -> 54 .                reduce(10)
+A7, goto(A0, 53)
+I:	6 -> 53 .                reduce(10)
 
-A8, goto(A0, 51)
-I:	6 -> 51 .                reduce(11)
+A8, goto(A0, 50)
+I:	6 -> 50 .                reduce(11)
 
-A9, goto(A0, 66)
-I:	6 -> 66 .                reduce(12)
+A9, goto(A0, 65)
+I:	6 -> 65 .                reduce(12)
 
-A10, goto(A0, 96)
-I:	6 -> 96 .                reduce(13)
+A10, goto(A0, 95)
+I:	6 -> 95 .                reduce(13)
 
-A11, goto(A0, 11)
-I:	3 -> 11 .                reduce(4)
+A11, goto(A0, 10)
+I:	3 -> 10 .                reduce(4)
 
-A12, goto(A0, 10)
-I:	11 -> 10 . 23            goto(A23, 23)
-	23 -> . 90 24            goto(A24, 90)	shift
+A12, goto(A0, 9)
+I:	10 -> 9 . 22             goto(A22, 22)
+	22 -> . 89 23            goto(A23, 89)	shift
 
-A13, goto(A0, 7)
-I:	10 -> 7 . 96 86 9        goto(A25, 96)	shift
+A13, goto(A0, 66)
+I:	9 -> 66 . 95 85 8        goto(A24, 95)	shift
 
-A14, goto(A0, 67)
-I:	7 -> 67 .                reduce(15)
+A14, goto(A0, 12)
+I:	3 -> 12 .                reduce(5)
 
-A15, goto(A0, 13)
-I:	3 -> 13 .                reduce(5)
+A15, goto(A0, 52)
+I:	12 -> 52 . 95 13         goto(A25, 95)	shift
 
-A16, goto(A0, 53)
-I:	13 -> 53 . 96 14         goto(A26, 96)	shift
+A16, goto(A0, 19)
+I:	3 -> 19 .                reduce(6)
 
-A17, goto(A0, 20)
-I:	3 -> 20 .                reduce(6)
+A17, goto(A0, 60)
+I:	19 -> 60 . 95 89 20      goto(A26, 95)	shift
 
-A18, goto(A0, 61)
-I:	20 -> 61 . 96 90 21      goto(A27, 96)	shift
-
-A19, goto(A1, 3)
+A18, goto(A1, 3)
 I:	2 -> 2 3 .               reduce(1)
 
-A20, goto(A4, 83)
-I:	4 -> 5 83 .              reduce(7)
+A19, goto(A4, 82)
+I:	4 -> 5 82 .              reduce(7)
 
-A21, goto(A5, 96)
-I:	5 -> 6 96 .              reduce(8)
+A20, goto(A5, 95)
+I:	5 -> 6 95 .              reduce(8)
+I:	9 -> 6 95 . 85 8         goto(A27, 85)	shift
 
-A22, goto(A5, 88)
-I:	6 -> 6 88 . 89           goto(A28, 89)	shift
+A21, goto(A5, 87)
+I:	6 -> 6 87 . 88           goto(A28, 88)	shift
 
-A23, goto(A12, 23)
-I:	11 -> 10 23 .            reduce(22)
+A22, goto(A12, 22)
+I:	10 -> 9 22 .             reduce(21)
 
-A24, goto(A12, 90)
-I:	23 -> 90 . 24            goto(A29, 24)
-	24 -> . 26 25            goto(A30, 26)
-	26 -> . 26 4             goto(A30, 26)
-	26 -> . 4                goto(A31, 4)
-	4 -> . 5 83              goto(A4, 5)
-	5 -> . 6 96              goto(A32, 6)
-	6 -> . 60                goto(A6, 60)	shift
-	6 -> . 54                goto(A7, 54)	shift
-	6 -> . 51                goto(A8, 51)	shift
-	6 -> . 66                goto(A9, 66)	shift
-	6 -> . 96                goto(A10, 96)	shift
-	6 -> . 6 88 89           goto(A32, 6)
-	24 -> . 25               goto(A33, 25)
-	25 -> . 27 91            goto(A34, 27)
-	27 -> . 27 28            goto(A34, 27)
-	27 -> . 27               goto(A34, 27)
-	25 -> . 91               goto(A35, 91)	shift
+A23, goto(A12, 89)
+I:	22 -> 89 . 23            goto(A29, 23)
+	23 -> . 25 24            goto(A30, 25)
+	25 -> . 25 4             goto(A30, 25)
+	25 -> . 4                goto(A31, 4)
+	4 -> . 5 82              goto(A4, 5)
+	5 -> . 6 95              goto(A32, 6)
+	6 -> . 59                goto(A6, 59)	shift
+	6 -> . 53                goto(A7, 53)	shift
+	6 -> . 50                goto(A8, 50)	shift
+	6 -> . 65                goto(A9, 65)	shift
+	6 -> . 95                goto(A10, 95)	shift
+	6 -> . 6 87 88           goto(A32, 6)
+	23 -> . 24               goto(A33, 24)
+	24 -> . 26 90            goto(A34, 26)
+	26 -> . 26 27            goto(A34, 26)
+	26 -> . 26               goto(A34, 26)
+	24 -> . 90               goto(A35, 90)	shift
 
-A25, goto(A13, 96)
-I:	10 -> 7 96 . 86 9        goto(A36, 86)	shift
+A24, goto(A13, 95)
+I:	9 -> 66 95 . 85 8        goto(A36, 85)	shift
 
-A26, goto(A16, 96)
-I:	13 -> 53 96 . 14         goto(A37, 14)
-	14 -> . 56 96 15         goto(A38, 56)	shift
-	14 -> . 15               goto(A39, 15)
-	15 -> . 59 17 16         goto(A40, 59)	shift
-	15 -> . 16               goto(A41, 16)
-	16 -> . 90 91            goto(A42, 90)	shift
-	16 -> . 90 18 91         goto(A42, 90)	shift
+A25, goto(A15, 95)
+I:	12 -> 52 95 . 13         goto(A37, 13)
+	13 -> . 55 95 14         goto(A38, 55)	shift
+	13 -> . 14               goto(A39, 14)
+	14 -> . 58 16 15         goto(A40, 58)	shift
+	14 -> . 15               goto(A41, 15)
+	15 -> . 89 90            goto(A42, 89)	shift
+	15 -> . 89 17 90         goto(A42, 89)	shift
 
-A27, goto(A18, 96)
-I:	20 -> 61 96 . 90 21      goto(A43, 90)	shift
+A26, goto(A17, 95)
+I:	19 -> 60 95 . 89 20      goto(A43, 89)	shift
 
-A28, goto(A22, 89)
-I:	6 -> 6 88 89 .           reduce(14)
+A27, goto(A20, 85)
+I:	9 -> 6 95 85 . 8         goto(A44, 8)
+	8 -> . 7 86              goto(A45, 7)
+	7 -> . 7 83 5            goto(A45, 7)
+	7 -> . 5                 goto(A46, 5)
+	5 -> . 6 95              goto(A32, 6)
+	6 -> . 59                goto(A6, 59)	shift
+	6 -> . 53                goto(A7, 53)	shift
+	6 -> . 50                goto(A8, 50)	shift
+	6 -> . 65                goto(A9, 65)	shift
+	6 -> . 95                goto(A10, 95)	shift
+	6 -> . 6 87 88           goto(A32, 6)
+	8 -> . 86                goto(A47, 86)	shift
 
-A29, goto(A24, 24)
-I:	23 -> 90 24 .            reduce(42)
+A28, goto(A21, 88)
+I:	6 -> 6 87 88 .           reduce(14)
 
-A30, goto(A24, 26)
-I:	24 -> 26 . 25            goto(A44, 25)
-I:	26 -> 26 . 4             goto(A45, 4)
-	25 -> . 27 91            goto(A34, 27)
-	27 -> . 27 28            goto(A34, 27)
-	27 -> . 27               goto(A34, 27)
-	25 -> . 91               goto(A35, 91)	shift
-	4 -> . 5 83              goto(A4, 5)
-	5 -> . 6 96              goto(A32, 6)
-	6 -> . 60                goto(A6, 60)	shift
-	6 -> . 54                goto(A7, 54)	shift
-	6 -> . 51                goto(A8, 51)	shift
-	6 -> . 66                goto(A9, 66)	shift
-	6 -> . 96                goto(A10, 96)	shift
-	6 -> . 6 88 89           goto(A32, 6)
+A29, goto(A23, 23)
+I:	22 -> 89 23 .            reduce(41)
 
-A31, goto(A24, 4)
-I:	26 -> 4 .                reduce(48)
+A30, goto(A23, 25)
+I:	23 -> 25 . 24            goto(A48, 24)
+I:	25 -> 25 . 4             goto(A49, 4)
+	24 -> . 26 90            goto(A34, 26)
+	26 -> . 26 27            goto(A34, 26)
+	26 -> . 26               goto(A34, 26)
+	24 -> . 90               goto(A35, 90)	shift
+	4 -> . 5 82              goto(A4, 5)
+	5 -> . 6 95              goto(A32, 6)
+	6 -> . 59                goto(A6, 59)	shift
+	6 -> . 53                goto(A7, 53)	shift
+	6 -> . 50                goto(A8, 50)	shift
+	6 -> . 65                goto(A9, 65)	shift
+	6 -> . 95                goto(A10, 95)	shift
+	6 -> . 6 87 88           goto(A32, 6)
 
-A32, goto(A24, 6)
-I:	5 -> 6 . 96              goto(A46, 96)	shift
-I:	6 -> 6 . 88 89           goto(A47, 88)	shift
+A31, goto(A23, 4)
+I:	25 -> 4 .                reduce(47)
 
-A33, goto(A24, 25)
-I:	24 -> 25 .               reduce(44)
+A32, goto(A23, 6)
+I:	5 -> 6 . 95              goto(A50, 95)	shift
+I:	6 -> 6 . 87 88           goto(A51, 87)	shift
 
-A34, goto(A24, 27)
-I:	25 -> 27 . 91            goto(A48, 91)	shift
-I:	27 -> 27 . 28            goto(A49, 28)
-I:	27 -> 27 .               reduce(50)
-	28 -> . 23               goto(A50, 23)
-	23 -> . 90 24            goto(A24, 90)	shift
-	28 -> . 83               goto(A51, 83)	shift
-	28 -> . 46 83            goto(A52, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-	28 -> . 30               goto(A71, 30)
-	30 -> . 29 55 28         goto(A72, 29)
-	29 -> . 58 44 28         goto(A73, 58)	shift
-	30 -> . 29               goto(A72, 29)
-	28 -> . 31               goto(A74, 31)
-	31 -> . 68 44 28         goto(A75, 68)	shift
-	28 -> . 32               goto(A76, 32)
-	32 -> . 57 86 33 28      goto(A77, 57)	shift
-	28 -> . 52 83            goto(A78, 52)	shift
-	28 -> . 65 35            goto(A79, 65)	shift
-	28 -> . 63 86 36 87 83   goto(A80, 63)	shift
+A33, goto(A23, 24)
+I:	23 -> 24 .               reduce(43)
 
-A35, goto(A24, 91)
-I:	25 -> 91 .               reduce(46)
+A34, goto(A23, 26)
+I:	24 -> 26 . 90            goto(A52, 90)	shift
+I:	26 -> 26 . 27            goto(A53, 27)
+I:	26 -> 26 .               reduce(49)
+	27 -> . 22               goto(A54, 22)
+	22 -> . 89 23            goto(A23, 89)	shift
+	27 -> . 82               goto(A55, 82)	shift
+	27 -> . 45 82            goto(A56, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+	27 -> . 29               goto(A75, 29)
+	29 -> . 28 54 27         goto(A76, 28)
+	28 -> . 57 43 27         goto(A77, 57)	shift
+	29 -> . 28               goto(A76, 28)
+	27 -> . 30               goto(A78, 30)
+	30 -> . 67 43 27         goto(A79, 67)	shift
+	27 -> . 31               goto(A80, 31)
+	31 -> . 56 85 32 27      goto(A81, 56)	shift
+	27 -> . 51 82            goto(A82, 51)	shift
+	27 -> . 64 34            goto(A83, 64)	shift
+	27 -> . 62 85 35 86 82   goto(A84, 62)	shift
 
-A36, goto(A25, 86)
-I:	10 -> 7 96 86 . 9        goto(A81, 9)
-	9 -> . 8 87              goto(A82, 8)
-	8 -> . 8 84 5            goto(A82, 8)
-	8 -> . 5                 goto(A83, 5)
-	5 -> . 6 96              goto(A32, 6)
-	6 -> . 60                goto(A6, 60)	shift
-	6 -> . 54                goto(A7, 54)	shift
-	6 -> . 51                goto(A8, 51)	shift
-	6 -> . 66                goto(A9, 66)	shift
-	6 -> . 96                goto(A10, 96)	shift
-	6 -> . 6 88 89           goto(A32, 6)
-	9 -> . 87                goto(A84, 87)	shift
+A35, goto(A23, 90)
+I:	24 -> 90 .               reduce(45)
 
-A37, goto(A26, 14)
-I:	13 -> 53 96 14 .         reduce(24)
+A36, goto(A24, 85)
+I:	9 -> 66 95 85 . 8        goto(A85, 8)
+	8 -> . 7 86              goto(A45, 7)
+	7 -> . 7 83 5            goto(A45, 7)
+	7 -> . 5                 goto(A46, 5)
+	5 -> . 6 95              goto(A32, 6)
+	6 -> . 59                goto(A6, 59)	shift
+	6 -> . 53                goto(A7, 53)	shift
+	6 -> . 50                goto(A8, 50)	shift
+	6 -> . 65                goto(A9, 65)	shift
+	6 -> . 95                goto(A10, 95)	shift
+	6 -> . 6 87 88           goto(A32, 6)
+	8 -> . 86                goto(A47, 86)	shift
 
-A38, goto(A26, 56)
-I:	14 -> 56 . 96 15         goto(A85, 96)	shift
+A37, goto(A25, 13)
+I:	12 -> 52 95 13 .         reduce(23)
 
-A39, goto(A26, 15)
-I:	14 -> 15 .               reduce(26)
+A38, goto(A25, 55)
+I:	13 -> 55 . 95 14         goto(A86, 95)	shift
 
-A40, goto(A26, 59)
-I:	15 -> 59 . 17 16         goto(A86, 17)
-	17 -> . 17 84 96         goto(A86, 17)
-	17 -> . 96               goto(A87, 96)	shift
+A39, goto(A25, 14)
+I:	13 -> 14 .               reduce(25)
 
-A41, goto(A26, 16)
-I:	15 -> 16 .               reduce(28)
+A40, goto(A25, 58)
+I:	14 -> 58 . 16 15         goto(A87, 16)
+	16 -> . 16 83 95         goto(A87, 16)
+	16 -> . 95               goto(A88, 95)	shift
 
-A42, goto(A26, 90)
-I:	16 -> 90 . 91            goto(A88, 91)	shift
-I:	16 -> 90 . 18 91         goto(A89, 18)
-	18 -> . 18 19            goto(A89, 18)
-	18 -> . 19               goto(A90, 19)
-	19 -> . 4                goto(A91, 4)
-	4 -> . 5 83              goto(A4, 5)
-	5 -> . 6 96              goto(A5, 6)
-	6 -> . 60                goto(A6, 60)	shift
-	6 -> . 54                goto(A7, 54)	shift
-	6 -> . 51                goto(A8, 51)	shift
-	6 -> . 66                goto(A9, 66)	shift
-	6 -> . 96                goto(A10, 96)	shift
-	6 -> . 6 88 89           goto(A5, 6)
-	19 -> . 11               goto(A92, 11)
-	11 -> . 10 23            goto(A12, 10)
-	10 -> . 7 96 86 9        goto(A13, 7)
-	7 -> . 67                goto(A14, 67)	shift
-	7 -> . 6                 goto(A5, 6)
+A41, goto(A25, 15)
+I:	14 -> 15 .               reduce(27)
 
-A43, goto(A27, 90)
-I:	20 -> 61 96 90 . 21      goto(A93, 21)
-	21 -> . 22 91            goto(A94, 22)
-	22 -> . 22 12            goto(A94, 22)
-	22 -> . 12               goto(A95, 12)
-	12 -> . 10 83            goto(A96, 10)
-	10 -> . 7 96 86 9        goto(A13, 7)
-	7 -> . 67                goto(A14, 67)	shift
-	7 -> . 6                 goto(A97, 6)
-	6 -> . 60                goto(A6, 60)	shift
-	6 -> . 54                goto(A7, 54)	shift
-	6 -> . 51                goto(A8, 51)	shift
-	6 -> . 66                goto(A9, 66)	shift
-	6 -> . 96                goto(A10, 96)	shift
-	6 -> . 6 88 89           goto(A97, 6)
-	21 -> . 91               goto(A98, 91)	shift
+A42, goto(A25, 89)
+I:	15 -> 89 . 90            goto(A89, 90)	shift
+I:	15 -> 89 . 17 90         goto(A90, 17)
+	17 -> . 17 18            goto(A90, 17)
+	17 -> . 18               goto(A91, 18)
+	18 -> . 4                goto(A92, 4)
+	4 -> . 5 82              goto(A4, 5)
+	5 -> . 6 95              goto(A5, 6)
+	6 -> . 59                goto(A6, 59)	shift
+	6 -> . 53                goto(A7, 53)	shift
+	6 -> . 50                goto(A8, 50)	shift
+	6 -> . 65                goto(A9, 65)	shift
+	6 -> . 95                goto(A10, 95)	shift
+	6 -> . 6 87 88           goto(A5, 6)
+	18 -> . 10               goto(A93, 10)
+	10 -> . 9 22             goto(A12, 9)
+	9 -> . 66 95 85 8        goto(A13, 66)	shift
+	9 -> . 6 95 85 8         goto(A5, 6)
 
-A44, goto(A30, 25)
-I:	24 -> 26 25 .            reduce(43)
+A43, goto(A26, 89)
+I:	19 -> 60 95 89 . 20      goto(A94, 20)
+	20 -> . 21 90            goto(A95, 21)
+	21 -> . 21 11            goto(A95, 21)
+	21 -> . 11               goto(A96, 11)
+	11 -> . 9 82             goto(A97, 9)
+	9 -> . 66 95 85 8        goto(A13, 66)	shift
+	9 -> . 6 95 85 8         goto(A98, 6)
+	6 -> . 59                goto(A6, 59)	shift
+	6 -> . 53                goto(A7, 53)	shift
+	6 -> . 50                goto(A8, 50)	shift
+	6 -> . 65                goto(A9, 65)	shift
+	6 -> . 95                goto(A10, 95)	shift
+	6 -> . 6 87 88           goto(A98, 6)
+	20 -> . 90               goto(A99, 90)	shift
 
-A45, goto(A30, 4)
-I:	26 -> 26 4 .             reduce(47)
+A44, goto(A27, 8)
+I:	9 -> 6 95 85 8 .         reduce(20)
 
-A46, goto(A32, 96)
-I:	5 -> 6 96 .              reduce(8)
+A45, goto(A27, 7)
+I:	8 -> 7 . 86              goto(A100, 86)	shift
+I:	7 -> 7 . 83 5            goto(A101, 83)	shift
 
-A47, goto(A32, 88)
-I:	6 -> 6 88 . 89           goto(A99, 89)	shift
+A46, goto(A27, 5)
+I:	7 -> 5 .                 reduce(16)
 
-A48, goto(A34, 91)
-I:	25 -> 27 91 .            reduce(45)
+A47, goto(A27, 86)
+I:	8 -> 86 .                reduce(18)
 
-A49, goto(A34, 28)
-I:	27 -> 27 28 .            reduce(49)
+A48, goto(A30, 24)
+I:	23 -> 25 24 .            reduce(42)
 
-A50, goto(A34, 23)
-I:	28 -> 23 .               reduce(51)
+A49, goto(A30, 4)
+I:	25 -> 25 4 .             reduce(46)
 
-A51, goto(A34, 83)
-I:	28 -> 83 .               reduce(52)
+A50, goto(A32, 95)
+I:	5 -> 6 95 .              reduce(8)
 
-A52, goto(A34, 46)
-I:	28 -> 46 . 83            goto(A100, 83)	shift
+A51, goto(A32, 87)
+I:	6 -> 6 87 . 88           goto(A102, 88)	shift
 
-A53, goto(A34, 50)
-I:	46 -> 50 .               reduce(103)
+A52, goto(A34, 90)
+I:	24 -> 26 90 .            reduce(44)
 
-A54, goto(A34, 47)
-I:	50 -> 47 . 41 47         goto(A101, 41)
-I:	50 -> 47 .               reduce(110)
-	41 -> . 82               goto(A102, 82)	shift
+A53, goto(A34, 27)
+I:	26 -> 26 27 .            reduce(48)
 
-A55, goto(A34, 49)
-I:	47 -> 49 .               reduce(104)
+A54, goto(A34, 22)
+I:	27 -> 22 .               reduce(50)
 
-A56, goto(A34, 48)
-I:	49 -> 48 . 43 48         goto(A103, 43)
-I:	49 -> 48 .               reduce(108)
-	43 -> . 80               goto(A104, 80)	shift
-	43 -> . 79               goto(A105, 79)	shift
-	43 -> . 77               goto(A106, 77)	shift
-	43 -> . 78               goto(A107, 78)	shift
-	43 -> . 73               goto(A108, 73)	shift
-	43 -> . 75               goto(A109, 75)	shift
-	43 -> . 74               goto(A110, 74)	shift
-	43 -> . 76               goto(A111, 76)	shift
-	43 -> . 69               goto(A112, 69)	shift
-	43 -> . 70               goto(A113, 70)	shift
-	43 -> . 71               goto(A114, 71)	shift
-	43 -> . 72               goto(A115, 72)	shift
+A55, goto(A34, 82)
+I:	27 -> 82 .               reduce(51)
 
-A57, goto(A34, 42)
-I:	48 -> 42 . 48            goto(A116, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
+A56, goto(A34, 45)
+I:	27 -> 45 . 82            goto(A103, 82)	shift
 
-A58, goto(A34, 81)
-I:	42 -> 81 .               reduce(84)
+A57, goto(A34, 49)
+I:	45 -> 49 .               reduce(102)
 
-A59, goto(A34, 70)
-I:	42 -> 70 .               reduce(85)
+A58, goto(A34, 46)
+I:	49 -> 46 . 40 46         goto(A104, 40)
+I:	49 -> 46 .               reduce(109)
+	40 -> . 81               goto(A105, 81)	shift
 
-A60, goto(A34, 45)
-I:	48 -> 45 .               reduce(106)
+A59, goto(A34, 48)
+I:	46 -> 48 .               reduce(103)
 
-A61, goto(A34, 37)
-I:	45 -> 37 .               reduce(99)
-I:	37 -> 37 . 88 46 89      goto(A117, 88)	shift
-I:	37 -> 37 . 85 96         goto(A118, 85)	shift
-I:	38 -> 37 . 86 39         goto(A119, 86)	shift
+A60, goto(A34, 47)
+I:	48 -> 47 . 42 47         goto(A106, 42)
+I:	48 -> 47 .               reduce(107)
+	42 -> . 79               goto(A107, 79)	shift
+	42 -> . 78               goto(A108, 78)	shift
+	42 -> . 76               goto(A109, 76)	shift
+	42 -> . 77               goto(A110, 77)	shift
+	42 -> . 72               goto(A111, 72)	shift
+	42 -> . 74               goto(A112, 74)	shift
+	42 -> . 73               goto(A113, 73)	shift
+	42 -> . 75               goto(A114, 75)	shift
+	42 -> . 68               goto(A115, 68)	shift
+	42 -> . 69               goto(A116, 69)	shift
+	42 -> . 70               goto(A117, 70)	shift
+	42 -> . 71               goto(A118, 71)	shift
 
-A62, goto(A34, 96)
-I:	37 -> 96 .               reduce(73)
+A61, goto(A34, 41)
+I:	47 -> 41 . 47            goto(A119, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
 
-A63, goto(A34, 40)
-I:	45 -> 40 .               reduce(100)
+A62, goto(A34, 80)
+I:	41 -> 80 .               reduce(83)
 
-A64, goto(A34, 93)
-I:	40 -> 93 .               reduce(79)
+A63, goto(A34, 69)
+I:	41 -> 69 .               reduce(84)
 
-A65, goto(A34, 94)
-I:	40 -> 94 .               reduce(80)
+A64, goto(A34, 44)
+I:	47 -> 44 .               reduce(105)
+
+A65, goto(A34, 36)
+I:	44 -> 36 .               reduce(98)
+I:	36 -> 36 . 87 45 88      goto(A120, 87)	shift
+I:	36 -> 36 . 84 95         goto(A121, 84)	shift
+I:	37 -> 36 . 85 38         goto(A122, 85)	shift
 
 A66, goto(A34, 95)
-I:	40 -> 95 .               reduce(81)
+I:	36 -> 95 .               reduce(72)
 
-A67, goto(A34, 92)
-I:	40 -> 92 .               reduce(82)
+A67, goto(A34, 39)
+I:	44 -> 39 .               reduce(99)
 
-A68, goto(A34, 38)
-I:	45 -> 38 .               reduce(101)
+A68, goto(A34, 92)
+I:	39 -> 92 .               reduce(78)
 
-A69, goto(A34, 44)
-I:	45 -> 44 .               reduce(102)
+A69, goto(A34, 93)
+I:	39 -> 93 .               reduce(79)
 
-A70, goto(A34, 86)
-I:	44 -> 86 . 46 87         goto(A120, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
+A70, goto(A34, 94)
+I:	39 -> 94 .               reduce(80)
 
-A71, goto(A34, 30)
-I:	28 -> 30 .               reduce(54)
+A71, goto(A34, 91)
+I:	39 -> 91 .               reduce(81)
 
-A72, goto(A34, 29)
-I:	30 -> 29 . 55 28         goto(A121, 55)	shift
-I:	30 -> 29 .               reduce(62)
+A72, goto(A34, 37)
+I:	44 -> 37 .               reduce(100)
 
-A73, goto(A34, 58)
-I:	29 -> 58 . 44 28         goto(A122, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
+A73, goto(A34, 43)
+I:	44 -> 43 .               reduce(101)
 
-A74, goto(A34, 31)
-I:	28 -> 31 .               reduce(55)
+A74, goto(A34, 85)
+I:	43 -> 85 . 45 86         goto(A123, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
 
-A75, goto(A34, 68)
-I:	31 -> 68 . 44 28         goto(A123, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
+A75, goto(A34, 29)
+I:	27 -> 29 .               reduce(53)
 
-A76, goto(A34, 32)
-I:	28 -> 32 .               reduce(56)
+A76, goto(A34, 28)
+I:	29 -> 28 . 54 27         goto(A124, 54)	shift
+I:	29 -> 28 .               reduce(61)
 
 A77, goto(A34, 57)
-I:	32 -> 57 . 86 33 28      goto(A124, 86)	shift
-
-A78, goto(A34, 52)
-I:	28 -> 52 . 83            goto(A125, 83)	shift
-
-A79, goto(A34, 65)
-I:	28 -> 65 . 35            goto(A126, 35)
-	35 -> . 46 83            goto(A127, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-	35 -> . 83               goto(A128, 83)	shift
-
-A80, goto(A34, 63)
-I:	28 -> 63 . 86 36 87 83   goto(A129, 86)	shift
-
-A81, goto(A36, 9)
-I:	10 -> 7 96 86 9 .        reduce(21)
-
-A82, goto(A36, 8)
-I:	9 -> 8 . 87              goto(A130, 87)	shift
-I:	8 -> 8 . 84 5            goto(A131, 84)	shift
-
-A83, goto(A36, 5)
-I:	8 -> 5 .                 reduce(18)
-
-A84, goto(A36, 87)
-I:	9 -> 87 .                reduce(20)
-
-A85, goto(A38, 96)
-I:	14 -> 56 96 . 15         goto(A132, 15)
-	15 -> . 59 17 16         goto(A40, 59)	shift
-	15 -> . 16               goto(A41, 16)
-	16 -> . 90 91            goto(A42, 90)	shift
-	16 -> . 90 18 91         goto(A42, 90)	shift
-
-A86, goto(A40, 17)
-I:	15 -> 59 17 . 16         goto(A133, 16)
-I:	17 -> 17 . 84 96         goto(A134, 84)	shift
-	16 -> . 90 91            goto(A42, 90)	shift
-	16 -> . 90 18 91         goto(A42, 90)	shift
-
-A87, goto(A40, 96)
-I:	17 -> 96 .               reduce(32)
-
-A88, goto(A42, 91)
-I:	16 -> 90 91 .            reduce(29)
-
-A89, goto(A42, 18)
-I:	16 -> 90 18 . 91         goto(A135, 91)	shift
-I:	18 -> 18 . 19            goto(A136, 19)
-	19 -> . 4                goto(A91, 4)
-	4 -> . 5 83              goto(A4, 5)
-	5 -> . 6 96              goto(A5, 6)
-	6 -> . 60                goto(A6, 60)	shift
-	6 -> . 54                goto(A7, 54)	shift
-	6 -> . 51                goto(A8, 51)	shift
-	6 -> . 66                goto(A9, 66)	shift
-	6 -> . 96                goto(A10, 96)	shift
-	6 -> . 6 88 89           goto(A5, 6)
-	19 -> . 11               goto(A92, 11)
-	11 -> . 10 23            goto(A12, 10)
-	10 -> . 7 96 86 9        goto(A13, 7)
-	7 -> . 67                goto(A14, 67)	shift
-	7 -> . 6                 goto(A5, 6)
-
-A90, goto(A42, 19)
-I:	18 -> 19 .               reduce(34)
-
-A91, goto(A42, 4)
-I:	19 -> 4 .                reduce(35)
-
-A92, goto(A42, 11)
-I:	19 -> 11 .               reduce(36)
-
-A93, goto(A43, 21)
-I:	20 -> 61 96 90 21 .      reduce(37)
-
-A94, goto(A43, 22)
-I:	21 -> 22 . 91            goto(A137, 91)	shift
-I:	22 -> 22 . 12            goto(A138, 12)
-	12 -> . 10 83            goto(A96, 10)
-	10 -> . 7 96 86 9        goto(A13, 7)
-	7 -> . 67                goto(A14, 67)	shift
-	7 -> . 6                 goto(A97, 6)
-	6 -> . 60                goto(A6, 60)	shift
-	6 -> . 54                goto(A7, 54)	shift
-	6 -> . 51                goto(A8, 51)	shift
-	6 -> . 66                goto(A9, 66)	shift
-	6 -> . 96                goto(A10, 96)	shift
-	6 -> . 6 88 89           goto(A97, 6)
-
-A95, goto(A43, 12)
-I:	22 -> 12 .               reduce(41)
-
-A96, goto(A43, 10)
-I:	12 -> 10 . 83            goto(A139, 83)	shift
-
-A97, goto(A43, 6)
-I:	7 -> 6 .                 reduce(16)
-I:	6 -> 6 . 88 89           goto(A140, 88)	shift
-
-A98, goto(A43, 91)
-I:	21 -> 91 .               reduce(39)
-
-A99, goto(A47, 89)
-I:	6 -> 6 88 89 .           reduce(14)
-
-A100, goto(A52, 83)
-I:	28 -> 46 83 .            reduce(53)
-
-A101, goto(A54, 41)
-I:	50 -> 47 41 . 47         goto(A141, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-
-A102, goto(A54, 82)
-I:	41 -> 82 .               reduce(83)
-
-A103, goto(A56, 43)
-I:	49 -> 48 43 . 48         goto(A142, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-
-A104, goto(A56, 80)
-I:	43 -> 80 .               reduce(86)
-
-A105, goto(A56, 79)
-I:	43 -> 79 .               reduce(87)
-
-A106, goto(A56, 77)
-I:	43 -> 77 .               reduce(88)
-
-A107, goto(A56, 78)
-I:	43 -> 78 .               reduce(89)
-
-A108, goto(A56, 73)
-I:	43 -> 73 .               reduce(90)
-
-A109, goto(A56, 75)
-I:	43 -> 75 .               reduce(91)
-
-A110, goto(A56, 74)
-I:	43 -> 74 .               reduce(92)
-
-A111, goto(A56, 76)
-I:	43 -> 76 .               reduce(93)
-
-A112, goto(A56, 69)
-I:	43 -> 69 .               reduce(94)
-
-A113, goto(A56, 70)
-I:	43 -> 70 .               reduce(95)
-
-A114, goto(A56, 71)
-I:	43 -> 71 .               reduce(96)
-
-A115, goto(A56, 72)
-I:	43 -> 72 .               reduce(97)
-
-A116, goto(A57, 48)
-I:	48 -> 42 48 .            reduce(105)
-
-A117, goto(A61, 88)
-I:	37 -> 37 88 . 46 89      goto(A143, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-
-A118, goto(A61, 85)
-I:	37 -> 37 85 . 96         goto(A144, 96)	shift
-
-A119, goto(A61, 86)
-I:	38 -> 37 86 . 39         goto(A145, 39)
-	39 -> . 36 87            goto(A146, 36)
-	36 -> . 36 84 46         goto(A146, 36)
-	36 -> . 46               goto(A147, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-	39 -> . 87               goto(A148, 87)	shift
-
-A120, goto(A70, 46)
-I:	44 -> 86 46 . 87         goto(A149, 87)	shift
-
-A121, goto(A72, 55)
-I:	30 -> 29 55 . 28         goto(A150, 28)
-	28 -> . 23               goto(A50, 23)
-	23 -> . 90 24            goto(A24, 90)	shift
-	28 -> . 83               goto(A51, 83)	shift
-	28 -> . 46 83            goto(A52, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-	28 -> . 30               goto(A71, 30)
-	30 -> . 29 55 28         goto(A72, 29)
-	29 -> . 58 44 28         goto(A73, 58)	shift
-	30 -> . 29               goto(A72, 29)
-	28 -> . 31               goto(A74, 31)
-	31 -> . 68 44 28         goto(A75, 68)	shift
-	28 -> . 32               goto(A76, 32)
-	32 -> . 57 86 33 28      goto(A77, 57)	shift
-	28 -> . 52 83            goto(A78, 52)	shift
-	28 -> . 65 35            goto(A79, 65)	shift
-	28 -> . 63 86 36 87 83   goto(A80, 63)	shift
-
-A122, goto(A73, 44)
-I:	29 -> 58 44 . 28         goto(A151, 28)
-	28 -> . 23               goto(A50, 23)
-	23 -> . 90 24            goto(A24, 90)	shift
-	28 -> . 83               goto(A51, 83)	shift
-	28 -> . 46 83            goto(A52, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-	28 -> . 30               goto(A71, 30)
-	30 -> . 29 55 28         goto(A72, 29)
-	29 -> . 58 44 28         goto(A73, 58)	shift
-	30 -> . 29               goto(A72, 29)
-	28 -> . 31               goto(A74, 31)
-	31 -> . 68 44 28         goto(A75, 68)	shift
-	28 -> . 32               goto(A76, 32)
-	32 -> . 57 86 33 28      goto(A77, 57)	shift
-	28 -> . 52 83            goto(A78, 52)	shift
-	28 -> . 65 35            goto(A79, 65)	shift
-	28 -> . 63 86 36 87 83   goto(A80, 63)	shift
-
-A123, goto(A75, 44)
-I:	31 -> 68 44 . 28         goto(A152, 28)
-	28 -> . 23               goto(A50, 23)
-	23 -> . 90 24            goto(A24, 90)	shift
-	28 -> . 83               goto(A51, 83)	shift
-	28 -> . 46 83            goto(A52, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-	28 -> . 30               goto(A71, 30)
-	30 -> . 29 55 28         goto(A72, 29)
-	29 -> . 58 44 28         goto(A73, 58)	shift
-	30 -> . 29               goto(A72, 29)
-	28 -> . 31               goto(A74, 31)
-	31 -> . 68 44 28         goto(A75, 68)	shift
-	28 -> . 32               goto(A76, 32)
-	32 -> . 57 86 33 28      goto(A77, 57)	shift
-	28 -> . 52 83            goto(A78, 52)	shift
-	28 -> . 65 35            goto(A79, 65)	shift
-	28 -> . 63 86 36 87 83   goto(A80, 63)	shift
-
-A124, goto(A77, 86)
-I:	32 -> 57 86 . 33 28      goto(A153, 33)
-	33 -> . 46 34            goto(A154, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-	33 -> . 34               goto(A155, 34)
-	34 -> . 83 46 83 46 87   goto(A156, 83)	shift
-	34 -> . 83 46 83 87      goto(A156, 83)	shift
-
-A125, goto(A78, 83)
-I:	28 -> 52 83 .            reduce(57)
-
-A126, goto(A79, 35)
-I:	28 -> 65 35 .            reduce(58)
-
-A127, goto(A79, 46)
-I:	35 -> 46 . 83            goto(A157, 83)	shift
-
-A128, goto(A79, 83)
-I:	35 -> 83 .               reduce(70)
-
-A129, goto(A80, 86)
-I:	28 -> 63 86 . 36 87 83   goto(A158, 36)
-	36 -> . 36 84 46         goto(A158, 36)
-	36 -> . 46               goto(A147, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-
-A130, goto(A82, 87)
-I:	9 -> 8 87 .              reduce(19)
-
-A131, goto(A82, 84)
-I:	8 -> 8 84 . 5            goto(A159, 5)
-	5 -> . 6 96              goto(A32, 6)
-	6 -> . 60                goto(A6, 60)	shift
-	6 -> . 54                goto(A7, 54)	shift
-	6 -> . 51                goto(A8, 51)	shift
-	6 -> . 66                goto(A9, 66)	shift
-	6 -> . 96                goto(A10, 96)	shift
-	6 -> . 6 88 89           goto(A32, 6)
-
-A132, goto(A85, 15)
-I:	14 -> 56 96 15 .         reduce(25)
-
-A133, goto(A86, 16)
-I:	15 -> 59 17 16 .         reduce(27)
-
-A134, goto(A86, 84)
-I:	17 -> 17 84 . 96         goto(A160, 96)	shift
-
-A135, goto(A89, 91)
-I:	16 -> 90 18 91 .         reduce(30)
-
-A136, goto(A89, 19)
-I:	18 -> 18 19 .            reduce(33)
-
-A137, goto(A94, 91)
-I:	21 -> 22 91 .            reduce(38)
-
-A138, goto(A94, 12)
-I:	22 -> 22 12 .            reduce(40)
-
-A139, goto(A96, 83)
-I:	12 -> 10 83 .            reduce(23)
-
-A140, goto(A97, 88)
-I:	6 -> 6 88 . 89           goto(A161, 89)	shift
-
-A141, goto(A101, 47)
-I:	50 -> 47 41 47 .         reduce(109)
-
-A142, goto(A103, 48)
-I:	49 -> 48 43 48 .         reduce(107)
-
-A143, goto(A117, 46)
-I:	37 -> 37 88 46 . 89      goto(A162, 89)	shift
-
-A144, goto(A118, 96)
-I:	37 -> 37 85 96 .         reduce(75)
-
-A145, goto(A119, 39)
-I:	38 -> 37 86 39 .         reduce(76)
-
-A146, goto(A119, 36)
-I:	39 -> 36 . 87            goto(A163, 87)	shift
-I:	36 -> 36 . 84 46         goto(A164, 84)	shift
-
-A147, goto(A119, 46)
-I:	36 -> 46 .               reduce(72)
-
-A148, goto(A119, 87)
-I:	39 -> 87 .               reduce(78)
-
-A149, goto(A120, 87)
-I:	44 -> 86 46 87 .         reduce(98)
-
-A150, goto(A121, 28)
-I:	30 -> 29 55 28 .         reduce(61)
-
-A151, goto(A122, 28)
-I:	29 -> 58 44 28 .         reduce(60)
-
-A152, goto(A123, 28)
-I:	31 -> 68 44 28 .         reduce(63)
-
-A153, goto(A124, 33)
-I:	32 -> 57 86 33 . 28      goto(A165, 28)
-	28 -> . 23               goto(A50, 23)
-	23 -> . 90 24            goto(A24, 90)	shift
-	28 -> . 83               goto(A51, 83)	shift
-	28 -> . 46 83            goto(A52, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-	28 -> . 30               goto(A71, 30)
-	30 -> . 29 55 28         goto(A72, 29)
-	29 -> . 58 44 28         goto(A73, 58)	shift
-	30 -> . 29               goto(A72, 29)
-	28 -> . 31               goto(A74, 31)
-	31 -> . 68 44 28         goto(A75, 68)	shift
-	28 -> . 32               goto(A76, 32)
-	32 -> . 57 86 33 28      goto(A77, 57)	shift
-	28 -> . 52 83            goto(A78, 52)	shift
-	28 -> . 65 35            goto(A79, 65)	shift
-	28 -> . 63 86 36 87 83   goto(A80, 63)	shift
-
-A154, goto(A124, 46)
-I:	33 -> 46 . 34            goto(A166, 34)
-	34 -> . 83 46 83 46 87   goto(A156, 83)	shift
-	34 -> . 83 46 83 87      goto(A156, 83)	shift
-
-A155, goto(A124, 34)
-I:	33 -> 34 .               reduce(66)
-
-A156, goto(A124, 83)
-I:	34 -> 83 . 46 83 46 87   goto(A167, 46)
-I:	34 -> 83 . 46 83 87      goto(A167, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-
-A157, goto(A127, 83)
-I:	35 -> 46 83 .            reduce(69)
-
-A158, goto(A129, 36)
-I:	28 -> 63 86 36 . 87 83   goto(A168, 87)	shift
-I:	36 -> 36 . 84 46         goto(A169, 84)	shift
-
-A159, goto(A131, 5)
-I:	8 -> 8 84 5 .            reduce(17)
-
-A160, goto(A134, 96)
-I:	17 -> 17 84 96 .         reduce(31)
-
-A161, goto(A140, 89)
-I:	6 -> 6 88 89 .           reduce(14)
-
-A162, goto(A143, 89)
-I:	37 -> 37 88 46 89 .      reduce(74)
-
-A163, goto(A146, 87)
-I:	39 -> 36 87 .            reduce(77)
-
-A164, goto(A146, 84)
-I:	36 -> 36 84 . 46         goto(A170, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-
-A165, goto(A153, 28)
-I:	32 -> 57 86 33 28 .      reduce(64)
-
-A166, goto(A154, 34)
-I:	33 -> 46 34 .            reduce(65)
-
-A167, goto(A156, 46)
-I:	34 -> 83 46 . 83 46 87   goto(A171, 83)	shift
-I:	34 -> 83 46 . 83 87      goto(A171, 83)	shift
-
-A168, goto(A158, 87)
-I:	28 -> 63 86 36 87 . 83   goto(A172, 83)	shift
-
-A169, goto(A158, 84)
-I:	36 -> 36 84 . 46         goto(A173, 46)
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-
-A170, goto(A164, 46)
-I:	36 -> 36 84 46 .         reduce(71)
-
-A171, goto(A167, 83)
-I:	34 -> 83 46 83 . 46 87   goto(A174, 46)
-I:	34 -> 83 46 83 . 87      goto(A175, 87)	shift
-	46 -> . 50               goto(A53, 50)
-	50 -> . 47 41 47         goto(A54, 47)
-	47 -> . 49               goto(A55, 49)
-	49 -> . 48 43 48         goto(A56, 48)
-	48 -> . 42 48            goto(A57, 42)
-	42 -> . 81               goto(A58, 81)	shift
-	42 -> . 70               goto(A59, 70)	shift
-	48 -> . 45               goto(A60, 45)
-	45 -> . 37               goto(A61, 37)
-	37 -> . 96               goto(A62, 96)	shift
-	37 -> . 37 88 46 89      goto(A61, 37)
-	37 -> . 37 85 96         goto(A61, 37)
-	45 -> . 40               goto(A63, 40)
-	40 -> . 93               goto(A64, 93)	shift
-	40 -> . 94               goto(A65, 94)	shift
-	40 -> . 95               goto(A66, 95)	shift
-	40 -> . 92               goto(A67, 92)	shift
-	45 -> . 38               goto(A68, 38)
-	38 -> . 37 86 39         goto(A61, 37)
-	45 -> . 44               goto(A69, 44)
-	44 -> . 86 46 87         goto(A70, 86)	shift
-	49 -> . 48               goto(A56, 48)
-	50 -> . 47               goto(A54, 47)
-
-A172, goto(A168, 83)
-I:	28 -> 63 86 36 87 83 .   reduce(59)
-
-A173, goto(A169, 46)
-I:	36 -> 36 84 46 .         reduce(71)
-
-A174, goto(A171, 46)
-I:	34 -> 83 46 83 46 . 87   goto(A176, 87)	shift
-
-A175, goto(A171, 87)
-I:	34 -> 83 46 83 87 .      reduce(68)
-
-A176, goto(A174, 87)
-I:	34 -> 83 46 83 46 87 .   reduce(67)
+I:	28 -> 57 . 43 27         goto(A125, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+
+A78, goto(A34, 30)
+I:	27 -> 30 .               reduce(54)
+
+A79, goto(A34, 67)
+I:	30 -> 67 . 43 27         goto(A126, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+
+A80, goto(A34, 31)
+I:	27 -> 31 .               reduce(55)
+
+A81, goto(A34, 56)
+I:	31 -> 56 . 85 32 27      goto(A127, 85)	shift
+
+A82, goto(A34, 51)
+I:	27 -> 51 . 82            goto(A128, 82)	shift
+
+A83, goto(A34, 64)
+I:	27 -> 64 . 34            goto(A129, 34)
+	34 -> . 45 82            goto(A130, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+	34 -> . 82               goto(A131, 82)	shift
+
+A84, goto(A34, 62)
+I:	27 -> 62 . 85 35 86 82   goto(A132, 85)	shift
+
+A85, goto(A36, 8)
+I:	9 -> 66 95 85 8 .        reduce(19)
+
+A86, goto(A38, 95)
+I:	13 -> 55 95 . 14         goto(A133, 14)
+	14 -> . 58 16 15         goto(A40, 58)	shift
+	14 -> . 15               goto(A41, 15)
+	15 -> . 89 90            goto(A42, 89)	shift
+	15 -> . 89 17 90         goto(A42, 89)	shift
+
+A87, goto(A40, 16)
+I:	14 -> 58 16 . 15         goto(A134, 15)
+I:	16 -> 16 . 83 95         goto(A135, 83)	shift
+	15 -> . 89 90            goto(A42, 89)	shift
+	15 -> . 89 17 90         goto(A42, 89)	shift
+
+A88, goto(A40, 95)
+I:	16 -> 95 .               reduce(31)
+
+A89, goto(A42, 90)
+I:	15 -> 89 90 .            reduce(28)
+
+A90, goto(A42, 17)
+I:	15 -> 89 17 . 90         goto(A136, 90)	shift
+I:	17 -> 17 . 18            goto(A137, 18)
+	18 -> . 4                goto(A92, 4)
+	4 -> . 5 82              goto(A4, 5)
+	5 -> . 6 95              goto(A5, 6)
+	6 -> . 59                goto(A6, 59)	shift
+	6 -> . 53                goto(A7, 53)	shift
+	6 -> . 50                goto(A8, 50)	shift
+	6 -> . 65                goto(A9, 65)	shift
+	6 -> . 95                goto(A10, 95)	shift
+	6 -> . 6 87 88           goto(A5, 6)
+	18 -> . 10               goto(A93, 10)
+	10 -> . 9 22             goto(A12, 9)
+	9 -> . 66 95 85 8        goto(A13, 66)	shift
+	9 -> . 6 95 85 8         goto(A5, 6)
+
+A91, goto(A42, 18)
+I:	17 -> 18 .               reduce(33)
+
+A92, goto(A42, 4)
+I:	18 -> 4 .                reduce(34)
+
+A93, goto(A42, 10)
+I:	18 -> 10 .               reduce(35)
+
+A94, goto(A43, 20)
+I:	19 -> 60 95 89 20 .      reduce(36)
+
+A95, goto(A43, 21)
+I:	20 -> 21 . 90            goto(A138, 90)	shift
+I:	21 -> 21 . 11            goto(A139, 11)
+	11 -> . 9 82             goto(A97, 9)
+	9 -> . 66 95 85 8        goto(A13, 66)	shift
+	9 -> . 6 95 85 8         goto(A98, 6)
+	6 -> . 59                goto(A6, 59)	shift
+	6 -> . 53                goto(A7, 53)	shift
+	6 -> . 50                goto(A8, 50)	shift
+	6 -> . 65                goto(A9, 65)	shift
+	6 -> . 95                goto(A10, 95)	shift
+	6 -> . 6 87 88           goto(A98, 6)
+
+A96, goto(A43, 11)
+I:	21 -> 11 .               reduce(40)
+
+A97, goto(A43, 9)
+I:	11 -> 9 . 82             goto(A140, 82)	shift
+
+A98, goto(A43, 6)
+I:	9 -> 6 . 95 85 8         goto(A141, 95)	shift
+I:	6 -> 6 . 87 88           goto(A142, 87)	shift
+
+A99, goto(A43, 90)
+I:	20 -> 90 .               reduce(38)
+
+A100, goto(A45, 86)
+I:	8 -> 7 86 .              reduce(17)
+
+A101, goto(A45, 83)
+I:	7 -> 7 83 . 5            goto(A143, 5)
+	5 -> . 6 95              goto(A32, 6)
+	6 -> . 59                goto(A6, 59)	shift
+	6 -> . 53                goto(A7, 53)	shift
+	6 -> . 50                goto(A8, 50)	shift
+	6 -> . 65                goto(A9, 65)	shift
+	6 -> . 95                goto(A10, 95)	shift
+	6 -> . 6 87 88           goto(A32, 6)
+
+A102, goto(A51, 88)
+I:	6 -> 6 87 88 .           reduce(14)
+
+A103, goto(A56, 82)
+I:	27 -> 45 82 .            reduce(52)
+
+A104, goto(A58, 40)
+I:	49 -> 46 40 . 46         goto(A144, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+
+A105, goto(A58, 81)
+I:	40 -> 81 .               reduce(82)
+
+A106, goto(A60, 42)
+I:	48 -> 47 42 . 47         goto(A145, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+
+A107, goto(A60, 79)
+I:	42 -> 79 .               reduce(85)
+
+A108, goto(A60, 78)
+I:	42 -> 78 .               reduce(86)
+
+A109, goto(A60, 76)
+I:	42 -> 76 .               reduce(87)
+
+A110, goto(A60, 77)
+I:	42 -> 77 .               reduce(88)
+
+A111, goto(A60, 72)
+I:	42 -> 72 .               reduce(89)
+
+A112, goto(A60, 74)
+I:	42 -> 74 .               reduce(90)
+
+A113, goto(A60, 73)
+I:	42 -> 73 .               reduce(91)
+
+A114, goto(A60, 75)
+I:	42 -> 75 .               reduce(92)
+
+A115, goto(A60, 68)
+I:	42 -> 68 .               reduce(93)
+
+A116, goto(A60, 69)
+I:	42 -> 69 .               reduce(94)
+
+A117, goto(A60, 70)
+I:	42 -> 70 .               reduce(95)
+
+A118, goto(A60, 71)
+I:	42 -> 71 .               reduce(96)
+
+A119, goto(A61, 47)
+I:	47 -> 41 47 .            reduce(104)
+
+A120, goto(A65, 87)
+I:	36 -> 36 87 . 45 88      goto(A146, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+
+A121, goto(A65, 84)
+I:	36 -> 36 84 . 95         goto(A147, 95)	shift
+
+A122, goto(A65, 85)
+I:	37 -> 36 85 . 38         goto(A148, 38)
+	38 -> . 35 86            goto(A149, 35)
+	35 -> . 35 83 45         goto(A149, 35)
+	35 -> . 45               goto(A150, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+	38 -> . 86               goto(A151, 86)	shift
+
+A123, goto(A74, 45)
+I:	43 -> 85 45 . 86         goto(A152, 86)	shift
+
+A124, goto(A76, 54)
+I:	29 -> 28 54 . 27         goto(A153, 27)
+	27 -> . 22               goto(A54, 22)
+	22 -> . 89 23            goto(A23, 89)	shift
+	27 -> . 82               goto(A55, 82)	shift
+	27 -> . 45 82            goto(A56, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+	27 -> . 29               goto(A75, 29)
+	29 -> . 28 54 27         goto(A76, 28)
+	28 -> . 57 43 27         goto(A77, 57)	shift
+	29 -> . 28               goto(A76, 28)
+	27 -> . 30               goto(A78, 30)
+	30 -> . 67 43 27         goto(A79, 67)	shift
+	27 -> . 31               goto(A80, 31)
+	31 -> . 56 85 32 27      goto(A81, 56)	shift
+	27 -> . 51 82            goto(A82, 51)	shift
+	27 -> . 64 34            goto(A83, 64)	shift
+	27 -> . 62 85 35 86 82   goto(A84, 62)	shift
+
+A125, goto(A77, 43)
+I:	28 -> 57 43 . 27         goto(A154, 27)
+	27 -> . 22               goto(A54, 22)
+	22 -> . 89 23            goto(A23, 89)	shift
+	27 -> . 82               goto(A55, 82)	shift
+	27 -> . 45 82            goto(A56, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+	27 -> . 29               goto(A75, 29)
+	29 -> . 28 54 27         goto(A76, 28)
+	28 -> . 57 43 27         goto(A77, 57)	shift
+	29 -> . 28               goto(A76, 28)
+	27 -> . 30               goto(A78, 30)
+	30 -> . 67 43 27         goto(A79, 67)	shift
+	27 -> . 31               goto(A80, 31)
+	31 -> . 56 85 32 27      goto(A81, 56)	shift
+	27 -> . 51 82            goto(A82, 51)	shift
+	27 -> . 64 34            goto(A83, 64)	shift
+	27 -> . 62 85 35 86 82   goto(A84, 62)	shift
+
+A126, goto(A79, 43)
+I:	30 -> 67 43 . 27         goto(A155, 27)
+	27 -> . 22               goto(A54, 22)
+	22 -> . 89 23            goto(A23, 89)	shift
+	27 -> . 82               goto(A55, 82)	shift
+	27 -> . 45 82            goto(A56, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+	27 -> . 29               goto(A75, 29)
+	29 -> . 28 54 27         goto(A76, 28)
+	28 -> . 57 43 27         goto(A77, 57)	shift
+	29 -> . 28               goto(A76, 28)
+	27 -> . 30               goto(A78, 30)
+	30 -> . 67 43 27         goto(A79, 67)	shift
+	27 -> . 31               goto(A80, 31)
+	31 -> . 56 85 32 27      goto(A81, 56)	shift
+	27 -> . 51 82            goto(A82, 51)	shift
+	27 -> . 64 34            goto(A83, 64)	shift
+	27 -> . 62 85 35 86 82   goto(A84, 62)	shift
+
+A127, goto(A81, 85)
+I:	31 -> 56 85 . 32 27      goto(A156, 32)
+	32 -> . 45 33            goto(A157, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+	32 -> . 33               goto(A158, 33)
+	33 -> . 82 45 82 45 86   goto(A159, 82)	shift
+	33 -> . 82 45 82 86      goto(A159, 82)	shift
+
+A128, goto(A82, 82)
+I:	27 -> 51 82 .            reduce(56)
+
+A129, goto(A83, 34)
+I:	27 -> 64 34 .            reduce(57)
+
+A130, goto(A83, 45)
+I:	34 -> 45 . 82            goto(A160, 82)	shift
+
+A131, goto(A83, 82)
+I:	34 -> 82 .               reduce(69)
+
+A132, goto(A84, 85)
+I:	27 -> 62 85 . 35 86 82   goto(A161, 35)
+	35 -> . 35 83 45         goto(A161, 35)
+	35 -> . 45               goto(A150, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+
+A133, goto(A86, 14)
+I:	13 -> 55 95 14 .         reduce(24)
+
+A134, goto(A87, 15)
+I:	14 -> 58 16 15 .         reduce(26)
+
+A135, goto(A87, 83)
+I:	16 -> 16 83 . 95         goto(A162, 95)	shift
+
+A136, goto(A90, 90)
+I:	15 -> 89 17 90 .         reduce(29)
+
+A137, goto(A90, 18)
+I:	17 -> 17 18 .            reduce(32)
+
+A138, goto(A95, 90)
+I:	20 -> 21 90 .            reduce(37)
+
+A139, goto(A95, 11)
+I:	21 -> 21 11 .            reduce(39)
+
+A140, goto(A97, 82)
+I:	11 -> 9 82 .             reduce(22)
+
+A141, goto(A98, 95)
+I:	9 -> 6 95 . 85 8         goto(A163, 85)	shift
+
+A142, goto(A98, 87)
+I:	6 -> 6 87 . 88           goto(A164, 88)	shift
+
+A143, goto(A101, 5)
+I:	7 -> 7 83 5 .            reduce(15)
+
+A144, goto(A104, 46)
+I:	49 -> 46 40 46 .         reduce(108)
+
+A145, goto(A106, 47)
+I:	48 -> 47 42 47 .         reduce(106)
+
+A146, goto(A120, 45)
+I:	36 -> 36 87 45 . 88      goto(A165, 88)	shift
+
+A147, goto(A121, 95)
+I:	36 -> 36 84 95 .         reduce(74)
+
+A148, goto(A122, 38)
+I:	37 -> 36 85 38 .         reduce(75)
+
+A149, goto(A122, 35)
+I:	38 -> 35 . 86            goto(A166, 86)	shift
+I:	35 -> 35 . 83 45         goto(A167, 83)	shift
+
+A150, goto(A122, 45)
+I:	35 -> 45 .               reduce(71)
+
+A151, goto(A122, 86)
+I:	38 -> 86 .               reduce(77)
+
+A152, goto(A123, 86)
+I:	43 -> 85 45 86 .         reduce(97)
+
+A153, goto(A124, 27)
+I:	29 -> 28 54 27 .         reduce(60)
+
+A154, goto(A125, 27)
+I:	28 -> 57 43 27 .         reduce(59)
+
+A155, goto(A126, 27)
+I:	30 -> 67 43 27 .         reduce(62)
+
+A156, goto(A127, 32)
+I:	31 -> 56 85 32 . 27      goto(A168, 27)
+	27 -> . 22               goto(A54, 22)
+	22 -> . 89 23            goto(A23, 89)	shift
+	27 -> . 82               goto(A55, 82)	shift
+	27 -> . 45 82            goto(A56, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+	27 -> . 29               goto(A75, 29)
+	29 -> . 28 54 27         goto(A76, 28)
+	28 -> . 57 43 27         goto(A77, 57)	shift
+	29 -> . 28               goto(A76, 28)
+	27 -> . 30               goto(A78, 30)
+	30 -> . 67 43 27         goto(A79, 67)	shift
+	27 -> . 31               goto(A80, 31)
+	31 -> . 56 85 32 27      goto(A81, 56)	shift
+	27 -> . 51 82            goto(A82, 51)	shift
+	27 -> . 64 34            goto(A83, 64)	shift
+	27 -> . 62 85 35 86 82   goto(A84, 62)	shift
+
+A157, goto(A127, 45)
+I:	32 -> 45 . 33            goto(A169, 33)
+	33 -> . 82 45 82 45 86   goto(A159, 82)	shift
+	33 -> . 82 45 82 86      goto(A159, 82)	shift
+
+A158, goto(A127, 33)
+I:	32 -> 33 .               reduce(65)
+
+A159, goto(A127, 82)
+I:	33 -> 82 . 45 82 45 86   goto(A170, 45)
+I:	33 -> 82 . 45 82 86      goto(A170, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+
+A160, goto(A130, 82)
+I:	34 -> 45 82 .            reduce(68)
+
+A161, goto(A132, 35)
+I:	27 -> 62 85 35 . 86 82   goto(A171, 86)	shift
+I:	35 -> 35 . 83 45         goto(A172, 83)	shift
+
+A162, goto(A135, 95)
+I:	16 -> 16 83 95 .         reduce(30)
+
+A163, goto(A141, 85)
+I:	9 -> 6 95 85 . 8         goto(A173, 8)
+	8 -> . 7 86              goto(A45, 7)
+	7 -> . 7 83 5            goto(A45, 7)
+	7 -> . 5                 goto(A46, 5)
+	5 -> . 6 95              goto(A32, 6)
+	6 -> . 59                goto(A6, 59)	shift
+	6 -> . 53                goto(A7, 53)	shift
+	6 -> . 50                goto(A8, 50)	shift
+	6 -> . 65                goto(A9, 65)	shift
+	6 -> . 95                goto(A10, 95)	shift
+	6 -> . 6 87 88           goto(A32, 6)
+	8 -> . 86                goto(A47, 86)	shift
+
+A164, goto(A142, 88)
+I:	6 -> 6 87 88 .           reduce(14)
+
+A165, goto(A146, 88)
+I:	36 -> 36 87 45 88 .      reduce(73)
+
+A166, goto(A149, 86)
+I:	38 -> 35 86 .            reduce(76)
+
+A167, goto(A149, 83)
+I:	35 -> 35 83 . 45         goto(A174, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+
+A168, goto(A156, 27)
+I:	31 -> 56 85 32 27 .      reduce(63)
+
+A169, goto(A157, 33)
+I:	32 -> 45 33 .            reduce(64)
+
+A170, goto(A159, 45)
+I:	33 -> 82 45 . 82 45 86   goto(A175, 82)	shift
+I:	33 -> 82 45 . 82 86      goto(A175, 82)	shift
+
+A171, goto(A161, 86)
+I:	27 -> 62 85 35 86 . 82   goto(A176, 82)	shift
+
+A172, goto(A161, 83)
+I:	35 -> 35 83 . 45         goto(A177, 45)
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+
+A173, goto(A163, 8)
+I:	9 -> 6 95 85 8 .         reduce(20)
+
+A174, goto(A167, 45)
+I:	35 -> 35 83 45 .         reduce(70)
+
+A175, goto(A170, 82)
+I:	33 -> 82 45 82 . 45 86   goto(A178, 45)
+I:	33 -> 82 45 82 . 86      goto(A179, 86)	shift
+	45 -> . 49               goto(A57, 49)
+	49 -> . 46 40 46         goto(A58, 46)
+	46 -> . 48               goto(A59, 48)
+	48 -> . 47 42 47         goto(A60, 47)
+	47 -> . 41 47            goto(A61, 41)
+	41 -> . 80               goto(A62, 80)	shift
+	41 -> . 69               goto(A63, 69)	shift
+	47 -> . 44               goto(A64, 44)
+	44 -> . 36               goto(A65, 36)
+	36 -> . 95               goto(A66, 95)	shift
+	36 -> . 36 87 45 88      goto(A65, 36)
+	36 -> . 36 84 95         goto(A65, 36)
+	44 -> . 39               goto(A67, 39)
+	39 -> . 92               goto(A68, 92)	shift
+	39 -> . 93               goto(A69, 93)	shift
+	39 -> . 94               goto(A70, 94)	shift
+	39 -> . 91               goto(A71, 91)	shift
+	44 -> . 37               goto(A72, 37)
+	37 -> . 36 85 38         goto(A65, 36)
+	44 -> . 43               goto(A73, 43)
+	43 -> . 85 45 86         goto(A74, 85)	shift
+	48 -> . 47               goto(A60, 47)
+	49 -> . 46               goto(A58, 46)
+
+A176, goto(A171, 82)
+I:	27 -> 62 85 35 86 82 .   reduce(58)
+
+A177, goto(A172, 45)
+I:	35 -> 35 83 45 .         reduce(70)
+
+A178, goto(A175, 45)
+I:	33 -> 82 45 82 45 . 86   goto(A180, 86)	shift
+
+A179, goto(A175, 86)
+I:	33 -> 82 45 82 86 .      reduce(67)
+
+A180, goto(A178, 86)
+I:	33 -> 82 45 82 45 86 .   reduce(66)
 
