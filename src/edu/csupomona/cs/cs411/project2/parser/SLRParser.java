@@ -46,33 +46,34 @@ public class SLRParser implements Parser {
 				}
 
 				production = TABLES.reduce(state);
-				if (production == Integer.MIN_VALUE) {
-					accepted = false;
-					System.out.format("P in A%d is undefined%n", state);
-					break Get_Next_Token;
-				} else if (production == 0) {
-					if (!stream.hasMore()) {
-						accepted = true;
+				switch (production) {
+					case Integer.MIN_VALUE:
+						accepted = false;
+						System.out.format("P in A%d is undefined%n", state);
 						break Get_Next_Token;
-					}
-				}
-
-				popNum = TABLES.right(production);
-				for (int i = 0; i < popNum; i++) {
-					stack.pop();
-				}
-
-				//System.out.println(stack + " popped " + popNum);
-
-				try {
-					state = TABLES.move(stack.getFirst(), TABLES.left(production));
-					stack.push(state);
-					//System.out.println(stack + " push2 " + state);
-					writer.write(String.format("[reduce %d]", production));
-				} catch (NoSuchElementException e) {
-					accepted = false;
-					//System.out.format("stack is empty %d%n", production);
-					break Get_Next_Token;
+					case 0:
+						if (!stream.hasMore()) {
+							accepted = true;
+							break Get_Next_Token;
+						}
+					default:
+						popNum = TABLES.right(production);
+						for (int i = 0; i < popNum; i++) {
+							stack.pop();
+						}
+		
+						//System.out.println(stack + " popped " + popNum);
+		
+						try {
+							state = TABLES.move(stack.getFirst(), TABLES.left(production));
+							stack.push(state);
+							//System.out.println(stack + " push2 " + state);
+							writer.write(String.format("[reduce %d]", production));
+						} catch (NoSuchElementException e) {
+							accepted = false;
+							//System.out.format("stack is empty %d%n", production);
+							break Get_Next_Token;
+						}
 				}
 			}
 		}
