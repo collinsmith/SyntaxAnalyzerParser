@@ -104,7 +104,7 @@ public class ParserGenerator {
 		for (int i = 0; i < productionsUsed.length; i++) {
 			if (!productionsUsed[i]) {
 				unusedProductions++;
-				System.out.format("Unused production: %3d\t%s%n", i, PRODUCTIONS_LIST.get(i));
+				System.out.format("\tUnused production: #%-3d\t%s%n", i, PRODUCTIONS_LIST.get(i));
 			}
 		}
 
