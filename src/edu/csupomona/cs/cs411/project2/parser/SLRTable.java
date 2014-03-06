@@ -1,6 +1,6 @@
 package edu.csupomona.cs.cs411.project2.parser;
 
-import edu.csupomona.cs.cs411.project1.lexer.Keywords;
+import edu.csupomona.cs.cs411.project1.lexer.Token;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Serializable;
@@ -19,11 +19,14 @@ public class SLRTable implements Serializable {
 	private final int REDUCE_REDUCE_CONFLICTS;
 	private final int UNUSED_PRODUCTIONS;
 
-	final ShiftTable _shift;
-	final ReduceTable _reduce;
-	final GotoTable _goto;
+	private final ShiftTable _shift;
+	private final ReduceTable _reduce;
+	private final GotoTable _goto;
 
-	public SLRTable(int num_nonterminals, ShiftTable _shift, ReduceTable _reduce, GotoTable _goto, int shiftReduces, int reduceReduces, int unusedProductions) {
+	private final int[] _left;
+	private final int[] _right;
+
+	public SLRTable(int num_nonterminals, ShiftTable _shift, ReduceTable _reduce, GotoTable _goto, int[] _left, int[] _right, int shiftReduces, int reduceReduces, int unusedProductions) {
 		if (_shift._switch.length != _reduce._reduce.length || _reduce._reduce.length != _goto._switch.length) {
 			throw new IllegalArgumentException("Table sizes do not match!");
 		}
@@ -32,6 +35,9 @@ public class SLRTable implements Serializable {
 		this._reduce = _reduce;
 		this._goto = _goto;
 
+		this._left = _left;
+		this._right = _right;
+
 		this.NUM_TABLES = _shift._switch.length;
 		this.NUM_NONTERMINALS = num_nonterminals;
 		this.SHIFT_REDUCE_CONFLICTS = shiftReduces;
@@ -39,8 +45,52 @@ public class SLRTable implements Serializable {
 		this.UNUSED_PRODUCTIONS = unusedProductions;
 	}
 
-	int getTerminalAsSymbol(Keywords token) {
-		return NUM_NONTERMINALS+token.ordinal()+1;
+	public int getTokenAsSymbol(Token t) {
+		if (t == null) {
+			return Integer.MIN_VALUE;
+		}
+
+		return NUM_NONTERMINALS+t.getId()+1;
+	}
+
+	public int shift(int table, int symbol) {
+		int id = _shift._switch[table];
+		if (id == Integer.MIN_VALUE) {
+			return Integer.MIN_VALUE;
+		}
+
+		int cache;
+		while ((cache = _shift._shift[id][SYMBOL]) != Integer.MIN_VALUE && cache != symbol) {
+			id++;
+		}
+
+		return cache == symbol ? _shift._shift[id][NEXT] : Integer.MIN_VALUE;
+	}
+
+	public int reduce(int table) {
+		return _reduce._reduce[table];
+	}
+
+	public int left(int production) {
+		return _left[production];
+	}
+
+	public int right(int production) {
+		return _right[production];
+	}
+
+	public int move(int table, int symbol) {
+		int id = _goto._switch[table];
+		if (id == Integer.MIN_VALUE) {
+			return Integer.MIN_VALUE;
+		}
+
+		int cache;
+		while ((cache = _goto._goto[id][SYMBOL]) != Integer.MIN_VALUE && cache != symbol) {
+			id++;
+		}
+
+		return cache == symbol ? _goto._goto[id][NEXT] : Integer.MIN_VALUE;
 	}
 
 	public void outputTableInfo() {

@@ -21,32 +21,8 @@ class Main extends TestCase implements Test {
 		for (i = 0; i < 10; i = i + 1) {
 		}
 
-
 		x = 0;
 		while (x < 10) {
-			x = x + 1;
 		}
-
-		b = false;
-
-		i = 1234;
-
-		d = 12.E1;
-		d = 0.0E+0;
-
-		s = "this is a test";
-
-		array = newarray(8, int);
-		array[0] = 1234;
-		array[1] = array[0];
-
-		println("Enter your name: ");
-		readln(s);
-		println("Hello ", s, "!");
-
-		int this;
-		int this01;
-		int this_01;
-		int this_is_a_variable;
 	}
 }

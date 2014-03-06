@@ -2,7 +2,11 @@ package edu.csupomona.cs.cs411.project2;
 
 import edu.csupomona.cs.cs411.project1.lexer.Lexer;
 import edu.csupomona.cs.cs411.project1.lexer.Token;
+import edu.csupomona.cs.cs411.project1.lexer.TokenStream;
+import edu.csupomona.cs.cs411.project1.lexer.ToyLexer;
 import edu.csupomona.cs.cs411.project2.generator.ParserGenerator;
+import edu.csupomona.cs.cs411.project2.parser.Parser;
+import edu.csupomona.cs.cs411.project2.parser.SLRParser;
 import edu.csupomona.cs.cs411.project2.parser.SLRTable;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,6 +31,9 @@ public class Main {
 		SLRTable t = g.getSLRTable();
 		t.outputTableInfo();
 
+		Lexer<Token> lexer = new ToyLexer();
+		SLRParser parser = new SLRParser(t);
+
 		for (String arg : args) {
 			Path p = Paths.get(arg);
 			DirectoryStream<Path> files = Files.newDirectoryStream(p);
@@ -35,25 +42,22 @@ public class Main {
 					continue;
 				}
 
-				analyzeFile(path);
+				scanAndParse(lexer, parser, path);
 			}
 		}
 	}
 
-	private static void analyzeFile(Path p) {
+	private static void scanAndParse(Lexer<Token> lexer, Parser parser, Path p) throws IOException {
 		String fileName = p.getFileName().toString();
 		Path outFile = OUTPUT_PATH.resolve(fileName.substring(0, fileName.lastIndexOf('.')) + ".output.txt");
 		Charset charset = Charset.forName("US-ASCII");
 		try (BufferedWriter writer = Files.newBufferedWriter(outFile, charset, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
 			try (		InputStream in = Files.newInputStream(p);
 					BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
-				System.out.format("Analyzing %s%n", p);
-				Lexer l = new Lexer(br);
-				for (Token t : l) {
-					writer.write(String.format(" %s", t.toString()));
-				}
-
-				writer.write(String.format("%n"));
+				System.out.format("Analyzing %s%n", fileName);
+				TokenStream tokenStream = lexer.lex(br);
+				boolean accepted = parser.parse(tokenStream, writer);
+				System.out.format("%s has been %s%n", fileName, accepted ? "accepted" : "rejected");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

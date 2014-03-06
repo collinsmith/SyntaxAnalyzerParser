@@ -194,8 +194,8 @@ _integerliteral
 _booleanliteral
 
 MethodCall:
-ReferenceType ( ExpressionListOpt
-ReferenceType . ReferenceType ( ExpressionListOpt
+_id ( ExpressionListOpt
+LValue . _id ( ExpressionListOpt
 
 ExpressionListOpt:
 )

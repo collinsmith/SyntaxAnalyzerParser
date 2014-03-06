@@ -51,6 +51,14 @@ public class Production implements Iterable<Integer>, Comparable<Production> {
 		return PRODUCTIONID;
 	}
 
+	public Integer getNonterminal() {
+		return NONTERMINAL;
+	}
+
+	public int getSymbolsNum() {
+		return PRODUCTIONS.size();
+	}
+
 	public void addSymbol(Integer i) {
 		if (immutable) {
 			throw new UnsupportedOperationException("This production is now immutable");

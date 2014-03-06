@@ -1,6 +1,6 @@
 package edu.csupomona.cs.cs411.project2.generator;
 
-import edu.csupomona.cs.cs411.project1.lexer.Keywords;
+import edu.csupomona.cs.cs411.project1.lexer.ToyKeywords;
 import edu.csupomona.cs.cs411.project2.parser.SLRTable;
 import edu.csupomona.cs.cs411.project2.parser.SLRTable.GotoTable;
 import edu.csupomona.cs.cs411.project2.parser.SLRTable.ReduceTable;
@@ -128,10 +128,10 @@ public class ParserGenerator {
 			}
 		}
 
-		for (Keywords k : Keywords.values()) {
-			int keywordId = numNonterminals+1+k.ordinal();
+		for (ToyKeywords k : ToyKeywords.values()) {
+			int keywordId = numNonterminals+k.getId()+1;
 			symbolsTable.put(k.name(), keywordId);
-			if (Keywords.ACTUAL_KEYWORDS.contains(k) || Keywords.OPERATORS.contains(k)) {
+			if (!k.isRegex()) {
 				symbolsTable.put(k.getRegex(), keywordId);
 			}
 		}
@@ -489,8 +489,18 @@ public class ParserGenerator {
 		ShiftTable _shift = new SLRTable.ShiftTable(shiftSwitch, shiftShift);
 		ReduceTable _reduce = new SLRTable.ReduceTable(reduceReduce);
 		GotoTable _goto = new SLRTable.GotoTable(gotoSwitch, gotoGoto);
+
+		Production p;
+		int[] _left = new int[numProductions];
+		int[] _right = new int[numProductions];
+		for (int i = 0; i < numProductions; i++) {
+			p = PRODUCTIONS_LIST.get(i);
+			_left[i] = p.getNonterminal();
+			_right[i] = p.getSymbolsNum();
+		}
+		
 		System.out.format("SLR tables generated in %dms%n", TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-dt));
 		System.out.format("%d shift-reduce conflicts%n", shiftReduces);
-		return new SLRTable(numNonterminals, _shift, _reduce, _goto, shiftReduces, reduceReduces, unusedProductions);
+		return new SLRTable(numNonterminals, _shift, _reduce, _goto, _left, _right, shiftReduces, reduceReduces, unusedProductions);
 	}
 }

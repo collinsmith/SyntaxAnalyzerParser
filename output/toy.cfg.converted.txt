@@ -193,8 +193,8 @@ Literal:
 105	_booleanliteral 
 
 MethodCall:
-106	ReferenceType ( ExpressionListOpt 
-107	ReferenceType . ReferenceType ( ExpressionListOpt 
+106	_id ( ExpressionListOpt 
+107	LValue . _id ( ExpressionListOpt 
 
 ExpressionListOpt:
 108	) 
