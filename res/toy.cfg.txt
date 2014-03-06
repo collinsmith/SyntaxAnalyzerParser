@@ -148,12 +148,12 @@ PrototypeDecl:
 Prototype ;
 
 Expression:
-BinaryExpression
 LValue = BinaryExpression
+UnaryExpression InfixOperator BinaryExpression
 
 BinaryExpression:
 UnaryExpression
-BinaryExpression InfixOperator UnaryExpression
+InfixOperator BinaryExpression
 
 UnaryExpression:
 Primary
