@@ -36,7 +36,7 @@ Prototype Block
 
 Prototype:
 TypeAndIdentifier ( ArgumentListOpt
-void ReferenceType ( ArgumentListOpt
+void _id ( ArgumentListOpt
 
 ArgumentListOpt:
 )
@@ -106,11 +106,11 @@ Expression
 ExpressionList , Expression
 
 ClassDecl:
-class ReferenceType Super
+class _id Super
 
 Super:
 Interfaces
-extends ReferenceType Interfaces
+extends _id Interfaces
 
 Interfaces:
 { ClassBodyOpt
@@ -134,7 +134,7 @@ FieldDecl
 MethodDecl
 
 InterfaceDecl:
-interface ReferenceType { PrototypeListOpt
+interface _id { PrototypeListOpt
 
 PrototypeListOpt:
 }
@@ -197,9 +197,9 @@ _integerliteral
 _booleanliteral
 
 MethodCall:
-_id ( ExpressionListOpt
-LValue . _id ( ExpressionListOpt
+ExpressionListOpt
+LValue . ExpressionListOpt
 
 ExpressionListOpt:
-)
-ExpressionList )
+_id ( )
+_id ( ExpressionList )

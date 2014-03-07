@@ -36,7 +36,7 @@ MethodDecl:
 
 Prototype:
  18	TypeAndIdentifier ( ArgumentListOpt 
- 19	void ReferenceType ( ArgumentListOpt 
+ 19	void _id ( ArgumentListOpt 
 
 ArgumentListOpt:
  20	) 
@@ -106,11 +106,11 @@ ExpressionList:
  54	ExpressionList , Expression 
 
 ClassDecl:
- 55	class ReferenceType Super 
+ 55	class _id Super 
 
 Super:
  56	Interfaces 
- 57	extends ReferenceType Interfaces 
+ 57	extends _id Interfaces 
 
 Interfaces:
  58	{ ClassBodyOpt 
@@ -133,7 +133,7 @@ Member:
  67	MethodDecl 
 
 InterfaceDecl:
- 68	interface ReferenceType { PrototypeListOpt 
+ 68	interface _id { PrototypeListOpt 
 
 PrototypeListOpt:
  69	} 
@@ -196,10 +196,10 @@ Literal:
 106	_booleanliteral 
 
 MethodCall:
-107	_id ( ExpressionListOpt 
-108	LValue . _id ( ExpressionListOpt 
+107	ExpressionListOpt 
+108	LValue . ExpressionListOpt 
 
 ExpressionListOpt:
-109	) 
-110	ExpressionList ) 
+109	_id ( ) 
+110	_id ( ExpressionList ) 
 

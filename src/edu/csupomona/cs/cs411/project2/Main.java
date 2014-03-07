@@ -42,7 +42,7 @@ public class Main {
 					continue;
 				}
 
-				scanAndParse(lexer, parser, path);
+				//scanAndParse(lexer, parser, path);
 			}
 		}
 	}

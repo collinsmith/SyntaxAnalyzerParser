@@ -15,6 +15,8 @@ public class SLRParser implements Parser {
 		this.TABLES = table;
 	}
 
+	private static final boolean DEBUG = false;
+
 	@Override
 	public boolean parse(TokenStream stream, Writer writer) throws IOException {
 		int state = 0;
@@ -40,7 +42,7 @@ public class SLRParser implements Parser {
 				if (shift != Integer.MIN_VALUE) {
 					state = shift;
 					stack.push(state);
-					//System.out.println(stack + " push " + state);
+					if (DEBUG) System.out.println(stack + " push " + state);
 					writer.write(String.format("[shift]%n"));
 					continue Get_Next_Token;
 				}
@@ -49,7 +51,7 @@ public class SLRParser implements Parser {
 				switch (production) {
 					case Integer.MIN_VALUE:
 						accepted = false;
-						System.out.format("P in A%d is undefined%n", state);
+						if (DEBUG) System.out.format("P in A%d is undefined%n", state);
 						break Get_Next_Token;
 					case 1:
 						if (!stream.hasMore()) {
@@ -62,16 +64,16 @@ public class SLRParser implements Parser {
 							stack.pop();
 						}
 
-						//System.out.println(stack + " popped " + popNum);
+						if (DEBUG) System.out.println(stack + " popped " + popNum);
 
 						try {
 							state = TABLES.move(stack.getFirst(), TABLES.left(production));
 							stack.push(state);
-							//System.out.println(stack + " push2 " + state);
+							if (DEBUG) System.out.println(stack + " push2 " + state);
 							writer.write(String.format("[reduce %d]", production));
 						} catch (NoSuchElementException e) {
 							accepted = false;
-							//System.out.format("stack is empty %d%n", production);
+							if (DEBUG) System.out.format("stack is empty %d%n", production);
 							break Get_Next_Token;
 						}
 				}
