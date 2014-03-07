@@ -15,7 +15,7 @@ FieldDecl:
   7	TypeAndIdentifier ; 
 
 TypeAndIdentifier:
-  8	Type _id 
+  8	Type Identifier 
 
 Type:
   9	Type [ ] 
@@ -36,7 +36,7 @@ MethodDecl:
 
 Prototype:
  18	TypeAndIdentifier ( ArgumentListOpt 
- 19	void _id ( ArgumentListOpt 
+ 19	void Identifier ( ArgumentListOpt 
 
 ArgumentListOpt:
  20	) 
@@ -185,21 +185,24 @@ InfixOperator:
  99	/ 
 
 LValue:
-100	ReferenceType 
+100	Identifier 
 101	LValue [ Expression ] 
-102	LValue . ReferenceType 
+102	LValue . Identifier 
+
+Identifier:
+103	_id 
 
 Literal:
-103	_doubleliteral 
-104	_stringliteral 
-105	_integerliteral 
-106	_booleanliteral 
+104	_doubleliteral 
+105	_stringliteral 
+106	_integerliteral 
+107	_booleanliteral 
 
 MethodCall:
-107	ExpressionListOpt 
-108	LValue . ExpressionListOpt 
+108	ExpressionListOpt 
+109	Identifier . ExpressionListOpt 
 
 ExpressionListOpt:
-109	_id ( ) 
-110	_id ( ExpressionList ) 
+110	Identifier ( ) 
+111	Identifier ( ExpressionList ) 
 
