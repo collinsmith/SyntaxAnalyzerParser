@@ -51,7 +51,7 @@ public class SLRParser implements Parser {
 						accepted = false;
 						System.out.format("P in A%d is undefined%n", state);
 						break Get_Next_Token;
-					case 0:
+					case 1:
 						if (!stream.hasMore()) {
 							accepted = true;
 							break Get_Next_Token;
@@ -61,9 +61,9 @@ public class SLRParser implements Parser {
 						for (int i = 0; i < popNum; i++) {
 							stack.pop();
 						}
-		
+
 						//System.out.println(stack + " popped " + popNum);
-		
+
 						try {
 							state = TABLES.move(stack.getFirst(), TABLES.left(production));
 							stack.push(state);

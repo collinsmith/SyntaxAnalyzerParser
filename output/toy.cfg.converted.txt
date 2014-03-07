@@ -1,5 +1,5 @@
 Program:
-  0	DeclList 
+  0	DeclList $ 
 
 DeclList:
   1	Decl 
@@ -147,7 +147,7 @@ PrototypeDecl:
  73	Prototype ; 
 
 Expression:
- 74	LValue = BinaryExpression 
+ 74	LValue = Expression 
  75	BinaryExpression 
 
 BinaryExpression:
@@ -156,47 +156,50 @@ BinaryExpression:
 
 UnaryExpression:
  78	PrefixOperator UnaryExpression 
- 79	LValue 
- 80	Literal 
- 81	MethodCall 
- 82	ParExpression 
- 83	readln ( ) 
- 84	newarray ( _integerliteral , Type ) 
+ 79	Primary 
+
+Primary:
+ 80	LValue 
+ 81	Literal 
+ 82	MethodCall 
+ 83	ParExpression 
+ 84	readln ( ) 
+ 85	newarray ( _integerliteral , Type ) 
 
 PrefixOperator:
- 85	! 
- 86	- 
+ 86	! 
+ 87	- 
 
 InfixOperator:
- 87	|| 
- 88	&& 
- 89	== 
- 90	!= 
- 91	< 
- 92	> 
- 93	<= 
- 94	>= 
- 95	+ 
- 96	- 
- 97	* 
- 98	/ 
+ 88	|| 
+ 89	&& 
+ 90	== 
+ 91	!= 
+ 92	< 
+ 93	> 
+ 94	<= 
+ 95	>= 
+ 96	+ 
+ 97	- 
+ 98	* 
+ 99	/ 
 
 LValue:
- 99	ReferenceType 
-100	LValue [ Expression ] 
-101	LValue . ReferenceType 
+100	ReferenceType 
+101	LValue [ Expression ] 
+102	LValue . ReferenceType 
 
 Literal:
-102	_doubleliteral 
-103	_stringliteral 
-104	_integerliteral 
-105	_booleanliteral 
+103	_doubleliteral 
+104	_stringliteral 
+105	_integerliteral 
+106	_booleanliteral 
 
 MethodCall:
-106	_id ( ExpressionListOpt 
-107	LValue . _id ( ExpressionListOpt 
+107	_id ( ExpressionListOpt 
+108	LValue . _id ( ExpressionListOpt 
 
 ExpressionListOpt:
-108	) 
-109	ExpressionList ) 
+109	) 
+110	ExpressionList ) 
 

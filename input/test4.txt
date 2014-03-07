@@ -22,10 +22,7 @@ class Main extends TestCase implements Test {
 
 		for (i = 0; i < 10; i = i + 1) {
 			bool b2;
-			{
-			}
-
-			b2 = false;
+			b2 = b = false;
 		}
 
 		x = 0;
