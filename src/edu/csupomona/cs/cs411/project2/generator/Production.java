@@ -99,7 +99,7 @@ public class Production implements Iterable<Integer>, Comparable<Production> {
 		}
 
 		Production p = (Production)o;
-		if (this.POINTER != p.POINTER || this.PARENT != p.PARENT || this.NONTERMINAL != p.NONTERMINAL) {
+		if (this.POINTER != p.POINTER || this.PRODUCTIONID != p.PRODUCTIONID || this.PARENT != p.PARENT || this.NONTERMINAL != p.NONTERMINAL) {
 			return false;
 		}
 
@@ -122,10 +122,10 @@ public class Production implements Iterable<Integer>, Comparable<Production> {
 	public int hashCode() {
 		int hash = 7;
 		hash = 19 * hash + this.POINTER;
+		hash = 19 * hash + this.PRODUCTIONID;
 		hash = 19 * hash + Objects.hashCode(this.PARENT);
 		hash = 19 * hash + Objects.hashCode(this.NONTERMINAL);
 		hash = 19 * hash + Objects.hashCode(this.PRODUCTIONS);
-		//hash = 19 * hash + Objects.hashCode(this._goto);
 		return hash;
 	}
 

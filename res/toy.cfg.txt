@@ -120,7 +120,6 @@ IdentifierList:
 ReferenceType
 IdentifierList , ReferenceType
 
-
 ClassBodyOpt:
 }
 MemberList }
@@ -200,9 +199,9 @@ _integerliteral
 _booleanliteral
 
 MethodCall:
-ExpressionListOpt
-Identifier . ExpressionListOpt
+MethodCallExpressionListOpt
+Identifier . MethodCallExpressionListOpt
 
-ExpressionListOpt:
+MethodCallExpressionListOpt:
 Identifier ( )
 Identifier ( ExpressionList )

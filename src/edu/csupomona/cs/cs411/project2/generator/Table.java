@@ -41,6 +41,10 @@ public class Table implements Iterable<Production> {
 	}
 
 	public void putTransition(Integer symbol, Table t) {
+		if (GOTO.containsKey(symbol)) {
+			System.out.println("shift-shift conflict in table A" + getTableId());
+		}
+
 		GOTO.put(symbol, t);
 	}
 

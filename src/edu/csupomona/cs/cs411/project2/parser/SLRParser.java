@@ -15,7 +15,7 @@ public class SLRParser implements Parser {
 		this.TABLES = table;
 	}
 
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 
 	@Override
 	public boolean parse(TokenStream stream, Writer writer) throws IOException {
@@ -42,12 +42,13 @@ public class SLRParser implements Parser {
 				if (shift != Integer.MIN_VALUE) {
 					state = shift;
 					stack.push(state);
-					if (DEBUG) System.out.println(stack + " push " + state);
+					if (DEBUG) System.out.println("shift " + state + "  \t" + stack);
 					writer.write(String.format("[shift]%n"));
 					continue Get_Next_Token;
 				}
 
 				production = TABLES.reduce(state);
+				//if (state == 1) production = 1;
 				switch (production) {
 					case Integer.MIN_VALUE:
 						accepted = false;
@@ -64,12 +65,12 @@ public class SLRParser implements Parser {
 							stack.pop();
 						}
 
-						if (DEBUG) System.out.println(stack + " popped " + popNum);
+						if (DEBUG) System.out.println("reduce " + popNum + " \t" + stack);
 
 						try {
 							state = TABLES.move(stack.getFirst(), TABLES.left(production));
 							stack.push(state);
-							if (DEBUG) System.out.println(stack + " push2 " + state);
+							if (DEBUG) System.out.println("goto " + state + "  \t" + stack);
 							writer.write(String.format("[reduce %d]", production));
 						} catch (NoSuchElementException e) {
 							accepted = false;

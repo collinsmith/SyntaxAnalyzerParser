@@ -1,26 +1,3 @@
-class Main extends TestCase implements Test {
-	bool b;
-
-	/**
-	 * This is the main loop
-	 */
-	void main(string[] args) {
-		int x;
-		bool b;
-		int i;
-		double d;
-		string s;
-		int[] array;
-
-		break;
-
-		s = readln();
-		b = false;
-	}
-
-	int func() {
-		bool b;
-		//{}
-		b = false;
-	}
+void id() {
+;b = true;
 }

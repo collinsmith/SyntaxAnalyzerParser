@@ -230,6 +230,7 @@ public class ParserGenerator {
 		} else {
 			// TODO change this sloppy implementation to use the tables map
 			// need to implement hash function where order of list doesn't matter
+			// TODO need to check nonterminal as well. fundamental flaw in program :(
 			Set<Production> initialProductionsForTable;
 			for (Table t : tables.values()) {
 				initialProductionsForTable = new HashSet<>(t.getInitialProductions());
@@ -498,7 +499,7 @@ public class ParserGenerator {
 			_left[i] = p.getNonterminal();
 			_right[i] = p.getSymbolsNum();
 		}
-		
+
 		System.out.format("SLR tables generated in %dms%n", TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-dt));
 		System.out.format("%d shift-reduce conflicts%n", shiftReduces);
 		return new SLRTable(numNonterminals, _shift, _reduce, _goto, _left, _right, shiftReduces, reduceReduces, unusedProductions);

@@ -199,10 +199,10 @@ Literal:
 107	_booleanliteral 
 
 MethodCall:
-108	ExpressionListOpt 
-109	Identifier . ExpressionListOpt 
+108	MethodCallExpressionListOpt 
+109	Identifier . MethodCallExpressionListOpt 
 
-ExpressionListOpt:
+MethodCallExpressionListOpt:
 110	Identifier ( ) 
 111	Identifier ( ExpressionList ) 
 
