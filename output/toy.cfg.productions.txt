@@ -200,10 +200,10 @@ ID   Nonterminal
 	107	_booleanliteral[42] 
 
 [93] MethodCall:
-	108	MethodCallExpressionListOpt[94] 
-	109	Identifier[91] _period[35] MethodCallExpressionListOpt[94] 
+	108	MethodCall2[94] 
+	109	Identifier[91] _period[35] MethodCall2[94] 
 
-[94] MethodCallExpressionListOpt:
+[94] MethodCall2:
 	110	Identifier[91] _leftparen[36] _rightparen[37] 
 	111	Identifier[91] _leftparen[36] ExpressionList[72] _rightparen[37] 
 

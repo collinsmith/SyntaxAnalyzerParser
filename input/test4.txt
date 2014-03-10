@@ -1,3 +1,5 @@
-void id() {
-;b = true;
+void function() {
+bool b;
+//{}
+b = true;
 }

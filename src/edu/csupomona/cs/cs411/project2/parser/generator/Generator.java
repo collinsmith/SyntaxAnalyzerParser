@@ -4,6 +4,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableBiMap;
 import edu.csupomona.cs.cs411.project1.lexer.ToyKeywords;
+import edu.csupomona.cs.cs411.project2.parser.SLRTables;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -29,6 +30,7 @@ public final class Generator {
 	private static final Charset CHARSET = Charset.forName("US-ASCII");
 	private static final String NONTERMINAL_DEF_REGEX = "[A-Z][a-zA-Z0-9]*:";
 
+	private final SLRTables SLR_TABLES;
 	private final List<Production> PRODUCTIONS;
 	private final BiMap<String, Integer> SYMBOLS;
 	private final Map<Set<Production>, Table> TABLES;
@@ -38,6 +40,7 @@ public final class Generator {
 	private int numNonterminals;
 	private int numUnreachableSymbols;
 
+	private int numWithShiftReduce;
 	private int numWithReduceReduce;
 	private int numUnrepeatedTables;
 
@@ -48,6 +51,7 @@ public final class Generator {
 		numNonterminals = Integer.MIN_VALUE;
 		numUnreachableSymbols = Integer.MIN_VALUE;
 
+		numWithShiftReduce = Integer.MIN_VALUE;
 		numWithReduceReduce = Integer.MIN_VALUE;
 		numUnrepeatedTables = Integer.MIN_VALUE;
 
@@ -80,6 +84,16 @@ public final class Generator {
 		System.out.format("Tables generated in %dms; %d tables%n",
 			System.currentTimeMillis()-dt,
 			this.TABLES.size()
+		);
+
+		dt = System.currentTimeMillis();
+		System.out.format("Generating SLR tables...%n");
+		this.SLR_TABLES = generateSLRTables();
+		System.out.format("SLR tables generated in %dms; %d tables (%d shift-reduce conflicts, %d reduce-reduce conflicts)%n",
+			System.currentTimeMillis()-dt,
+			this.TABLES.size(),
+			numWithShiftReduce,
+			numWithReduceReduce
 		);
 	}
 
@@ -403,9 +417,9 @@ public final class Generator {
 
 		if (1 < reduces.size()) {
 			numWithReduceReduce++;
-			System.out.format("Table A%d has %d reduce productions%n", tableId, reduces.size());
+			System.out.format("Table A%d has %d reduce productions:%n", tableId, reduces.size());
 			for (Production reduce : reduces) {
-				System.out.format("\t%s%n", reduce);
+				System.out.format("\t%s%n", reduce.toString(SYMBOLS.inverse()));
 			}
 		}
 	}
@@ -459,7 +473,7 @@ public final class Generator {
 
 	private void writeProduction(BufferedWriter writer, Table t, Production p, boolean isInitialProduction) throws IOException {
 		if (!p.hasNext()) {
-			writer.write(String.format("%s\t%-24s reduce(%d)%n",
+			writer.write(String.format("%s\t%-32s reduce(%d)%n",
 				isInitialProduction ? "I:" : "",
 				p,
 				PRODUCTIONS.indexOf(p.getAncestor())
@@ -469,7 +483,7 @@ public final class Generator {
 		}
 
 		Integer onSymbol = p.peek();
-		writer.write(String.format("%s\t%-24s goto(A%d, %s)",
+		writer.write(String.format("%s\t%-32s goto(A%d, %s)",
 			isInitialProduction ? "I:" : "",
 			p,
 			t.getTransition(onSymbol).getId(),
@@ -481,5 +495,111 @@ public final class Generator {
 		}
 
 		writer.write(String.format("%n"));
+	}
+
+	private SLRTables generateSLRTables() {
+		int numTables = TABLES.size();
+
+		int[] _reduce = new int[numTables];
+		int[] gotoSwitch = new int[numTables];
+		int[] shiftSwitch = new int[numTables];
+
+		ArrayList<Integer[]> gotoList = new ArrayList<>();
+		ArrayList<Integer[]> shiftList = new ArrayList<>();
+		final Integer[] EMPTY_ELEMENT = new Integer[] { Integer.MIN_VALUE, Integer.MIN_VALUE };
+
+		numWithShiftReduce = 0;
+		Integer currentSymbol = null;
+
+		int tableId;
+		Table nextTable = null;
+		Integer nextSymbol = null;
+		for (Table t : TABLES.values()) {
+			tableId = t.getId();
+			_reduce[tableId] = Integer.MIN_VALUE;
+			gotoSwitch[tableId] = Integer.MIN_VALUE;
+			shiftSwitch[tableId] = Integer.MIN_VALUE;
+			for (Production p : t) {
+				if (!p.hasNext()) {
+					if (_reduce[tableId] == Integer.MIN_VALUE) {
+						_reduce[tableId] = PRODUCTIONS.indexOf(p.getAncestor());
+						currentSymbol = p.current();
+					} else {
+						// reduce-reduce conflict indicated in previous stage
+					}
+
+					continue;
+				}
+
+				nextSymbol = p.peek();
+				nextTable = t.getTransition(nextSymbol);
+				if (!isNonterminal(nextSymbol)) {
+					if (shiftSwitch[tableId] == Integer.MIN_VALUE) {
+						shiftSwitch[tableId] = shiftList.size();
+					}
+
+					shiftList.add(new Integer[] { nextSymbol, nextTable.getId() });
+				} else {
+					if (gotoSwitch[tableId] == Integer.MIN_VALUE) {
+						gotoSwitch[tableId] = gotoList.size();
+					}
+
+					gotoList.add(new Integer[] { nextSymbol, nextTable.getId() });
+				}
+			}
+
+			if (_reduce[tableId] != Integer.MIN_VALUE && shiftSwitch[tableId] != Integer.MIN_VALUE) {
+				numWithShiftReduce++;
+				System.out.format("Table A%d has a shift-reduce conflict:%n", tableId);
+				for (Production p : t) {
+					if (p.current() == currentSymbol) {
+						System.out.format("\t%s%n", p.toString(SYMBOLS.inverse()));
+					}
+				}
+			}
+
+			if (shiftSwitch[tableId] != Integer.MIN_VALUE) {
+				shiftList.add(EMPTY_ELEMENT);
+			}
+
+			if (gotoSwitch[tableId] != Integer.MIN_VALUE) {
+				gotoList.add(EMPTY_ELEMENT);
+			}
+		}
+
+		int[][] _shift = new int[shiftList.size()][2];
+		for (int i = 0; i < _shift.length; i++) {
+			_shift[i][SLRTables.SYM] = shiftList.get(i)[SLRTables.SYM];
+			_shift[i][SLRTables.NXT] = shiftList.get(i)[SLRTables.NXT];
+		}
+
+		int[][] _goto = new int[gotoList.size()][2];
+		for (int i = 0; i < _goto.length; i++) {
+			_goto[i][SLRTables.SYM] = gotoList.get(i)[SLRTables.SYM];
+			_goto[i][SLRTables.NXT] = gotoList.get(i)[SLRTables.NXT];
+		}
+
+		Production p;
+		int numProduction = PRODUCTIONS.size();
+		int[] _lhs = new int[numProduction];
+		int[] _rhs = new int[numProduction];
+		for (int i = 0; i < numProduction; i++) {
+			p = PRODUCTIONS.get(i);
+			_lhs[i] = p.getNonterminal();
+			_rhs[i] = p.size();
+		}
+
+		return SLRTables.build(
+			new SLRTables.ShiftTable(shiftSwitch, _shift),
+			new SLRTables.ReduceTable(_reduce),
+			new SLRTables.GotoTable(gotoSwitch, _goto),
+			new SLRTables.ProductionTable(_lhs, _rhs),
+			numWithShiftReduce,
+			numWithReduceReduce
+		);
+	}
+
+	public SLRTables getGeneratedTables() {
+		return SLR_TABLES;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public final class Production implements Iterable<Integer> {
@@ -41,6 +42,18 @@ public final class Production implements Iterable<Integer> {
 
 	public Production getNext() {
 		return new Production(this);
+	}
+
+	public Integer getNonterminal() {
+		return SYMBOL;
+	}
+
+	public Integer current() {
+		if (POSITION_MARKER == 0) {
+			return null;
+		}
+
+		return rhs.get(POSITION_MARKER-1);
 	}
 
 	public Integer peek() {
@@ -97,6 +110,26 @@ public final class Production implements Iterable<Integer> {
 		hash = 31 * hash + this.POSITION_MARKER;
 		hash = 31 * hash + Objects.hashCode(this.rhs);
 		return hash;
+	}
+
+	public String toString(Map<Integer, String> translator) {
+		StringBuilder sb = new StringBuilder(String.format("%16s %s", translator.get(SYMBOL), RHS_DELIMIATER));
+
+		int i = 0;
+		for (Integer symbol : rhs) {
+			if (i == POSITION_MARKER) {
+				sb.append(" .");
+			}
+
+			sb.append(String.format(" %s", translator.get(symbol)));
+			i++;
+		}
+
+		if (POSITION_MARKER == rhs.size()) {
+			sb.append(" .");
+		}
+
+		return sb.toString();
 	}
 
 	@Override

@@ -199,9 +199,9 @@ _integerliteral
 _booleanliteral
 
 MethodCall:
-MethodCallExpressionListOpt
-Identifier . MethodCallExpressionListOpt
+MethodCall2
+Identifier . MethodCall2
 
-MethodCallExpressionListOpt:
+MethodCall2:
 Identifier ( )
 Identifier ( ExpressionList )
