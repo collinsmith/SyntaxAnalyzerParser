@@ -5,7 +5,7 @@ import edu.csupomona.cs.cs411.project1.lexer.Token;
 import edu.csupomona.cs.cs411.project1.lexer.TokenStream;
 import edu.csupomona.cs.cs411.project1.lexer.ToyLexer;
 import edu.csupomona.cs.cs411.project2.parser.Parser;
-import edu.csupomona.cs.cs411.project2.parser.SLRParser2;
+import edu.csupomona.cs.cs411.project2.parser.SLRParser;
 import edu.csupomona.cs.cs411.project2.parser.SLRTables;
 import edu.csupomona.cs.cs411.project2.parser.generator.Generator;
 import java.io.BufferedReader;
@@ -30,7 +30,7 @@ public class Main {
 		slrTables.outputTableInfo();
 
 		Lexer<Token> lexer = new ToyLexer();
-		Parser parser = new SLRParser2(slrTables);
+		Parser parser = new SLRParser(slrTables);
 
 		for (String arg : args) {
 			Path p = Paths.get(arg);
@@ -51,10 +51,11 @@ public class Main {
 		Charset charset = Charset.forName("US-ASCII");
 		try (BufferedWriter writer = Files.newBufferedWriter(outFile, charset, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
 			try (BufferedReader br = Files.newBufferedReader(p, charset)) {
-				//System.out.format("Analyzing %s%n", fileName);
+				System.out.format("Analyzing %s...%n", fileName);
+				long dt = System.currentTimeMillis();
 				TokenStream tokenStream = lexer.lex(br);
 				boolean accepted = parser.parse(tokenStream, writer);
-				System.out.format("%s has been %s%n", fileName, accepted ? "ACCEPTED" : "REJECTED");
+				System.out.format("%s scanned and parsed in %dms; %1$s has been %s%n", fileName, System.currentTimeMillis()-dt, accepted ? "ACCEPTED" : "REJECTED");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

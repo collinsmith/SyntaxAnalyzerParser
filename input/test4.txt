@@ -1,5 +1,5 @@
 void function() {
-bool b;
-//{}
-b = true;
+	bool b;
+	i = 0xFF00FF00;
+	b = true;
 }

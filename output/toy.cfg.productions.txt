@@ -191,7 +191,7 @@ ID   Nonterminal
 	102	LValue[90] _period[35] Identifier[91] 
 
 [91] Identifier:
-	103	_id[46] 
+	103	ReferenceType[54] 
 
 [92] Literal:
 	104	_doubleliteral[44] 

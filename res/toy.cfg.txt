@@ -190,7 +190,7 @@ LValue [ Expression ]
 LValue . Identifier
 
 Identifier:
-_id
+ReferenceType
 
 Literal:
 _doubleliteral

@@ -5,10 +5,10 @@ import edu.csupomona.cs.cs411.project1.lexer.TokenStream;
 import java.io.IOException;
 import java.io.Writer;
 
-public class SLRParser2 implements Parser {
+public class SLRParser implements Parser {
 	private final SLRTables TABLES;
 
-	public SLRParser2(SLRTables tables) {
+	public SLRParser(SLRTables tables) {
 		this.TABLES = tables;
 	}
 
@@ -20,8 +20,8 @@ public class SLRParser2 implements Parser {
 
 		stack[top] = state;
 
-		int shift;
-		int production;
+		int shift = Integer.MIN_VALUE;
+		int production = Integer.MIN_VALUE;
 
 		Token t;
 		int symbol;
@@ -42,10 +42,20 @@ public class SLRParser2 implements Parser {
 					continue Get_Next_Token;
 				}
 
+				/*switch (state) {
+					case 38:
+						Token nextToken = stream.peek();
+						int nextSymbol = TABLES.getTokenId(nextToken);
+						//break;
+					default:
+						production = TABLES.reduce(state);
+				}*/
+
 				production = TABLES.reduce(state);
 				switch (production) {
 					case Integer.MIN_VALUE:
 						accepted = false;
+						System.out.format("\tReduction undefined in table A%d%n", state);
 						break Get_Next_Token;
 					case 1:
 						if (!stream.hasMore()) {

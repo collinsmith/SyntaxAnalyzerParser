@@ -1,5 +1,5 @@
 /**
- * Main class to run our program
+ * This is the main class for our test program.
  */
 class Main extends TestCase implements Test {
 	/**
@@ -41,12 +41,7 @@ class Main extends TestCase implements Test {
 		array[1] = array[0];
 
 		println("Enter your name: ");
-		readln(s);
+		s = readln();
 		println("Hello ", s, "!");
-
-		int this;
-		int this01;
-		int this_01;
-		int this_is_a_variable;
 	}
 }
