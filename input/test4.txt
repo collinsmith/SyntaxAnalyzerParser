@@ -1,3 +1,4 @@
+int i;
 void function() {
 	bool b;
 	i = 0xFF00FF00;

@@ -149,5 +149,6 @@
 33  _semicolon      [shift]
 41  _rightbrace     [reduce 41][reduce 32][shift]
 41  _rightbrace     [reduce 30][reduce 26][reduce 24][reduce 17][reduce 67][reduce 64][shift]
-[reduce 63][reduce 59][reduce 57][reduce 55][reduce 4]
+0   _EOF            [reduce 63][reduce 59][reduce 57][reduce 55][reduce 4][reduce 1][shift]
+0   _EOF            
 [accept]

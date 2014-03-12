@@ -2,6 +2,7 @@ package edu.csupomona.cs.cs411.project2.parser;
 
 import edu.csupomona.cs.cs411.project1.lexer.Token;
 import edu.csupomona.cs.cs411.project1.lexer.TokenStream;
+import edu.csupomona.cs.cs411.project1.lexer.ToyKeywords;
 import java.io.IOException;
 import java.io.Writer;
 
@@ -27,7 +28,7 @@ public class SLRParser implements Parser {
 		int symbol;
 		boolean accepted = false;
 		Get_Next_Token: while (true) {
-			t = stream.getNext();
+			t = stream.next();
 			symbol = TABLES.getTokenId(t);
 			if (symbol != Integer.MIN_VALUE) {
 				writer.write(String.format("%-3d %-16s", symbol, t));
@@ -42,23 +43,15 @@ public class SLRParser implements Parser {
 					continue Get_Next_Token;
 				}
 
-				/*switch (state) {
-					case 38:
-						Token nextToken = stream.peek();
-						int nextSymbol = TABLES.getTokenId(nextToken);
-						//break;
-					default:
-						production = TABLES.reduce(state);
-				}*/
-
 				production = TABLES.reduce(state);
 				switch (production) {
 					case Integer.MIN_VALUE:
 						accepted = false;
 						System.out.format("\tReduction undefined in table A%d%n", state);
 						break Get_Next_Token;
-					case 1:
-						if (!stream.hasMore()) {
+					case 0:
+						// When current reduction is back to A0 because EOF is found, we're done
+						if (t == ToyKeywords._EOF) {
 							accepted = true;
 							break Get_Next_Token;
 						}
