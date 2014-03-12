@@ -1,4 +1,7 @@
 Program:
+Program2
+
+Program2:
 DeclList $
 
 DeclList:
