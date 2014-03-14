@@ -16,7 +16,7 @@ ID   Nonterminal
 	  7	TypeAndIdentifier[51] _semicolon[33] 
 
 [51] TypeAndIdentifier:
-	  8	Type[52] Identifier[91] 
+	  8	Type[52] _id[46] 
 
 [52] Type:
 	  9	Type[52] _leftbracket[38] _rightbracket[39] 
@@ -37,7 +37,7 @@ ID   Nonterminal
 
 [56] Prototype:
 	 18	TypeAndIdentifier[51] _leftparen[36] ArgumentListOpt[57] 
-	 19	_void[17] Identifier[91] _leftparen[36] ArgumentListOpt[57] 
+	 19	_void[17] _id[46] _leftparen[36] ArgumentListOpt[57] 
 
 [57] ArgumentListOpt:
 	 20	_rightparen[37] 
@@ -161,8 +161,8 @@ ID   Nonterminal
 
 [87] Primary:
 	 80	LValue[90] 
-	 81	Literal[92] 
-	 82	MethodCall[93] 
+	 81	Literal[91] 
+	 82	MethodCall[92] 
 	 83	ParExpression[66] 
 	 84	_readln[14] _leftparen[36] _rightparen[37] 
 	 85	_newarray[12] _leftparen[36] _integerliteral[43] _comma[34] Type[52] _rightparen[37] 
@@ -186,24 +186,21 @@ ID   Nonterminal
 	 99	_division[22] 
 
 [90] LValue:
-	100	Identifier[91] 
+	100	_id[46] 
 	101	LValue[90] _leftbracket[38] Expression[84] _rightbracket[39] 
-	102	LValue[90] _period[35] Identifier[91] 
+	102	LValue[90] _period[35] _id[46] 
 
-[91] Identifier:
-	103	ReferenceType[54] 
+[91] Literal:
+	103	_doubleliteral[44] 
+	104	_stringliteral[45] 
+	105	_integerliteral[43] 
+	106	_booleanliteral[42] 
 
-[92] Literal:
-	104	_doubleliteral[44] 
-	105	_stringliteral[45] 
-	106	_integerliteral[43] 
-	107	_booleanliteral[42] 
+[92] MethodCall:
+	107	MethodCall2[93] 
+	108	_id[46] _period[35] MethodCall2[93] 
 
-[93] MethodCall:
-	108	MethodCall2[94] 
-	109	Identifier[91] _period[35] MethodCall2[94] 
-
-[94] MethodCall2:
-	110	Identifier[91] _leftparen[36] _rightparen[37] 
-	111	Identifier[91] _leftparen[36] ExpressionList[72] _rightparen[37] 
+[93] MethodCall2:
+	109	_id[46] _leftparen[36] _rightparen[37] 
+	110	_id[46] _leftparen[36] ExpressionList[72] _rightparen[37] 
 

@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs411.project2.parser;
+package edu.csupomona.cs.cs411.project2.parser.slr;
 
 import edu.csupomona.cs.cs411.project1.lexer.Token;
 import java.io.BufferedWriter;

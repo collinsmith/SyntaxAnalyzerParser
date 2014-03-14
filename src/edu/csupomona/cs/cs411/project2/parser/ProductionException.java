@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs411.project2.parser.generator;
+package edu.csupomona.cs.cs411.project2.parser;
 
 public class ProductionException extends RuntimeException {
 	public ProductionException() {

@@ -1,8 +1,9 @@
-package edu.csupomona.cs.cs411.project2.parser;
+package edu.csupomona.cs.cs411.project2.parser.slr;
 
 import edu.csupomona.cs.cs411.project1.lexer.Token;
 import edu.csupomona.cs.cs411.project1.lexer.TokenStream;
 import edu.csupomona.cs.cs411.project1.lexer.ToyKeywords;
+import edu.csupomona.cs.cs411.project2.parser.Parser;
 import java.io.IOException;
 import java.io.Writer;
 
@@ -27,14 +28,16 @@ public class SLRParser implements Parser {
 		Token t;
 		int symbol;
 		boolean accepted = false;
-		Get_Next_Token: while (true) {
+		Get_Next_Token:
+		while (true) {
 			t = stream.next();
 			symbol = TABLES.getTokenId(t);
 			if (symbol != Integer.MIN_VALUE) {
 				writer.write(String.format("%-3d %-16s", symbol, t));
 			}
 
-			Shift_Handler: while(true) {
+			Shift_Handler:
+			while(true) {
 				shift = TABLES.shift(state, symbol);
 				if (shift != Integer.MIN_VALUE) {
 					writer.write(String.format("[shift]%n"));

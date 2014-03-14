@@ -22,5 +22,47 @@
                 <id>jar</id>
             </reference>
         </references>
+        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>ArgumentList</word>
+            <word>ArgumentListOpt</word>
+            <word>BasicType</word>
+            <word>BinaryExpression</word>
+            <word>bool</word>
+            <word>ClassBodyOpt</word>
+            <word>ClassDecl</word>
+            <word>Decl</word>
+            <word>DeclList</word>
+            <word>ExpressionList</word>
+            <word>FieldDecl</word>
+            <word>FieldDeclList</word>
+            <word>FieldDeclListOpt</word>
+            <word>ForControl</word>
+            <word>ForStatement</word>
+            <word>IdentifierList</word>
+            <word>IfStatement</word>
+            <word>InfixOperator</word>
+            <word>int</word>
+            <word>integerliteral</word>
+            <word>InterfaceDecl</word>
+            <word>LValue</word>
+            <word>MemberList</word>
+            <word>MethodCall</word>
+            <word>MethodDecl</word>
+            <word>newarray</word>
+            <word>ParExpression</word>
+            <word>PrefixOperator</word>
+            <word>println</word>
+            <word>PrototypeDecl</word>
+            <word>PrototypeList</word>
+            <word>PrototypeListOpt</word>
+            <word>readln</word>
+            <word>ReferenceType</word>
+            <word>ReturnExpressionOpt</word>
+            <word>StatementList</word>
+            <word>StatementListOpt</word>
+            <word>TypeAndIdentifier</word>
+            <word>UnaryExpression</word>
+            <word>WhileStatement</word>
+        </spellchecker-wordlist>
     </configuration>
 </project>

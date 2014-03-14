@@ -15,7 +15,7 @@ FieldDecl:
 TypeAndIdentifier ;
 
 TypeAndIdentifier:
-Type Identifier
+Type _id
 
 Type:
 Type [ ]
@@ -36,7 +36,7 @@ Prototype Block
 
 Prototype:
 TypeAndIdentifier ( ArgumentListOpt
-void Identifier ( ArgumentListOpt
+void _id ( ArgumentListOpt
 
 ArgumentListOpt:
 )
@@ -185,12 +185,9 @@ InfixOperator:
 /
 
 LValue:
-Identifier
+_id
 LValue [ Expression ]
-LValue . Identifier
-
-Identifier:
-ReferenceType
+LValue . _id
 
 Literal:
 _doubleliteral
@@ -200,8 +197,8 @@ _booleanliteral
 
 MethodCall:
 MethodCall2
-Identifier . MethodCall2
+_id . MethodCall2
 
 MethodCall2:
-Identifier ( )
-Identifier ( ExpressionList )
+_id ( )
+_id ( ExpressionList )
