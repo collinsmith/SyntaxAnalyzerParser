@@ -1,6 +1,7 @@
 package edu.csupomona.cs.cs411.project2.parser;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableBiMap;
@@ -25,7 +26,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 public abstract class AbstractParserGenerator {
-	private static final int EXTRA_TERMINALS_OFFSET = 1000;
+	protected static final int EXTRA_TERMINALS_OFFSET = 1000;
 	protected static final Charset CHARSET = Charset.forName("US-ASCII");
 	protected static final String NONTERMINAL_DEF_REGEX = "[A-Z][a-zA-Z0-9]*:";
 
@@ -181,6 +182,7 @@ public abstract class AbstractParserGenerator {
 				continue;
 			}
 
+			numUnreachableSymbols++;
 			System.out.format("%s (%d) is unreachable%n", SYMBOLS.inverse().get(symbol), symbol);
 		}
 
@@ -235,6 +237,11 @@ public abstract class AbstractParserGenerator {
 	}
 
 	public void outputCFG() {
+		outputSymbols();
+		outputProductions();
+	}
+
+	protected void outputSymbols() {
 		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(".", "output", "toy.cfg.symbols.txt"), CHARSET, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
 			BiMap.Entry<String, Integer>[] entries = SYMBOLS.entrySet().toArray(new BiMap.Entry[0]);
 			Arrays.sort(entries, new Comparator<BiMap.Entry<String, Integer>>() {
@@ -264,13 +271,16 @@ public abstract class AbstractParserGenerator {
 				String alternateValue = SYMBOLS.inverse().get(entry.getValue()+EXTRA_TERMINALS_OFFSET);
 				writer.write(String.format("%3d %s%n",
 					entry.getValue(),
-					entry.getKey()
+					entry.getKey(),
+					Strings.nullToEmpty(alternateValue)
 				));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
 
+	protected void outputProductions() {
 		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(".", "output", "toy.cfg.productions.txt"), CHARSET, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
 			BiMap.Entry<Integer, Set<Production>>[] entries = NONTERMINALS.entrySet().toArray(new BiMap.Entry[0]);
 			Arrays.sort(entries, new Comparator<BiMap.Entry<Integer, Set<Production>>>() {

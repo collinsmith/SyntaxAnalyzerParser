@@ -20,7 +20,7 @@ class cs411 {
 	bool flag;
 	string s;
 	int [] a;
-	flag = true;
+	flag = true; // Fails here because statements are undefined in classes, must be FieldDecl or MethodDecl
 	Funny = 0X89aB; funny = 123456E+7;
 	s = "hello world";
 	while (x = (Funny/10) <0) println (s, " have fun !");

@@ -5,9 +5,9 @@ import edu.csupomona.cs.cs411.project1.lexer.Token;
 import edu.csupomona.cs.cs411.project1.lexer.TokenStream;
 import edu.csupomona.cs.cs411.project1.lexer.ToyLexer;
 import edu.csupomona.cs.cs411.project2.parser.Parser;
-import edu.csupomona.cs.cs411.project2.parser.slr.SLRParser;
-import edu.csupomona.cs.cs411.project2.parser.slr.SLRTables;
-import edu.csupomona.cs.cs411.project2.parser.slr.SLRParserGenerator;
+import edu.csupomona.cs.cs411.project2.parser.lalr.LALRParser;
+import edu.csupomona.cs.cs411.project2.parser.lalr.LALRParserGenerator;
+import edu.csupomona.cs.cs411.project2.parser.lalr.LALRTables;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -22,15 +22,15 @@ public class Main {
 	private static final Path OUTPUT_PATH = Paths.get(".", "output");
 
 	public static void main(String[] args) throws IOException {
-		SLRParserGenerator g = new SLRParserGenerator(Paths.get(".", "res", "toy.cfg.txt"));
+		LALRParserGenerator g = new LALRParserGenerator(Paths.get(".", "res", "toy.cfg.txt"));
 		g.outputCFG();
 		g.outputTables();
 
-		SLRTables slrTables = g.getGeneratedTables();
-		slrTables.outputTableInfo();
+		LALRTables lalrTables = g.getGeneratedLALRTables();
+		lalrTables.getSLRTables().outputTableInfo();
 
 		Lexer<Token> lexer = new ToyLexer();
-		Parser parser = new SLRParser(slrTables);
+		Parser parser = new LALRParser(lalrTables);
 
 		for (String arg : args) {
 			Path p = Paths.get(arg);

@@ -25,13 +25,17 @@
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>ArgumentList</word>
             <word>ArgumentListOpt</word>
+            <word>ArrayType</word>
             <word>BasicType</word>
             <word>BinaryExpression</word>
             <word>bool</word>
+            <word>booleanliteral</word>
             <word>ClassBodyOpt</word>
             <word>ClassDecl</word>
+            <word>ComplexType</word>
             <word>Decl</word>
             <word>DeclList</word>
+            <word>doubleliteral</word>
             <word>ExpressionList</word>
             <word>FieldDecl</word>
             <word>FieldDeclList</word>
@@ -40,6 +44,7 @@
             <word>ForStatement</word>
             <word>IdentifierList</word>
             <word>IfStatement</word>
+            <word>IndexResolver</word>
             <word>InfixOperator</word>
             <word>int</word>
             <word>integerliteral</word>
@@ -55,11 +60,15 @@
             <word>PrototypeDecl</word>
             <word>PrototypeList</word>
             <word>PrototypeListOpt</word>
+            <word>QualifiedName</word>
             <word>readln</word>
             <word>ReferenceType</word>
             <word>ReturnExpressionOpt</word>
+            <word>SimpleName</word>
+            <word>SimpleType</word>
             <word>StatementList</word>
             <word>StatementListOpt</word>
+            <word>stringliteral</word>
             <word>TypeAndIdentifier</word>
             <word>UnaryExpression</word>
             <word>WhileStatement</word>

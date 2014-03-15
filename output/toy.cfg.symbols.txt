@@ -1,98 +1,101 @@
- ID Token                            Alternative (Optional)
-  0 _EOF
-  1 _bool
-  2 _break
-  3 _class
-  4 _double
-  5 _else
-  6 _extends
-  7 _for
-  8 _if
-  9 _implements
- 10 _int
- 11 _interface
- 12 _newarray
- 13 _println
- 14 _readln
- 15 _return
- 16 _string
- 17 _void
- 18 _while
- 19 _plus
- 20 _minus
- 21 _multiplication
- 22 _division
- 23 _less
- 24 _lessequal
- 25 _greater
- 26 _greaterequal
- 27 _equal
- 28 _notequal
- 29 _and
- 30 _or
- 31 _not
- 32 _assignop
- 33 _semicolon
- 34 _comma
- 35 _period
- 36 _leftparen
- 37 _rightparen
- 38 _leftbracket
- 39 _rightbracket
- 40 _leftbrace
- 41 _rightbrace
- 42 _booleanliteral
- 43 _integerliteral
- 44 _doubleliteral
- 45 _stringliteral
- 46 _id
+ ID Token                    Alternative (Optional)   First Sets
+  0 _EOF                     $                        [0]                                                              []
+  1 _bool                    bool                     [1]                                                              []
+  2 _break                   break                    [2]                                                              []
+  3 _class                   class                    [3]                                                              []
+  4 _double                  double                   [4]                                                              []
+  5 _else                    else                     [5]                                                              []
+  6 _extends                 extends                  [6]                                                              []
+  7 _for                     for                      [7]                                                              []
+  8 _if                      if                       [8]                                                              []
+  9 _implements              implements               [9]                                                              []
+ 10 _int                     int                      [10]                                                             []
+ 11 _interface               interface                [11]                                                             []
+ 12 _newarray                newarray                 [12]                                                             []
+ 13 _println                 println                  [13]                                                             []
+ 14 _readln                  readln                   [14]                                                             []
+ 15 _return                  return                   [15]                                                             []
+ 16 _string                  string                   [16]                                                             []
+ 17 _void                    void                     [17]                                                             []
+ 18 _while                   while                    [18]                                                             []
+ 19 _plus                    +                        [19]                                                             []
+ 20 _minus                   -                        [20]                                                             []
+ 21 _multiplication          *                        [21]                                                             []
+ 22 _division                /                        [22]                                                             []
+ 23 _less                    <                        [23]                                                             []
+ 24 _lessequal               <=                       [24]                                                             []
+ 25 _greater                 >                        [25]                                                             []
+ 26 _greaterequal            >=                       [26]                                                             []
+ 27 _equal                   ==                       [27]                                                             []
+ 28 _notequal                !=                       [28]                                                             []
+ 29 _and                     &&                       [29]                                                             []
+ 30 _or                      ||                       [30]                                                             []
+ 31 _not                     !                        [31]                                                             []
+ 32 _assignop                =                        [32]                                                             []
+ 33 _semicolon               ;                        [33]                                                             []
+ 34 _comma                   ,                        [34]                                                             []
+ 35 _period                  .                        [35]                                                             []
+ 36 _leftparen               (                        [36]                                                             []
+ 37 _rightparen              )                        [37]                                                             []
+ 38 _leftbracket             [                        [38]                                                             []
+ 39 _rightbracket            ]                        [39]                                                             []
+ 40 _leftbrace               {                        [40]                                                             []
+ 41 _rightbrace              }                        [41]                                                             []
+ 42 _booleanliteral                                   [42]                                                             []
+ 43 _integerliteral                                   [43]                                                             []
+ 44 _doubleliteral                                    [44]                                                             []
+ 45 _stringliteral                                    [45]                                                             []
+ 46 _id                                               [46]                                                             []
 
 ----------------------------------------------------------------
- ID Nonterminal
- 47 Program
- 48 DeclList
- 49 Decl
- 50 FieldDecl
- 51 TypeAndIdentifier
- 52 Type
- 53 BasicType
- 54 ReferenceType
- 55 MethodDecl
- 56 Prototype
- 57 ArgumentListOpt
- 58 ArgumentList
- 59 Block
- 60 FieldDeclListOpt
- 61 FieldDeclList
- 62 StatementListOpt
- 63 StatementList
- 64 Statement
- 65 IfStatement
- 66 ParExpression
- 67 ForStatement
- 68 ForControl
- 69 ForControl1
- 70 WhileStatement
- 71 ReturnExpressionOpt
- 72 ExpressionList
- 73 ClassDecl
- 74 Super
- 75 Interfaces
- 76 IdentifierList
- 77 ClassBodyOpt
- 78 MemberList
- 79 Member
- 80 InterfaceDecl
- 81 PrototypeListOpt
- 82 PrototypeList
- 83 PrototypeDecl
- 84 Expression
- 85 BinaryExpression
- 86 UnaryExpression
- 87 Primary
- 88 PrefixOperator
- 89 InfixOperator
- 90 LValue
- 91 Literal
- 92 MethodCall
- 93 MethodCall2
+ ID Nonterminal                                       First Sets                                                       Follow Sets
+ 47 Program                                           [48]                                                             [0]
+ 48 DeclList                                          [49, 48]                                                         [0, 50, 83, 76, 58]
+ 49 Decl                                              [50, 83, 76, 58]                                                 [0, 50, 83, 76, 58]
+ 50 FieldDecl                                         [51]                                                             [51, 0, 50, 66, 83, 76, 58, 41]
+ 51 TypeAndIdentifier                                 [52, 46]                                                         [34, 33, 36, 37]
+ 52 SimpleType                                        [54, 52]                                                         [38, 37, 46]
+ 53 ArrayType                                         [38, 53]                                                         [38, 37, 46]
+ 54 BasicType                                         [16, 1, 4, 10]                                                   [38, 37, 46]
+ 55 Name                                              [57, 56]                                                         [34, 35, 32, 33, 38, 39, 96, 37, 19, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 30]
+ 56 SimpleName                                        [46]                                                             [34, 35, 32, 33, 38, 39, 96, 37, 19, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 30]
+ 57 QualifiedName                                     [55]                                                             [34, 35, 32, 33, 38, 39, 96, 37, 19, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 30]
+ 58 MethodDecl                                        [59]                                                             [0, 50, 83, 76, 58, 41]
+ 59 Prototype                                         [17, 51]                                                         [33, 40]
+ 60 ArgumentListOpt                                   [37, 61]                                                         [33, 40]
+ 61 ArgumentList                                      [51, 61]                                                         [34, 37]
+ 62 Block                                             [40]                                                             [0, 68, 70, 2, 33, 5, 76, 41, 73, 13, 15, 50, 87, 83, 58, 62]
+ 63 FieldDeclListOpt                                  [64, 65]                                                         [0, 68, 70, 2, 33, 5, 76, 41, 73, 13, 15, 50, 87, 83, 58, 62]
+ 64 FieldDeclList                                     [50, 64]                                                         [51, 66, 41]
+ 65 StatementListOpt                                  [66, 41]                                                         [0, 68, 70, 2, 33, 5, 76, 41, 73, 13, 15, 50, 87, 83, 58, 62]
+ 66 StatementList                                     [66, 67]                                                         [68, 2, 87, 70, 33, 41, 62, 73, 13, 15]
+ 67 Statement                                         [68, 70, 87, 2, 33, 13, 73, 62, 15]                              [68, 70, 87, 2, 33, 5, 41, 13, 73, 62, 15]
+ 68 IfStatement                                       [8]                                                              [68, 2, 87, 70, 33, 5, 41, 62, 73, 13, 15]
+ 69 ParExpression                                     [36]                                                             [68, 34, 70, 2, 33, 39, 37, 13, 73, 15, 87, 19, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 62, 30]
+ 70 ForStatement                                      [7]                                                              [68, 2, 87, 70, 33, 5, 41, 62, 73, 13, 15]
+ 71 ForControl                                        [87, 72]                                                         [68, 2, 87, 70, 33, 62, 73, 13, 15]
+ 72 ForControl1                                       [33]                                                             [68, 70, 87, 2, 33, 13, 73, 62, 15]
+ 73 WhileStatement                                    [18]                                                             [68, 2, 87, 70, 33, 5, 41, 62, 73, 13, 15]
+ 74 ReturnExpressionOpt                               [87, 33]                                                         [68, 2, 87, 70, 33, 5, 41, 62, 73, 13, 15]
+ 75 ExpressionList                                    [87, 75]                                                         [34, 37]
+ 76 ClassDecl                                         [3]                                                              [0, 50, 83, 76, 58]
+ 77 Super                                             [6, 78]                                                          [0, 50, 83, 76, 58]
+ 78 Interfaces                                        [9, 40]                                                          [0, 50, 83, 76, 58]
+ 79 IdentifierList                                    [79, 46]                                                         [34, 40]
+ 80 ClassBodyOpt                                      [81, 41]                                                         [0, 50, 83, 76, 58]
+ 81 MemberList                                        [81, 82]                                                         [50, 58, 41]
+ 82 Member                                            [50, 58]                                                         [50, 58, 41]
+ 83 InterfaceDecl                                     [11]                                                             [0, 50, 83, 76, 58]
+ 84 PrototypeListOpt                                  [85, 41]                                                         [0, 50, 83, 76, 58]
+ 85 PrototypeList                                     [85, 86]                                                         [59, 41]
+ 86 PrototypeDecl                                     [59]                                                             [59, 41]
+ 87 Expression                                        [55, 88]                                                         [34, 33, 39, 37]
+ 88 BinaryExpression                                  [89, 88]                                                         [34, 33, 39, 37, 19, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 30]
+ 89 UnaryExpression                                   [91, 90]                                                         [34, 33, 39, 37, 19, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 30]
+ 90 Primary                                           [69, 55, 93, 94, 12, 14]                                         [34, 33, 39, 37, 19, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 30]
+ 91 PrefixOperator                                    [20, 31]                                                         [91, 90]
+ 92 InfixOperator                                     [19, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 30]                 [91, 90]
+ 93 Literal                                           [42, 43, 44, 45]                                                 [34, 33, 39, 37, 19, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 30]
+ 94 MethodCall                                        [95, 46]                                                         [34, 33, 39, 37, 19, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 30]
+ 95 MethodCall2                                       [46]                                                             [34, 33, 39, 37, 19, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 30]
+ 96 IndexResolver                                     [38, 96]                                                         [34, 32, 33, 38, 39, 37, 19, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 30]

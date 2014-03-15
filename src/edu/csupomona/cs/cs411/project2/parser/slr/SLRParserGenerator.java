@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableSet;
 import edu.csupomona.cs.cs411.project2.parser.AbstractParserGenerator;
 import edu.csupomona.cs.cs411.project2.parser.Production;
 import edu.csupomona.cs.cs411.project2.parser.Table;
-import edu.csupomona.cs.cs411.project2.parser.slr.SLRTables;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,8 +21,8 @@ import java.util.Queue;
 import java.util.Set;
 
 public class SLRParserGenerator extends AbstractParserGenerator {
-	private final SLRTables SLR_TABLES;
-	private final Map<Set<Production>, Table> TABLES;
+	protected final SLRTables SLR_TABLES;
+	protected final Map<Set<Production>, Table> TABLES;
 
 	private int numWithShiftReduce;
 	private int numWithReduceReduce;

@@ -2,6 +2,5 @@
 46  _id             [shift]
 40  _leftbrace      [shift]
 41  _rightbrace     [shift]
-0   _EOF            [reduce 62][reduce 58][reduce 56][reduce 55][reduce 4][reduce 1][shift]
-0   _EOF            
+0   _EOF            [reduce 68][reduce 64][reduce 62][reduce 61][reduce 4][reduce 1]
 [accept]

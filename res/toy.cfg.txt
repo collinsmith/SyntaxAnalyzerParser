@@ -1,5 +1,5 @@
 Program:
-DeclList $
+DeclList
 
 DeclList:
 Decl
@@ -15,12 +15,17 @@ FieldDecl:
 TypeAndIdentifier ;
 
 TypeAndIdentifier:
-Type _id
+_id _id
+SimpleType _id
+_id ArrayType _id
 
-Type:
-Type [ ]
+SimpleType:
+SimpleType [ ]
 BasicType
-ReferenceType
+
+ArrayType:
+ArrayType [ ]
+[ ]
 
 BasicType:
 int
@@ -28,8 +33,15 @@ bool
 double
 string
 
-ReferenceType:
+Name:
+SimpleName
+QualifiedName
+
+SimpleName:
 _id
+
+QualifiedName:
+Name . _id
 
 MethodDecl:
 Prototype Block
@@ -117,8 +129,8 @@ Interfaces:
 implements IdentifierList { ClassBodyOpt
 
 IdentifierList:
-ReferenceType
-IdentifierList , ReferenceType
+_id
+IdentifierList , _id
 
 ClassBodyOpt:
 }
@@ -147,7 +159,8 @@ PrototypeDecl:
 Prototype ;
 
 Expression:
-LValue = Expression
+Name = Expression
+Name IndexResolver = Expression
 BinaryExpression
 
 BinaryExpression:
@@ -159,12 +172,15 @@ PrefixOperator UnaryExpression
 Primary
 
 Primary:
-LValue
+Name
+Name IndexResolver
 Literal
 MethodCall
 ParExpression
 readln ( )
-newarray ( _integerliteral , Type )
+newarray ( _integerliteral , SimpleType )
+newarray ( _integerliteral , _id )
+newarray ( _integerliteral , _id ArrayType )
 
 PrefixOperator:
 !
@@ -184,11 +200,6 @@ InfixOperator:
 *
 /
 
-LValue:
-_id
-LValue [ Expression ]
-LValue . _id
-
 Literal:
 _doubleliteral
 _stringliteral
@@ -202,3 +213,7 @@ _id . MethodCall2
 MethodCall2:
 _id ( )
 _id ( ExpressionList )
+
+IndexResolver:
+IndexResolver [ Expression ]
+[ Expression ]
