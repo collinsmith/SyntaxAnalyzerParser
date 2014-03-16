@@ -25,21 +25,77 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+/**
+ * This class represents an abstract {@link Parser} generator which is used
+ * to read in a CFG from a file and generate a list of Productions and a maps
+ * of symbols (from their String representation to integer identifier) and
+ * nonterminals (with their sets of Productions). This information is then
+ * used to generate a specialized generator which can create specialized
+ * {@link Table}s for that parser.
+ *
+ * @author Collin Smith <collinsmith@csupomona.edu>
+ */
 public abstract class AbstractParserGenerator {
+	// TODO conver to use Integer.MAX_VALUE - id for alternates
+	/**
+	 * The offset given to those terminals which have alternatives that
+	 * can be used when expressing them within the CFG given.
+	 */
 	protected static final int EXTRA_TERMINALS_OFFSET = 1000;
+
+	/**
+	 * Charset used when writing output.
+	 */
 	protected static final Charset CHARSET = Charset.forName("US-ASCII");
+
+	/**
+	 * String representation of the regular expression delimiting the location
+	 * of new CFG nonterminals.
+	 */
 	protected static final String NONTERMINAL_DEF_REGEX = "[A-Z][a-zA-Z0-9]*:";
 
+	/**
+	 * List of all Production contained within the CFG.
+	 */
 	protected final ImmutableList<Production> PRODUCTIONS;
+
+	/**
+	 * Mapping of all symbols (terminal and nonterminal) contained within the
+	 * CFG.
+	 */
 	protected final ImmutableBiMap<String, Integer> SYMBOLS;
+
+	/**
+	 * Mapping of all nonterminals to their corresponding set of productions.
+	 */
 	protected final ImmutableBiMap<Integer, ImmutableSet<Production>> NONTERMINALS;
 
+	/**
+	 * This field represents the number of nonterminals within the CFG.
+	 */
 	private int numTerminals;
+
+	/**
+	 * This field represents the number of terminals within the CFG.
+	 */
 	private int numNonterminals;
+
+	/**
+	 * This field represents the number of unreachable symbols within the CFG.
+	 */
 	private int numUnreachableSymbols;
 
+	/**
+	 * This field represents the initial nonterminal symbol id.
+	 */
 	private int initialNonterminal;
 
+	/**
+	 * Constructs an AbstractParserGenerator using the CFG at the given Path.
+	 *
+	 * @param p path to the CFG to generate a Parser for
+	 * @throws IOException when the CFG file does not exist or cannot be read
+	 */
 	public AbstractParserGenerator(Path p) throws IOException {
 		Preconditions.checkNotNull(p);
 		numTerminals = Integer.MIN_VALUE;
@@ -71,6 +127,16 @@ public abstract class AbstractParserGenerator {
 		);
 	}
 
+	/**
+	 * Generates the mapping of symbols from their String representation to
+	 * their Integer representation. Note that this is a bidirectional
+	 * mapping, so we can go from the Integer representation back to its
+	 * corresponding String representation.
+	 *
+	 * @param p path to the CFG to generate the symbols table from
+	 * @return bidirectional map from a String to its corresponding symbol id
+	 * @throws IOException when the CFG file does not exist or cannot be read
+	 */
 	private ImmutableBiMap<String, Integer> createSymbolsTable(Path p) throws IOException {
 		numTerminals = numNonterminals = 0;
 		BiMap<String, Integer> symbols = HashBiMap.create();
@@ -105,6 +171,19 @@ public abstract class AbstractParserGenerator {
 		return ImmutableBiMap.copyOf(symbols);
 	}
 
+
+	/**
+	 * Generates the mapping of nonterminals from their nonterminal id to
+	 * their corresponding sets of Productions. Note that this is a
+	 * bidirectional map. Additionally, this method will populate the passed
+	 * list with the list of all Productions found.
+	 *
+	 * @param p path to the CFG to generate the symbols table from
+	 * @param productions List to add the productions found into
+	 * @return bidirectional map from a nonterminal id to its corresponding
+	 *	set of Productions
+	 * @throws IOException when the CFG file does not exist or cannot be read
+	 */
 	private ImmutableBiMap<Integer, ImmutableSet<Production>> createProductionsTable(Path p, List<Production> productions) throws IOException {
 		BiMap<Integer, Set<Production>> nonterminals = HashBiMap.create();
 		Set<Integer> usedSymbols = new HashSet<>();
@@ -177,7 +256,11 @@ public abstract class AbstractParserGenerator {
 		numUnreachableSymbols = 0;
 		Set<Integer> unusedSymbols = new HashSet<>(SYMBOLS.values());
 		unusedSymbols.removeAll(usedSymbols);
-		for (Integer symbol : unusedSymbols) {
+		for (int symbol : unusedSymbols) {
+			if (symbol == 0) {
+				continue;
+			}
+
 			if (EXTRA_TERMINALS_OFFSET <= symbol) {
 				continue;
 			}
@@ -195,6 +278,13 @@ public abstract class AbstractParserGenerator {
 		return ImmutableBiMap.copyOf(immutableNonterminals);
 	}
 
+	/**
+	 * Returns the symbol id associated with a specified token.
+	 *
+	 * @param token String representation of the token.
+	 * @return identifier of that token or throws a ProductionException if
+	 *	the token is undefined.
+	 */
 	protected final int resolveSymbol(String token) {
 		Preconditions.checkNotNull(token);
 		Integer tokenId = SYMBOLS.get(token);
@@ -211,36 +301,82 @@ public abstract class AbstractParserGenerator {
 		return tokenId;
 	}
 
+	/**
+	 * Returns whether or not a given symbol identifier is a nonterminal.
+	 *
+	 * @param tokenId symbol id to check
+	 * @return {@code true} if it is, otherwise {@code false}
+	 */
 	protected final boolean isNonterminal(int tokenId) {
 		return numTerminals <= tokenId && tokenId < (numTerminals+numNonterminals);
 	}
 
+	/**
+	 * Returns the number of nonterminals in this AbstractParserGenerator.
+	 *
+	 * @return total number of nonterminals found or {@link Integer#MIN_VALUE}
+	 *	if that has yet to be calculated
+	 */
 	public final int getNumNonterminals() {
 		return numNonterminals;
 	}
 
+	/**
+	 * Returns the number of terminals in this AbstractParserGenerator.
+	 *
+	 * @return total number of terminals found or {@link Integer#MIN_VALUE}
+	 *	if that has yet to be calculated
+	 */
 	public final int getNumTerminals() {
 		return numTerminals;
 	}
 
+	/**
+	 * Returns the number of unreachable Productions in this
+	 * AbstractParserGenerator.
+	 *
+	 * @return total number of unreachable Productions found or
+	 *	{@link Integer#MIN_VALUE} if that has yet to be calculated
+	 */
 	public final int getNumUnreachableSymbols() {
 		return numUnreachableSymbols;
 	}
 
+	/**
+	 * Returns the initial nonterminal of this CFG. This is typically the
+	 * first nonterminal created, but subclasses may override it.
+	 *
+	 * @return initial nonterminal symbol of this CFG
+	 */
 	public final int getInitialNonterminal() {
 		return initialNonterminal;
 	}
 
-	public final void setInitialNonterminal(int nonterminal) {
+	/**
+	 * Changes the initial nonterminal to the one specified.
+	 *
+	 * @param nonterminal new initial nonterminal symbol for this CFG
+	 */
+	protected final void setInitialNonterminal(int nonterminal) {
 		Preconditions.checkArgument(isNonterminal(nonterminal), "Invalid nonterminal ID given.");
 		initialNonterminal = nonterminal;
 	}
 
+	/**
+	 * Dumps two files which contain information regarding this
+	 * AbstractParserGenerator. This includes a file containing all symbols
+	 * and a file containing all productions. Also included are the symbol
+	 * identifiers for each symbol to help readability.
+	 */
 	public void outputCFG() {
 		outputSymbols();
 		outputProductions();
 	}
 
+	/**
+	 * Outputs a file containing symbol information of this
+	 * AbstractParserGenerator.
+	 */
 	protected void outputSymbols() {
 		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(".", "output", "toy.cfg.symbols.txt"), CHARSET, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
 			BiMap.Entry<String, Integer>[] entries = SYMBOLS.entrySet().toArray(new BiMap.Entry[0]);
@@ -280,6 +416,10 @@ public abstract class AbstractParserGenerator {
 		}
 	}
 
+	/**
+	 * Outputs a file containing Production information of this
+	 * AbstractParserGenerator.
+	 */
 	protected void outputProductions() {
 		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(".", "output", "toy.cfg.productions.txt"), CHARSET, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
 			BiMap.Entry<Integer, Set<Production>>[] entries = NONTERMINALS.entrySet().toArray(new BiMap.Entry[0]);
