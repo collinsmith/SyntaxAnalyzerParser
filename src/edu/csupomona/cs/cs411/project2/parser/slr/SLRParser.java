@@ -7,13 +7,30 @@ import edu.csupomona.cs.cs411.project2.parser.Parser;
 import java.io.IOException;
 import java.io.Writer;
 
+/**
+ * This class represents an SLR parser which can parse any LR(0) grammar.
+ *
+ * @author Collin Smith <collinsmith@csupomona.edu>
+ */
 public class SLRParser implements Parser {
+	/**
+	 * This field represents the tables that this parser uses.
+	 */
 	private final SLRTables SLR_TABLES;
 
+	/**
+	 * Constructs an SLR Parser which will use the given tables to shift,
+	 * reduce and goto.
+	 *
+	 * @param tables tables containing the action information of this Parser.
+	 */
 	public SLRParser(SLRTables tables) {
 		this.SLR_TABLES = tables;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean parse(TokenStream stream, Writer writer) throws IOException {
 		int top = 0;
